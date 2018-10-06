@@ -191,12 +191,16 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
     path: 'uploads/c9047d27a88cabb7c30f17a7f0ee5b23.mp3',
     size: 6018354 } ]
   */
-  if (request.files[0]) {
-    file_path = request.files[0].path;
-    file_type = request.files[0].mimetype;
-    filename = request.files[0].filename;
-    original_filename = request.files[0].originalname;
-    file_full_path = request.files[0].destination + request.files[0].filename;
+  if (request.files) {
+    if (request.files.length) {
+      file_path = request.files[0].path;
+      file_type = request.files[0].mimetype;
+      filename = request.files[0].filename;
+      original_filename = request.files[0].originalname;
+      file_full_path = request.files[0].destination + request.files[0].filename;
+    } else {
+      errMsg = "Error: Invalid or missing file";
+    }
 
     var debug = [file_path, file_type, filename, file_full_path];
     console.log('debug', debug);
