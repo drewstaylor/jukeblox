@@ -11,6 +11,7 @@ import { HeaderComponent } from './header/header.component';
 import { UploadComponent } from './jukebox/upload/upload.component';
 
 import { FileDropModule } from 'ngx-file-drop';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FileDropModule } from 'ngx-file-drop';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FileDropModule
+    FileDropModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

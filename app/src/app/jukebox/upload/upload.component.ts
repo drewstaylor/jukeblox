@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadEvent, UploadFile, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+import { SwarmService } from '../../services/swarm.service';
 declare var jQuery: any;
 
 @Component({
@@ -9,10 +10,12 @@ declare var jQuery: any;
 })
 export class UploadComponent implements OnInit {
 
-  public file: UploadFile;
+  public file: File;
+  public filePath: string;
 
-  constructor() {
+  constructor(private swarmService: SwarmService) {
     this.file = null;
+    this.filePath = null;
   }
 
   ngOnInit() {
@@ -38,15 +41,18 @@ export class UploadComponent implements OnInit {
 
 
   public dropped(event: UploadEvent) {
-    this.file = event.files[0];
+    const droppedFile = event.files[0];
  
     // Is it a file?
-    if (this.file.fileEntry.isFile) {
-      const fileEntry = this.file.fileEntry as FileSystemFileEntry;
+    if (droppedFile.fileEntry.isFile) {
+      const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
       fileEntry.file((file: File) => {
 
         // Here you can access the real file
-        console.log(this.file.relativePath, file);
+        console.log(droppedFile.relativePath, file);
+
+        this.file = file;
+        this.filePath = droppedFile.relativePath;
 
         /**
         // You could upload it like this:
@@ -67,9 +73,21 @@ export class UploadComponent implements OnInit {
       });
     } else {
       // It was a directory (empty directories are added, otherwise only files)
-      const fileEntry = this.file.fileEntry as FileSystemDirectoryEntry;
-      console.log(this.file.relativePath, fileEntry);
+      const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+      console.log(droppedFile.relativePath, fileEntry);
     }
+  }
+
+
+  public uploadFile(file: File): void {
+    this.swarmService.upload(this.file, this.filePath)
+      .toPromise()
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
  
 

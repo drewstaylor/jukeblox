@@ -41,7 +41,7 @@
           (onFileOver)="fileOver($event)"
           (onFileLeave)="fileLeave($event)"
         >
-          <span *ngIf="file; else no_file">{{ file.relativePath }}</span>
+          <span *ngIf="file && filePath; else no_file">{{ filePath }}</span>
           <ng-template #no_file>
             <span>Drag and drop an MP3 file here to upload!</span>
           </ng-template>
@@ -50,7 +50,7 @@
       <div class="modal-footer">
         <div class="btn-group" role="group" aria-label="Add song or cancel">
           <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-outline-primary">Upload</button>
+          <button type="button" class="btn btn-outline-primary" (click)="uploadFile();" [disabled]="!file || !filePath">Upload</button>
         </div>
       </div>
     </div>
