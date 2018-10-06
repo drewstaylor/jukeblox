@@ -198,8 +198,8 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
     original_filename = request.files[0].originalname;
     file_full_path = request.files[0].destination + request.files[0].filename;
 
-    var debug = [file_path, file_type, filename, file_full_path];
-    console.log('debug', debug);
+    //var debug = [file_path, file_type, filename, file_full_path];
+    //console.log('debug', debug);
 
     if (file_type) {
       if (file_type !== 'audio/mp3') {
