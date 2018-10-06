@@ -21,6 +21,7 @@ contract JukeBlox {
     struct Queued {
         Song song;
         uint256 startTime;
+        address user;
     }
 
     // All songs
@@ -35,12 +36,17 @@ contract JukeBlox {
     uint256 public maxQueueTime = 3600;  // Max one hour of queued material.
     uint256 public nrSongs = 0;
     uint256 public nrQueued = 0;
+    uint256 public maxSongLength = 5 * 60;  // Max five minutes
 
     constructor() public {
         creator = msg.sender;
         addUser(creator, "Creator");
     }
 
+    /**
+     * Add a new permissioned user.
+     *
+     */
     function addUser(address newUserAddress, string newUserName) onlyUser public {
         require(users[newUserAddress].addedTs == 0);
         User memory user = User(
@@ -55,7 +61,13 @@ contract JukeBlox {
         _;
     }
 
+    /**
+     * Add a song to the library of songs.
+     *
+     */
     function addSong(string title, string artist, uint16 length, bytes32 swarmHash) onlyUser public {
+        require(length < maxSongLength);
+
         Song memory song = Song(
             title,
             artist,
@@ -72,6 +84,10 @@ contract JukeBlox {
         nrSongs++;
     }
 
+    /**
+     * Queue a song from the library in the playlist.
+     *
+     */
     function queueSong(uint256 index) public {
         require(songs.length > index);
 
@@ -94,13 +110,18 @@ contract JukeBlox {
         Song storage song = songs[index];
         Queued memory queued = Queued(
             song,
-            startTime
+            startTime,
+            msg.sender
         );
         queue.push(queued);
 
         nrQueued++;
     }
 
+    /**
+     * Get a song from the library.
+     *
+     */
     function getSong(uint256 index) view public returns(string, string, uint16) {
         Song storage song = songs[index];
         
@@ -108,29 +129,38 @@ contract JukeBlox {
     }
 
     /**
-     * By a given timestamp, get the song playing now and how many seconds into it we are.
+     * By a given timestamp, get the song playing now, how many seconds into it we are,
+     * how long duration it is left and also how many songs are in the queue after the current song.
      *
-     * returns: (song index, seek seconds)
-     *  (0, 0, 0) means no song found for the timestamp
+     * returns: (song queue index, seek seconds, duration, songsQueued)
+       By the song queue index we then do `getQueued` to get to the Song.
+     *  (0, 0, 0, 0) means no song found for the timestamp
      */
-    function getCurrentSong(uint256 timestamp) view public returns (uint256, uint256, uint256) {
+    function getCurrentSong(uint256 timestamp) view public returns (uint256, uint256, uint256, uint256) {
 
+        uint256 songsQueuedCount = 0;
         for (uint256 index = queue.length - 1; index >= 0; index--) {
             Queued storage queued = queue[index];
             if (timestamp >= queued.startTime) {
                 if (timestamp < queued.startTime + queued.song.length) {
                     uint256 seek = timestamp - queued.startTime;
                     uint256 duration = queued.song.length - seek;
-                    return (index, seek, duration);
+                    return (index, seek, duration, songsQueuedCount);
                 }
                 else {
                     break;
                 }
             }
+            // This song is in front of us in the queue.
+            songsQueuedCount++;
         }
-        return (0, 0, 0);
+        return (0, 0, 0, 0);
     }
 
+    /**
+     * Get the Queue object by it's index.
+     * This object holds the start time for when the song is meant to start playing.
+     */
     function getQueued(uint256 index) view public returns(uint256, uint256) {
         Queued storage queued = queue[index];
         return (queued.startTime, queued.song.index);
