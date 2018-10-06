@@ -1,11 +1,12 @@
-var http_client = require('request');
-var express = require('express');
-var router = express.Router();
-var path = require('path');
+const http_client = require('request');
+const express = require('express');
+const router = express.Router();
+const path = require('path');
+const exec = require('child_process').exec;
 
 // Web3
-var Web3 = require('web3');
-var web3 = new Web3('http://localhost:8545');
+const Web3 = require('web3');
+const web3 = new Web3('http://localhost:8545');
 
 // Nodes
 const node = 'http://localhost:8545';
@@ -16,13 +17,13 @@ const swarm_node = 'http://localhost:8500/bzz:/';
 //var ipcProvider = provider = new web3.providers.IpcProvider(ipcPath, net);
 
 // File System
-var fs = require('fs');
+const fs = require('fs');
 
 // Crypto
-var crypto = require('crypto');
+const crypto = require('crypto');
 
 // Multer multi-part encoding
-var multer = require('multer');
+const multer = require('multer');
 
 const storage = multer.diskStorage({
   destination: './uploads/',
@@ -38,7 +39,7 @@ const storage = multer.diskStorage({
 const uploads = multer({ storage: storage });
 
 // Formidable
-var formidable = require('express-formidable');
+const formidable = require('express-formidable');
 var app = express();
 app.use(formidable());
 
