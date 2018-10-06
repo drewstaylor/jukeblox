@@ -42,7 +42,7 @@ try {
 
 // Accepted file extensions
 // XXX TODO: Tighten this up?
-const swarm_approved_file_extensions = ['.aif', '.aiff', '.m4a', '.mp3', '.mpa', '.wav', '.wma', '.3gp', '.aa', '.aac', '.aax', '.flac', '.ogg', '.vox', '.webm', '.mov', '.asf', '.avi', '.mp4', '.mpg', '.srt', '.vob', '.wmv'];
+const swarm_approved_file_extensions = ['.mp3'];
 
 /**
  * Request block data from a transaction hash. For example, can be used to get a contract address from a transaction hash. Or to check if a transaction has been already mined.
@@ -130,64 +130,11 @@ router.post('/transaction/hash', function(request, response) {
 // Swarm API
 
 /**
- * Uploads a file to Swarm and creates relative attachment linkage to campaign. For now, the following file extensions are accepted:
- * 
- * <pre>
- *  const swarm_approved_file_extensions = ['.aif', '.aiff', '.m4a', '.mp3', '.mpa', '.wav', '.wma', '.3gp', '.aa', '.aac', '.aax', '.flac', '.ogg', '.vox', '.webm', '.mov', '.asf', '.avi', '.mp4', '.mpg', '.srt', '.vob', '.wmv'];
- * </pre>
- * 
- * <h5 style="margin-top:4px;margin-bottom:4px">Params:</h5>
- * 
- * <pre>
- * {String} id - The Organization ID for B2B marketplaces
- * {String} campaign - The Campaign ID affiliated with this Swarm file
- * {String} item - The Item ID affiliated with this Swarm file, if it's a bulk attachment use comma separated values and no whitespace like "2FYY2OAdaHvd7pFcVIef,bLUqGZH4VKIrL1EGxYrW", etc.
- * {Object} file - The target file to be uploaded to the Swarm node. Must be a "multipart/form-data" encoded object to be parsed correctly on the server. 
- * Example:
- *    &lt;form action="/upload" enctype="multipart/form-data" method="post"&gt
- *      &lt;input type="text" name="title"&gt
- *      &lt;input type="file" name="file"&gt
- *      &lt;input type="submit" value="Upload"&gt
- *    &lt;/form&gt
- * {String} mime - A valid mime type to be set on the target upload file, ex: 'audio/mpeg' for an mp3 audio file.
- * </pre>
- * 
- * <h5 style="margin-top:4px;margin-bottom:4px">Example Request:</h5>
- * 
- * <pre>
- * {
- *    "id": "2E8jngIUw5A1HHfvFexE",
- *    "campaign": "UXOILlS3dZgqYBhVqmVd",
- *    "item": "2FYY2OAdaHvd7pFcVIef",
- *    "file": [File Object],
- *    "mime": "audio/mpeg"
- * }
- * </pre>
- * 
- * <h5 style="margin-top:4px;margin-bottom:4px">Example Response:</h5>
- * 
- * <pre>
- * {  
- *   "http":{  
- *   "status":"200",
- *   "msg": "Successfully uploaded file <filename> to Swarm hash: 486e8cd97e4b47b0b45dbe2b3928fb765be022c49e36f9b46712d5c4a935b4dc
- * },
- * "data":{
- *    "swarm": {
- *      "storage_hash": "486e8cd97e4b47b0b45dbe2b3928fb765be022c49e36f9b46712d5c4a935b4dc",
- *      "storage_link": "bzz:/486e8cd97e4b47b0b45dbe2b3928fb765be022c49e36f9b46712d5c4a935b4dc/"
- *    }
- * }
- * </pre>
- * 
+ * Uploads a file to Swarm and creates relative attachment linkage to campaign. For now, the following file extensions are accepted: .mp3
  * @section Swarm
  * @type POST
  * @url POST: /api/swarm/upload
- * @param {String} id - The Organization ID for the target marketplace.
- * @param {String} campaign - The Campaign ID for the target Swarm object.
- * @param {String} item - The Item ID for the target Swarm attachment.
  * @param {Object} file - Multipart encoded file object.
- * @param {String} mime - A valid mime type of the target upload file, ex: 'audio/mpeg'.
  */
 // XXX TODO: Add more control parameters to mime type and file extension restrictions
 router.post('/swarm/upload', function(request, response) {
@@ -206,13 +153,6 @@ router.post('/swarm/upload', function(request, response) {
       file_size,
       file_type;
 
-  if (!params.file) {
-    errMsg = "Error: upload target file invalid or missing.";
-  } else if (!params.mime) {
-    errMsg = "Error: Invalid or missing MIME type for target upload file."
-  } else if (typeof params.mime !== "string") {
-    errMsg = "Error: Invalid or missing MIME type for target upload file."
-  } else {
     // XXX TODO: Parse file name and path
     var form = new formidable.IncomingForm();
     
@@ -270,7 +210,6 @@ router.post('/swarm/upload', function(request, response) {
       // Server debug log
       console.log('New file upload received to ' + errType, [filename, file_size, file_type, file_path]);
     });
-  }
 
   if (!errMsg) {
     // Refs.
