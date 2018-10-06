@@ -20,6 +20,22 @@ var fs = require('fs');
 // Crypto
 var crypto = require('crypto');
 
+// Multer multi-part encoding
+var multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: './uploads/',
+  filename: function (req, file, cb) {
+    crypto.pseudoRandomBytes(16, function (err, raw) {
+      if (err) return cb(err)
+
+      cb(null, raw.toString('hex') + path.extname(file.originalname))
+    })
+  }
+});
+
+const uploads = multer({ storage: storage });
+
 // Formidable
 var formidable = require('express-formidable');
 var app = express();
@@ -139,7 +155,8 @@ router.post('/transaction/hash', function(request, response) {
  * @param {Object} file - Multipart encoded file object.
  */
 // XXX TODO: Add more control parameters to mime type and file extension restrictions
-router.post('/swarm/upload', function(request, response) {
+//api.post('/upload-image/:id', uploads.any(), (req, res) => {
+router.post('/swarm/upload', uploads.any(), (request, response) => {
   // Ensure valid JSON header
   response.header('Content-Type', 'application/json');
 
