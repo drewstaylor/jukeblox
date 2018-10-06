@@ -1,0 +1,3 @@
+[submodule "app/src/jwplayer"]
+	path = app/src/jwplayer
+	url = git@github.com:functioncreep/jwplayer.git
