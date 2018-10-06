@@ -8,6 +8,10 @@ import { JukeboxComponent } from './jukebox/jukebox.component';
 import { PlayerComponent } from './player/player.component';
 import { PanelComponent } from './jukebox/panel/panel.component';
 import { HeaderComponent } from './header/header.component';
+import { UploadComponent } from './jukebox/upload/upload.component';
+
+import { FileDropModule } from 'ngx-file-drop';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,11 +20,14 @@ import { HeaderComponent } from './header/header.component';
     JukeboxComponent,
     PlayerComponent,
     PanelComponent,
-    HeaderComponent
+    HeaderComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FileDropModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

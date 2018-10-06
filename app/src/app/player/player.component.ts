@@ -29,7 +29,7 @@ export class PlayerComponent implements OnInit {
       width: 500,
       height: 40,
       controls: false,
-      autostart: true
+      autostart: false
     });
 
     // // Listen to an event
