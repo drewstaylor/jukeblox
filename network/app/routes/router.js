@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const exec = require('child_process').exec;
+const util = require('util');
 
 // Web3
 const Web3 = require('web3');
@@ -198,8 +199,8 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
     original_filename = request.files[0].originalname;
     file_full_path = request.files[0].destination + request.files[0].filename;
 
-    //var debug = [file_path, file_type, filename, file_full_path];
-    //console.log('debug', debug);
+    var debug = [file_path, file_type, filename, file_full_path];
+    console.log('debug', debug);
 
     if (file_type) {
       if (file_type !== 'audio/mp3') {
@@ -215,14 +216,16 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
 
   if (!errMsg) {
     // Swarm up
-    let cmd = 'swarm up ' + file_full_path; 
-    exec(cmd, (error, stdout, stderr) => {
+    let swarm_up = 'swarm up ' + file_full_path; 
+    exec(swarm_up, (error, stdout, stderr) => {
       if (error !== null) {
         console.log(`exec error: ${error}`);
         errMsg = "Error: " + error;
         errMsg = toErrorMsg(errMsg);
         console.log([errType, errMsg]);
         response.send(errMsg);
+      } else if (stderr) {
+        errMsg = "Error: " + stderr;
       } else {
         swarm_hash = stdout;
         if (!errMsg) {
@@ -241,6 +244,25 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
           }
           // Do send server response
           response.send(JSON.stringify(res));
+          
+          // Delete posted file
+          if (fs.existsSync(file_full_path)) {
+            fs.unlink(file_full_path, (err) => {});
+          }
+
+          // Download and start serving the file
+          let swarm_down = 'swarm down bzz:/' + swarm_hash;
+          exec(swarm_down, (error, stdout, stderr) => {
+            if (fs.existsSync(swarm_hash)) {
+              let destination_target = './public/' + swarm_hash + ".mp3";
+              let legacy_file = fs.createReadStream(swarm_hash);
+              let servable_file = fs.createWriteStream();
+              // And swap...
+              util.pump(legacy_file, servable_file, function() {
+                  fs.unlinkSync(legacy_file);
+              });
+            }
+          });
         } else {
           // Send error response
           errMsg = toErrorMsg(errMsg);
@@ -250,21 +272,6 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
       }
     });
   }
-});
-
-/**
- * Retrieve a file to Swarm
- */
-router.post('/swarm/download', function(request, response) {
-  // Ensure valid JSON header
-  response.header('Content-Type', 'application/json');
-
-  const params = request.body;
-
-  var res,
-      errMsg,
-      errType = "POST: /swarm/download";
-
 });
 
 // EXTERNAL / UTILITY FUNCTIONS
