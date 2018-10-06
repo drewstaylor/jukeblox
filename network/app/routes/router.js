@@ -4,6 +4,7 @@ const router = express.Router();
 const path = require('path');
 const exec = require('child_process').exec;
 const util = require('util');
+const fs = require('fs');
 
 // Web3
 const Web3 = require('web3');
@@ -16,9 +17,6 @@ const swarm_node = 'http://localhost:8500/bzz:/';
 // IPC
 //var ipcPath = process.env['HOME'] + '/.local/share/io.parity.ethereum/jsonrpc.ipc';
 //var ipcProvider = provider = new web3.providers.IpcProvider(ipcPath, net);
-
-// File System
-const fs = require('fs');
 
 // Crypto
 const crypto = require('crypto');
@@ -230,7 +228,7 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
       } else if (stderr) {
         errMsg = "Error: " + stderr;
       } else {
-        swarm_hash = stdout;
+        swarm_hash = stdout.trim();
         if (!errMsg) {
           // Send server response
           res = {
