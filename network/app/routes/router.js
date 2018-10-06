@@ -226,11 +226,12 @@ router.post('/swarm/upload', function(request, response) {
         'Content-Type': 'audio/mpeg'
       }
     };
+    console.log('upload_options',upload_options);
     // Do HTTP POST to Swarm
     http_client.post(upload_options, function(err, res, body) {
-      console.log('body',body);
-      console.log('res', res);
-      console.log('err', err);
+      //console.log('body',body);
+      //console.log('res', res);
+      //console.log('err', err);
       http_error = err;
       // XXX (drew): I gotta fix this. This check is whack:
       if (http_error === null) {
