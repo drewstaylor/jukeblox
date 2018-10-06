@@ -179,7 +179,7 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
       file_full_path,
       swarm_hash;
 
-  //console.log('files',request.files);
+  console.log('files',request.files);
 
   /*
   files [ { fieldname: 'file',
@@ -191,16 +191,19 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
     path: 'uploads/c9047d27a88cabb7c30f17a7f0ee5b23.mp3',
     size: 6018354 } ]
   */
-
   if (request.files) {
-    file_path = request.files[0].path;
-    file_type = request.files[0].mimetype;
-    filename = request.files[0].filename;
-    original_filename = request.files[0].originalname;
-    file_full_path = request.files[0].destination + request.files[0].filename;
-
-    var debug = [file_path, file_type, filename, file_full_path];
-    console.log('debug', debug);
+    if (request.files.length) {
+      file_path = request.files[0].path;
+      file_type = request.files[0].mimetype;
+      filename = request.files[0].filename;
+      original_filename = request.files[0].originalname;
+      file_full_path = request.files[0].destination + request.files[0].filename;
+      // Debug
+      var debug = [file_path, file_type, filename, file_full_path];
+      console.log('debug', debug);
+    } else {
+      errMsg = "Error: Invalid or missing file";
+    }
 
     if (file_type) {
       if (file_type !== 'audio/mp3') {
@@ -253,15 +256,14 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
           // Download and start serving the file
           let swarm_down = 'swarm down bzz:/' + swarm_hash;
           exec(swarm_down, (error, stdout, stderr) => {
-            if (fs.existsSync(swarm_hash)) {
-              let destination_target = './public/' + swarm_hash + ".mp3";
-              let legacy_file = fs.createReadStream(swarm_hash);
-              let servable_file = fs.createWriteStream();
-              // And swap...
-              util.pump(legacy_file, servable_file, function() {
-                  fs.unlinkSync(legacy_file);
-              });
-            }
+            console.log('Swarm down successful');
+            fs.rename(swarm_hash, 'public/' + swarm_hash + '.mp3', (err) => {
+              if (err) {
+                console.log('Error moving file', err);
+              } else {
+                console.log('File now being served from ./public');
+              }
+            });
           });
         } else {
           // Send error response
@@ -271,6 +273,11 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
         }
       }
     });
+  } else {
+    // Send error response
+    errMsg = toErrorMsg(errMsg);
+    console.log([errType, errMsg]);
+    response.send(errMsg);
   }
 });
 
