@@ -21,7 +21,9 @@ var fs = require('fs');
 var crypto = require('crypto');
 
 // Formidable
-var formidable = require('formidable');
+var formidable = require('express-formidable');
+var app = express();
+app.use(formidable());
 
 // Swarm
 try {
@@ -154,16 +156,10 @@ router.post('/swarm/upload', function(request, response) {
       file_type,
       swarm_hash;
 
-  // XXX TODO: Parse file name and path
-  var form = new formidable.IncomingForm();
-  
-  // Formidable settings
-  form.keepExtensions = true;
-
-  // Parse upload target
-  form.parse(request, function(err, fields, file) {
-    console.log('file', file);
-  });
+  let fields = request.fields;  // contains non-file fields
+  let files = request.files;    // contains files
+  console.log('fields',fields);
+  console.log('files',files);
 
   // Send server response
   res = {
