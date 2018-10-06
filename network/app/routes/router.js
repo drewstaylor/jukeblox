@@ -42,13 +42,6 @@ const formidable = require('express-formidable');
 var app = express();
 app.use(formidable());
 
-// CORS Headers
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
 // Swarm
 try {
   web3.bzz.setProvider('http://localhost:8500');
@@ -111,6 +104,8 @@ const swarm_approved_file_extensions = ['.mp3'];
 router.post('/transaction/hash', function(request, response) {
   // Ensure valid JSON header
   response.header('Content-Type', 'application/json');
+  response.header("Access-Control-Allow-Origin", "*");
+  response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
   const params = request.body;
 
@@ -158,17 +153,17 @@ router.post('/transaction/hash', function(request, response) {
 // Swarm API
 
 /**
- * Uploads a file to Swarm and creates relative attachment linkage to campaign. For now, the following file extensions are accepted: .mp3
+ * Uploads an mp3 file to Swarm and creates a servable Swarm asset in /public
  * @section Swarm
  * @type POST
  * @url POST: /api/swarm/upload
  * @param {Object} file - Multipart encoded file object.
  */
-// XXX TODO: Add more control parameters to mime type and file extension restrictions
-//api.post('/upload-image/:id', uploads.any(), (req, res) => {
 router.post('/swarm/upload', uploads.any(), (request, response) => {
   // Ensure valid JSON header
   response.header('Content-Type', 'application/json');
+  response.header("Access-Control-Allow-Origin", "*");
+  response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
   const params = request.body;
   // BELOW WILL BE HUGE, UNCOMMENT AT YOUR OWN RISK xD
