@@ -250,13 +250,14 @@ router.post('/swarm/upload', function(request, response) {
           }
         }
         // Clean up temporary files
-        fs.unlink(file_path + '/' + filename);
+        // XXX (drew): IDK BUT BELOW DOES NOT WORK LOL
+        //fs.unlink(file_path + '/' + filename);
         // Send server response
         response.send(JSON.stringify(res));
       } else {
         // Clean up temporary files
         if (file_path && filename)
-          fs.unlink(file_path + '/' + filename);
+          //fs.unlink(file_path + '/' + filename);
         // Send server response
         errMsg = "Error: Swarm upload failed with reason " + JSON.stringify(http_error);
         errMsg = toErrorMsg(errMsg);
