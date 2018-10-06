@@ -189,10 +189,10 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
   */
 
   if (request.files) {
-    file_path = request.files.path;
-    file_type = request.files.mimetype;
-    filename = request.files.filename;
-    file_full_path = request.files.destination + request.files.filename;
+    file_path = request.files[0].path;
+    file_type = request.files[0].mimetype;
+    filename = request.files[0].filename;
+    file_full_path = request.files[0].destination + request.files[0].filename;
 
     var debug = [file_path, file_type, filename, file_full_path];
     console.log('debug', debug);
