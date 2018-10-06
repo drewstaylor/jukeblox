@@ -190,91 +190,72 @@ router.post('/swarm/upload', function(request, response) {
       file_type = (file.fileUploaded.type) ? file.fileUploaded.type : null;
       file_path = (file.fileUploaded.path) ? file.fileUploaded.path : null;
 
-      // Restrict file extensions
-      if (file_type !== null) {
-        // Checks if string exists in array
-        if (swarm_approved_file_extensions.indexOf(file_type) > -1) {
-          var swarm_ext_index = swarm_approved_file_extensions.indexOf(file_type);
-          // Double checks our string match value matches the entry exactly
-          if (file_type !== swarm_approved_file_extensions[swarm_ext_index]) {
-            errMsg = "Error: problem parsing uploaded file, file extension invalid or not found";
-            return;
+      if (!errMsg) {
+        // Refs.
+        var swarm_hash,
+            http_response,
+            http_error;
+        // Post parameters
+        var upload_options = {
+          url: swarm_node,
+          data: file_path + '/' + filename,
+          headers: {
+            'Content-Type': 'audio/mpeg'
           }
-        } else {
-          errMsg = "Error: problem parsing uploaded file, file extension invalid or not found";
-          return;
-        }
-      } else {
-        errMsg = "Error: problem parsing uploaded file, file extension invalid or not found";
-        return;
-      }
-
-      // Server debug log
-      console.log('New file upload received to ' + errType, [filename, file_size, file_type, file_path]);
-    });
-
-  if (!errMsg) {
-    // Refs.
-    var swarm_hash,
-        http_response,
-        http_error;
-    // Post parameters
-    var upload_options = {
-      url: swarm_node,
-      data: file_path + '/' + filename,
-      headers: {
-        'Content-Type': 'audio/mpeg'
-      }
-    };
-    console.log('upload_options',upload_options);
-    // Do HTTP POST to Swarm
-    http_client.post(upload_options, function(err, res, body) {
-      //console.log('body',body);
-      //console.log('res', res);
-      //console.log('err', err);
-      http_error = err;
-      // XXX (drew): I gotta fix this. This check is whack:
-      if (http_error === null) {
-        http_response = res;
-        swarm_hash = body;
-        // Send server response
-        res = {
-          http: {
-            status: "200",
-            msg: "Successfully uploaded file to Swarm hash: " + swarm_hash
-          },
-          data: {
-            swarm: {
-              storage_hash: swarm_hash,
-              storage_link: 'bzz:/' + swarm_hash + '/'
+        };
+        console.log('upload_options',upload_options);
+        // Do HTTP POST to Swarm
+        http_client.post(upload_options, function(err, res, body) {
+          //console.log('body',body);
+          //console.log('res', res);
+          //console.log('err', err);
+          http_error = err;
+          // XXX (drew): I gotta fix this. This check is whack:
+          if (http_error === null) {
+            http_response = res;
+            swarm_hash = body;
+            // Send server response
+            res = {
+              http: {
+                status: "200",
+                msg: "Successfully uploaded file to Swarm hash: " + swarm_hash
+              },
+              data: {
+                swarm: {
+                  storage_hash: swarm_hash,
+                  storage_link: 'bzz:/' + swarm_hash + '/'
+                }
+              }
             }
+            // Clean up temporary files
+            // XXX (drew): IDK BUT BELOW DOES NOT WORK LOL
+            //fs.unlink(file_path + '/' + filename);
+            // Send server response
+            response.send(JSON.stringify(res));
+          } else {
+            // Clean up temporary files
+            if (file_path && filename)
+              //fs.unlink(file_path + '/' + filename);
+            // Send server response
+            errMsg = "Error: Swarm upload failed with reason " + JSON.stringify(http_error);
+            errMsg = toErrorMsg(errMsg);
+            console.log([errType, errMsg]);
+            response.send(errMsg);
           }
-        }
-        // Clean up temporary files
-        // XXX (drew): IDK BUT BELOW DOES NOT WORK LOL
-        //fs.unlink(file_path + '/' + filename);
-        // Send server response
-        response.send(JSON.stringify(res));
+        });
       } else {
         // Clean up temporary files
-        if (file_path && filename)
+        //if (file_path && filename)
           //fs.unlink(file_path + '/' + filename);
         // Send server response
-        errMsg = "Error: Swarm upload failed with reason " + JSON.stringify(http_error);
         errMsg = toErrorMsg(errMsg);
         console.log([errType, errMsg]);
         response.send(errMsg);
       }
-    });
-  } else {
-    // Clean up temporary files
-    if (file_path && filename)
-      fs.unlink(file_path + '/' + filename);
-    // Send server response
-    errMsg = toErrorMsg(errMsg);
-    console.log([errType, errMsg]);
-    response.send(errMsg);
-  }
+
+      // Server debug log
+      console.log('New file upload received to ' + errType, [filename, file_size, file_type, file_path]);
+    })
 
 });
 
