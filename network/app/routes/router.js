@@ -257,9 +257,9 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
           let swarm_down = 'swarm down bzz:/' + swarm_hash;
           exec(swarm_down, (error, stdout, stderr) => {
             console.log('Swarm down successful');
-            fs.rename('./' + swarm_hash, './public' + swarm_hash + '.mp3', (err) => {
+            fs.rename('./' + swarm_hash, './public/' + swarm_hash + '.mp3', (err) => {
               if (err) {
-                console.log('Error moving file');
+                console.log('Error moving file', err);
               } else {
                 console.log('File now being served from ./public');
               }
