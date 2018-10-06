@@ -142,8 +142,8 @@ router.post('/swarm/upload', function(request, response) {
   response.header('Content-Type', 'application/json');
 
   const params = request.body;
-
-  console.log('PARAMS',params);
+  // BELOW WILL BE HUGE, UNCOMMENT AT YOUR OWN RISK xD
+  //console.log('PARAMS',params);
 
   var res,
       errMsg,
@@ -160,26 +160,21 @@ router.post('/swarm/upload', function(request, response) {
     form.keepExtensions = true;
 
     // Parse upload target
-    form.parse(req, function(err, fields, file) {
-      if (!files.hasOwnProperty('fileUploaded')) {
+    form.parse(request, function(err, fields, file) {
+      if (!file.hasOwnProperty('fileUploaded')) {
         errMsg = "Error: problem parsing uploaded file, 'fileUploaded' object invalid or not found";
-        return;
       }
       if (!file.fileUploaded.hasOwnProperty('size')) {
         errMsg = "Error: problem parsing uploaded file, file size invalid or not found";
-        return;
       }
       if (!file.fileUploaded.hasOwnProperty('name')) {
         errMsg = "Error: problem parsing uploaded file, filename invalid or not found";
-        return;
       }
       if (!file.fileUploaded.hasOwnProperty('type')) {
         errMsg = "Error: problem parsing uploaded file, file extension invalid or not found";
-        return;
       }
       if (!file.fileUploaded.hasOwnProperty('path')) {
         errMsg = "Error: problem parsing uploaded file, file path not found. Check server logs or notify administrator.";
-        return;
       }
 
       // Local file refs.
@@ -187,6 +182,8 @@ router.post('/swarm/upload', function(request, response) {
       filename = (file.fileUploaded.name) ? file.fileUploaded.name : null;
       file_type = (file.fileUploaded.type) ? file.fileUploaded.type : null;
       file_path = (file.fileUploaded.path) ? file.fileUploaded.path : null;
+
+      console.log(file_path + '/' + filename);
 
       // Restrict file extensions
       if (file_type !== null) {
@@ -196,15 +193,12 @@ router.post('/swarm/upload', function(request, response) {
           // Double checks our string match value matches the entry exactly
           if (file_type !== swarm_approved_file_extensions[swarm_ext_index]) {
             errMsg = "Error: problem parsing uploaded file, file extension invalid or not found";
-            return;
           }
         } else {
           errMsg = "Error: problem parsing uploaded file, file extension invalid or not found";
-          return;
         }
       } else {
         errMsg = "Error: problem parsing uploaded file, file extension invalid or not found";
-        return;
       }
 
       // Server debug log
@@ -221,26 +215,25 @@ router.post('/swarm/upload', function(request, response) {
       url: swarm_node,
       data: file_path + '/' + filename,
       headers: {
-        'Content-Type': params.mime
+        'Content-Type': 'audio/mpeg'
       }
     };
+    console.log('upload_options',upload_options);
     // Do HTTP POST to Swarm
     http_client.post(upload_options, function(err, res, body) {
-      //console.log(body);
+      //console.log('body',body);
+      //console.log('res', res);
+      //console.log('err', err);
       http_error = err;
-      // Validity check
+      // XXX (drew): I gotta fix this. This check is whack:
       if (http_error === null) {
         http_response = res;
         swarm_hash = body;
-
-        // XXX TODO:
-        // Handle Mongo storage and item / campaign / ERC1155 linkage
-
         // Send server response
         res = {
           http: {
             status: "200",
-            msg: "Successfully uploaded file " + filename + " to Swarm hash: " + swarm_hash
+            msg: "Successfully uploaded file to Swarm hash: " + swarm_hash
           },
           data: {
             swarm: {
@@ -250,13 +243,14 @@ router.post('/swarm/upload', function(request, response) {
           }
         }
         // Clean up temporary files
-        fs.unlink(file_path + '/' + filename);
+        // XXX (drew): IDK BUT BELOW DOES NOT WORK LOL
+        //fs.unlink(file_path + '/' + filename);
         // Send server response
         response.send(JSON.stringify(res));
       } else {
         // Clean up temporary files
         if (file_path && filename)
-          fs.unlink(file_path + '/' + filename);
+          //fs.unlink(file_path + '/' + filename);
         // Send server response
         errMsg = "Error: Swarm upload failed with reason " + JSON.stringify(http_error);
         errMsg = toErrorMsg(errMsg);
@@ -266,8 +260,8 @@ router.post('/swarm/upload', function(request, response) {
     });
   } else {
     // Clean up temporary files
-    if (file_path && filename)
-      fs.unlink(file_path + '/' + filename);
+    //if (file_path && filename)
+      //fs.unlink(file_path + '/' + filename);
     // Send server response
     errMsg = toErrorMsg(errMsg);
     console.log([errType, errMsg]);
