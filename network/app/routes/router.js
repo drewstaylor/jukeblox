@@ -215,6 +215,7 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
 
   if (!errMsg) {
     // Swarm up
+    let cmd = 'swarm up ' + file_full_path; 
     exec(cmd, (error, stdout, stderr) => {
           if (error !== null) {
             console.log(`exec error: ${error}`);
