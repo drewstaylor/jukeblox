@@ -12,9 +12,20 @@ export class PlayerComponent implements OnInit {
 
   ngOnInit() {
     console.log(jwplayer);
+    const playlist = [
+      {
+        file: '../../assets/audio/01\ Ataride.mp3'
+      },
+      {
+        file: '../../assets/audio/Doom\ EP-002-Agent\ Orange-Wanting\ U'
+      },
+      {
+        file: '../../assets/audio/01\ Out\ There.mp3'
+      }
+    ];
     // Setup the player
     const player = jwplayer('player').setup({
-      file: 'http://content.jwplatform.com/videos/SJnBN5W3-mjpS2Ylx.mp4',
+      playlist: playlist,
       width: 500,
       height: 40
     });
@@ -23,6 +34,8 @@ export class PlayerComponent implements OnInit {
     player.on('pause', (event) => {
       alert('Why did my user pause their video instead of watching it?');
     });
+
+    player.seek(30);
 
     // Call the API
     const bumpIt = () => {
