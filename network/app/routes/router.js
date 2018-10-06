@@ -175,7 +175,7 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
       file_full_path,
       swarm_hash;
 
-  console.log('files',request.files);
+  //console.log('files',request.files);
 
   /*
   files [ { fieldname: 'file',
@@ -189,19 +189,20 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
   */
 
   if (request.files) {
-    file_type = request.files.type;
     file_path = request.files.path;
     file_type = request.files.mimetype;
     filename = request.files.filename;
     file_full_path = request.files.destination + request.files.filename;
 
+    var debug = [file_path, file_type, filename, file_full_path];
+    console.log('debug', debug);
+
     if (file_type) {
       if (file_type !== 'audio/mp3') {
-        console.log('file_type',file_type);
         errMsg = "Error: Invalid file type";
       }
     } else {
-      errMsg = "Error: Invalid file type";
+      errMsg = "Error: Unknown file type";
     }
 
   } else {
