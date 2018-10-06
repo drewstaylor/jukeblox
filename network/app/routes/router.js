@@ -156,10 +156,12 @@ router.post('/swarm/upload', function(request, response) {
       file_type,
       swarm_hash;
 
-  let fields = request.field;  // contains non-file fields
-  let files = request.file;    // contains files
-  console.log('fields',fields);
-  console.log('files',files);
+  let fields = request.fields;  // contains non-file fields
+  let files = request.files;    // contains files
+  //console.log('fields',fields);
+  //console.log('files',files);
+
+  console.log('request', request);
 
   // Send server response
   res = {
