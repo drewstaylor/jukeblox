@@ -256,15 +256,14 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
           // Download and start serving the file
           let swarm_down = 'swarm down bzz:/' + swarm_hash;
           exec(swarm_down, (error, stdout, stderr) => {
-            if (fs.existsSync(swarm_hash)) {
-              let destination_target = './public/' + swarm_hash + ".mp3";
-              let legacy_file = fs.createReadStream(swarm_hash);
-              let servable_file = fs.createWriteStream();
-              // And swap...
-              util.pump(legacy_file, servable_file, function() {
-                  fs.unlinkSync(legacy_file);
-              });
-            }
+            console.log('Swarm down successful');
+            fs.rename('./' + swarm_hash, './public' + swarm_hash + '.mp3', (err) => {
+              if (err) {
+                console.log('Error moving file');
+              } else {
+                console.log('File now being served from ./public');
+              }
+            });
           });
         } else {
           // Send error response
