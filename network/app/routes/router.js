@@ -1,10 +1,12 @@
-var http_client = require('request');
-var express = require('express');
-var router = express.Router();
+const http_client = require('request');
+const express = require('express');
+const router = express.Router();
+const path = require('path');
+const exec = require('child_process').exec;
 
 // Web3
-var Web3 = require('web3');
-var web3 = new Web3('http://localhost:8545');
+const Web3 = require('web3');
+const web3 = new Web3('http://localhost:8545');
 
 // Nodes
 const node = 'http://localhost:8545';
@@ -15,13 +17,29 @@ const swarm_node = 'http://localhost:8500/bzz:/';
 //var ipcProvider = provider = new web3.providers.IpcProvider(ipcPath, net);
 
 // File System
-var fs = require('fs');
+const fs = require('fs');
 
 // Crypto
-var crypto = require('crypto');
+const crypto = require('crypto');
+
+// Multer multi-part encoding
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: './uploads/',
+  filename: function (req, file, cb) {
+    crypto.pseudoRandomBytes(16, function (err, raw) {
+      if (err) return cb(err)
+
+      cb(null, raw.toString('hex') + path.extname(file.originalname))
+    })
+  }
+});
+
+const uploads = multer({ storage: storage });
 
 // Formidable
-var formidable = require('express-formidable');
+const formidable = require('express-formidable');
 var app = express();
 app.use(formidable());
 
@@ -35,6 +53,8 @@ try {
     console.log('Error connecting to Swarm', e);
   }
 }
+
+const swarmgw = require('swarmgw')(/* opts */);
 
 // Database
 //var mongoose = require('mongoose');
@@ -139,7 +159,8 @@ router.post('/transaction/hash', function(request, response) {
  * @param {Object} file - Multipart encoded file object.
  */
 // XXX TODO: Add more control parameters to mime type and file extension restrictions
-router.post('/swarm/upload', function(request, response) {
+//api.post('/upload-image/:id', uploads.any(), (req, res) => {
+router.post('/swarm/upload', uploads.any(), (request, response) => {
   // Ensure valid JSON header
   response.header('Content-Type', 'application/json');
 
@@ -154,27 +175,81 @@ router.post('/swarm/upload', function(request, response) {
       file_path,
       file_size,
       file_type,
+      file_full_path,
       swarm_hash;
 
-  console.log('files',request.files);
-  console.log('file',request.file);
+  //console.log('files',request.files);
 
-  // Send server response
-  res = {
-    http: {
-      status: "200",
-      msg: "Successfully uploaded file to Swarm hash: " + swarm_hash
-    },
-    data: {
-      swarm: {
-        storage_hash: swarm_hash,
-        storage_link: 'bzz:/' + swarm_hash + '/'
+  /*
+  files [ { fieldname: 'file',
+    originalname: 'mdmalways.mp3',
+    encoding: '7bit',
+    mimetype: 'audio/mp3',
+    destination: './uploads/',
+    filename: 'c9047d27a88cabb7c30f17a7f0ee5b23.mp3',
+    path: 'uploads/c9047d27a88cabb7c30f17a7f0ee5b23.mp3',
+    size: 6018354 } ]
+  */
+
+  if (request.files) {
+    file_path = request.files[0].path;
+    file_type = request.files[0].mimetype;
+    filename = request.files[0].filename;
+    original_filename = request.files[0].originalname;
+    file_full_path = request.files[0].destination + request.files[0].filename;
+
+    //var debug = [file_path, file_type, filename, file_full_path];
+    //console.log('debug', debug);
+
+    if (file_type) {
+      if (file_type !== 'audio/mp3') {
+        errMsg = "Error: Invalid file type";
       }
+    } else {
+      errMsg = "Error: Unknown file type";
     }
+
+  } else {
+    errMsg = "Error: Invalid or missing file";
   }
 
-  // Send server response
-  response.send(JSON.stringify(res));
+  if (!errMsg) {
+    // Swarm up
+    let cmd = 'swarm up ' + file_full_path; 
+    exec(cmd, (error, stdout, stderr) => {
+      if (error !== null) {
+        console.log(`exec error: ${error}`);
+        errMsg = "Error: " + error;
+        errMsg = toErrorMsg(errMsg);
+        console.log([errType, errMsg]);
+        response.send(errMsg);
+      } else {
+        swarm_hash = stdout;
+        if (!errMsg) {
+          // Send server response
+          res = {
+            http: {
+              status: "200",
+              msg: "Successfully uploaded file " + original_filename + " to Swarm hash: " + swarm_hash
+            },
+            data: {
+              swarm: {
+                storage_hash: swarm_hash,
+                storage_link: 'bzz:/' + swarm_hash + '/'
+              }
+            }
+          }
+          // Do send server response
+          response.send(JSON.stringify(res));
+        } else {
+          // Send error response
+          errMsg = toErrorMsg(errMsg);
+          console.log([errType, errMsg]);
+          response.send(errMsg);
+        }
+      }
+    });
+  }
 });
 
 /**
