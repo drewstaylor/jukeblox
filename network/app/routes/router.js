@@ -183,6 +183,8 @@ router.post('/swarm/upload', function(request, response) {
       file_type = (file.fileUploaded.type) ? file.fileUploaded.type : null;
       file_path = (file.fileUploaded.path) ? file.fileUploaded.path : null;
 
+      console.log(file_path + '/' + filename);
+
       // Restrict file extensions
       if (file_type !== null) {
         // Checks if string exists in array
