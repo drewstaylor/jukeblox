@@ -8,6 +8,7 @@ import { JukeboxComponent } from './jukebox/jukebox.component';
 import { PlayerComponent } from './player/player.component';
 import { PanelComponent } from './jukebox/panel/panel.component';
 import { HeaderComponent } from './header/header.component';
+import { UploadComponent } from './jukebox/upload/upload.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HeaderComponent } from './header/header.component';
     JukeboxComponent,
     PlayerComponent,
     PanelComponent,
-    HeaderComponent
+    HeaderComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule,
