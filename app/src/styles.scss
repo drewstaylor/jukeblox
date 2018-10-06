@@ -8,5 +8,9 @@ body {
     background-size: cover;
 }
 
+#player {
+    display: none;
+}
+
 // Import Boostrap
 @import "../node_modules/bootstrap/scss/bootstrap";

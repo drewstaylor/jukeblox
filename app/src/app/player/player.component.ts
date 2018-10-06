@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-declare let jwplayer: any;
+declare var jwplayer: any;
 
 @Component({
   selector: 'app-player',
@@ -11,24 +11,26 @@ export class PlayerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    // console.log(jwplayer);
-    // const playlist = [
-    //   {
-    //     file: '../../assets/audio/01\ Ataride.mp3'
-    //   },
-    //   {
-    //     file: '../../assets/audio/Doom\ EP-002-Agent\ Orange-Wanting\ U'
-    //   },
-    //   {
-    //     file: '../../assets/audio/01\ Out\ There.mp3'
-    //   }
-    // ];
-    // // Setup the player
-    // const player = jwplayer('player').setup({
-    //   playlist: playlist,
-    //   width: 500,
-    //   height: 40
-    // });
+    console.log(jwplayer);
+    const playlist = [
+      {
+        file: '../../assets/audio/01\ Ataride.mp3'
+      },
+      {
+        file: '../../assets/audio/Doom\ EP-002-Agent\ Orange-Wanting\ U'
+      },
+      {
+        file: '../../assets/audio/01\ Out\ There.mp3'
+      }
+    ];
+    // Setup the player
+    const player = jwplayer('player').setup({
+      playlist: playlist,
+      width: 500,
+      height: 40,
+      controls: false,
+      autostart: true
+    });
 
     // // Listen to an event
     // player.on('pause', (event) => {
