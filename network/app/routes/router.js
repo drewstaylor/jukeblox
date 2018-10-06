@@ -154,13 +154,15 @@ router.post('/swarm/upload', function(request, response) {
       file_type;
 
     // XXX TODO: Parse file name and path
-    var form = new formidable.IncomingForm();
+    var form = new formidable.IncomingForm(),
+        uploadTarget;
     
     // Formidable settings
     form.keepExtensions = true;
 
     // Parse upload target
     form.parse(request, function(err, fields, file) {
+      uploadTarget = file;
       if (!file.hasOwnProperty('fileUploaded')) {
         errMsg = "Error: problem parsing uploaded file, 'fileUploaded' object invalid or not found";
         return;
@@ -225,7 +227,8 @@ router.post('/swarm/upload', function(request, response) {
       }
     };
     // Do HTTP POST to Swarm
-    http_client.post(upload_options, function(err, res, body, file) {
+    http_client.post(upload_options, function(err, res, body) {
+      let file = uploadTarget;
       //console.log(body);
       http_error = err;
       // XXX (drew): I gotta fix this. This check is whack:
