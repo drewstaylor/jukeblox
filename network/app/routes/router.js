@@ -41,7 +41,7 @@ try {
 
 
 // Accepted file extensions
-// XXX TODO: Tighten this up
+// XXX TODO: Tighten this up?
 const swarm_approved_file_extensions = ['.aif', '.aiff', '.m4a', '.mp3', '.mpa', '.wav', '.wma', '.3gp', '.aa', '.aac', '.aax', '.flac', '.ogg', '.vox', '.webm', '.mov', '.asf', '.avi', '.mp4', '.mpg', '.srt', '.vob', '.wmv'];
 
 /**
