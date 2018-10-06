@@ -217,36 +217,38 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
     // Swarm up
     let cmd = 'swarm up ' + file_full_path; 
     exec(cmd, (error, stdout, stderr) => {
-          if (error !== null) {
-            console.log(`exec error: ${error}`);
-            errMsg = "Error: " + JSON.stringify(error);
-          } else {
-            swarm_hash = stdout;
+      if (error !== null) {
+        console.log(`exec error: ${error}`);
+        errMsg = "Error: " + error;
+        errMsg = toErrorMsg(errMsg);
+        console.log([errType, errMsg]);
+        response.send(errMsg);
+      } else {
+        swarm_hash = stdout;
+        if (!errMsg) {
+          // Send server response
+          res = {
+            http: {
+              status: "200",
+              msg: "Successfully uploaded file " + original_filename + " to Swarm hash: " + swarm_hash
+            },
+            data: {
+              swarm: {
+                storage_hash: swarm_hash,
+                storage_link: 'bzz:/' + swarm_hash + '/'
+              }
+            }
           }
-    });
-
-    if (!errMsg) {
-      // Send server response
-      res = {
-        http: {
-          status: "200",
-          msg: "Successfully uploaded file " + original_filename + " to Swarm hash: " + swarm_hash
-        },
-        data: {
-          swarm: {
-            storage_hash: swarm_hash,
-            storage_link: 'bzz:/' + swarm_hash + '/'
-          }
+          // Do send server response
+          response.send(JSON.stringify(res));
+        } else {
+          // Send error response
+          errMsg = toErrorMsg(errMsg);
+          console.log([errType, errMsg]);
+          response.send(errMsg);
         }
       }
-      // Do send server response
-      response.send(JSON.stringify(res));
-    } else {
-      // Send error response
-      errMsg = toErrorMsg(errMsg);
-      console.log([errType, errMsg]);
-      response.send(errMsg);
-    }
+    });
   }
 });
 
