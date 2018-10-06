@@ -198,12 +198,12 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
       filename = request.files[0].filename;
       original_filename = request.files[0].originalname;
       file_full_path = request.files[0].destination + request.files[0].filename;
+      // Debug
+      var debug = [file_path, file_type, filename, file_full_path];
+      console.log('debug', debug);
     } else {
       errMsg = "Error: Invalid or missing file";
     }
-
-    var debug = [file_path, file_type, filename, file_full_path];
-    console.log('debug', debug);
 
     if (file_type) {
       if (file_type !== 'audio/mp3') {
@@ -274,6 +274,11 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
         }
       }
     });
+  } else {
+    // Send error response
+    errMsg = toErrorMsg(errMsg);
+    console.log([errType, errMsg]);
+    response.send(errMsg);
   }
 });
 
