@@ -104,8 +104,6 @@ const swarm_approved_file_extensions = ['.mp3'];
 router.post('/transaction/hash', function(request, response) {
   // Ensure valid JSON header
   response.header('Content-Type', 'application/json');
-  response.header("Access-Control-Allow-Origin", "*");
-  response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
   const params = request.body;
 
@@ -162,8 +160,6 @@ router.post('/transaction/hash', function(request, response) {
 router.post('/swarm/upload', uploads.any(), (request, response) => {
   // Ensure valid JSON header
   response.header('Content-Type', 'application/json');
-  response.header("Access-Control-Allow-Origin", "*");
-  response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
   const params = request.body;
   // BELOW WILL BE HUGE, UNCOMMENT AT YOUR OWN RISK xD
