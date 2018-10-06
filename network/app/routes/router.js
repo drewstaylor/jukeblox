@@ -142,8 +142,8 @@ router.post('/swarm/upload', function(request, response) {
   response.header('Content-Type', 'application/json');
 
   const params = request.body;
-
-  console.log('PARAMS',params);
+  // BELOW WILL BE HUGE, UNCOMMENT AT YOUR OWN RISK xD
+  //console.log('PARAMS',params);
 
   var res,
       errMsg,
