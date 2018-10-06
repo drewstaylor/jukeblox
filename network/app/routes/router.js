@@ -197,6 +197,7 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
 
     if (file_type) {
       if (file_type !== 'audio/mp3') {
+        console.log('file_type',file_type);
         errMsg = "Error: Invalid file type";
       }
     } else {
