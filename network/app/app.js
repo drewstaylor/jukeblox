@@ -7,7 +7,11 @@ var app = express();
 var bodyParser = require('body-parser');
 
 // Body Parser config
-app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
+app.use(bodyParser.urlencoded({ 
+  extended: true, 
+  limit: '50mb', 
+  parameterLimit: 1000000
+}));
 app.use(bodyParser.json());
 
 // Routing
