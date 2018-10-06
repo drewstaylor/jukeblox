@@ -53,6 +53,8 @@ try {
   }
 }
 
+const swarmgw = require('swarmgw')(/* opts */);
+
 // Database
 //var mongoose = require('mongoose');
 //var mongoUrl = 'mongodb://localhost:27017/jukebox';
@@ -192,6 +194,7 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
     file_path = request.files[0].path;
     file_type = request.files[0].mimetype;
     filename = request.files[0].filename;
+    original_filename = request.files[0].originalname;
     file_full_path = request.files[0].destination + request.files[0].filename;
 
     var debug = [file_path, file_type, filename, file_full_path];
@@ -210,55 +213,38 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
   }
 
   if (!errMsg) {
+    // Swarm up
+    exec(cmd, (error, stdout, stderr) => {
+          if (error !== null) {
+            console.log(`exec error: ${error}`);
+            errMsg = "Error: " + JSON.stringify(error);
+          } else {
+            swarm_hash = stdout;
+          }
+    });
 
-    var upload_options = {
-      url: swarm_node,
-      data: file_full_path,
-      headers: {
-        'Content-Type': file_type
-      }
-    };
-
-    http_client.post(upload_options, function(err, res, body) {
-      //console.log(body);
-      http_error = err;
-      // Validity check?
-      if (http_error === null) {
-        http_response = res;
-        swarm_hash = body;
-
-        // Send server response
-        res = {
-          http: {
-            status: "200",
-            msg: "Successfully uploaded file " + filename + " to Swarm hash: " + swarm_hash
-          },
-          data: {
-            swarm: {
-              storage_hash: swarm_hash,
-              storage_link: 'bzz:/' + swarm_hash + '/'
-            }
+    if (!errMsg) {
+      // Send server response
+      res = {
+        http: {
+          status: "200",
+          msg: "Successfully uploaded file " + original_filename + " to Swarm hash: " + swarm_hash
+        },
+        data: {
+          swarm: {
+            storage_hash: swarm_hash,
+            storage_link: 'bzz:/' + swarm_hash + '/'
           }
         }
-        // Clean up temporary files
-        //fs.unlink(file_path + '/' + filename);
-        // Send server response
-        response.send(JSON.stringify(res));
-      } else {
-        // Clean up temporary files
-        //if (file_path && filename)
-          //fs.unlink(file_path + '/' + filename);
-        // Send server response
-        errMsg = "Error: Swarm upload failed with reason " + JSON.stringify(http_error);
-        errMsg = toErrorMsg(errMsg);
-        console.log([errType, errMsg]);
-        response.send(errMsg);
       }
-    });
-  } else {
-    errMsg = toErrorMsg(errMsg);
-    console.log([errType, errMsg]);
-    response.send(errMsg);
+      // Do send server response
+      response.send(JSON.stringify(res));
+    } else {
+      // Send error response
+      errMsg = toErrorMsg(errMsg);
+      console.log([errType, errMsg]);
+      response.send(errMsg);
+    }
   }
 });
 
