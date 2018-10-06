@@ -172,6 +172,7 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
       file_path,
       file_size,
       file_type,
+      file_full_path,
       swarm_hash;
 
   console.log('files',request.files);
@@ -192,6 +193,7 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
     file_path = files.path;
     file_type = files.mimetype;
     filename = files.filename;
+    file_full_path = files.destination + files.filename;
 
     if (file_type) {
       if (file_type !== 'audio/mp3') {
@@ -206,6 +208,15 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
   }
 
   if (!errMsg) {
+
+    var upload_options = {
+      url: swarm_node,
+      data: file_full_path,
+      headers: {
+        'Content-Type': file_type
+      }
+    };
+
     http_client.post(upload_options, function(err, res, body) {
       //console.log(body);
       http_error = err;
