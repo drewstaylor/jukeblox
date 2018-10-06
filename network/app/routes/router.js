@@ -357,9 +357,6 @@ toErrorMsg = function (errMsg) {
   var HTTP_Response = {
     error: _errMsg[1]
   };
-  if (additionalErr) {
-    HTTP_Response.data = additionalErr;
-  }
 
   return JSON.stringify(HTTP_Response);
 };
