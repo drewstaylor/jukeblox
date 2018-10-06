@@ -42,6 +42,13 @@ const formidable = require('express-formidable');
 var app = express();
 app.use(formidable());
 
+// CORS Headers
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // Swarm
 try {
   web3.bzz.setProvider('http://localhost:8500');
