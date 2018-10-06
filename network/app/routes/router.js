@@ -161,17 +161,8 @@ router.post('/swarm/upload', function(request, response) {
   form.keepExtensions = true;
 
   // Parse upload target
-  form.parse(request);
-
-  form.on('fileBegin', function (name, file) {
+  form.parse(request, function(err, fields, file) {
     console.log('file', file);
-    file.path = __dirname + '/uploads/' + file.name;
-    file_path = file.path;
-    filename = file.name;
-  });
-
-  form.on('file', function (name, file) {
-    console.log('Uploaded ' + file.name);
   });
 
   // Send server response
