@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SplashComponent implements OnInit {
 
+  public title = "Jukeblox";
+
   constructor() { }
 
   ngOnInit() {

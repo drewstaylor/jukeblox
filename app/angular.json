@@ -25,7 +25,11 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/jwplayer/bin-release/jwplayer.js",
+              "src/jwplayer/bin-release/jwplayer.core.controls.js",
+              "src/jwplayer/bin-release/jwplayer.core.controls.html5.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -74,7 +78,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "src/jwplayer/bin-release"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
