@@ -160,8 +160,8 @@ router.post('/swarm/upload', function(request, response) {
     form.keepExtensions = true;
 
     // Parse upload target
-    form.parse(req, function(err, fields, file) {
-      if (!files.hasOwnProperty('fileUploaded')) {
+    form.parse(request, function(err, fields, file) {
+      if (!file.hasOwnProperty('fileUploaded')) {
         errMsg = "Error: problem parsing uploaded file, 'fileUploaded' object invalid or not found";
         return;
       }
