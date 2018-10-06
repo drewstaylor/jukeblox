@@ -52,10 +52,12 @@ var errorHandler = function(err, req, res, next){
 };
 
 var toErrorMsg = function (errMsg) {
-  //var _errMsg = errMsg.split(':');
+  var _errMsg = errMsg.split(':');
+
+
+
   var HTTP_Response = {
-    //error: _errMsg[1]
-    error: errMsg
+    error: _errMsg[1].trim()
   };
   return JSON.stringify(HTTP_Response);
 };
