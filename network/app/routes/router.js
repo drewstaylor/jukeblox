@@ -204,19 +204,7 @@ router.post('/swarm/upload', function(request, response) {
       file_size,
       file_type;
 
-  if (!id) {
-    errMsg = "Error: Organization ID missing or invalid.";
-  } else if (typeof id !== "string") {
-    errMsg = "Error: Organization ID missing or invalid.";
-  } else if (!campaign) {
-    errMsg = "Error: Campaign ID missing or invalid.";
-  } else if (typeof campaign !== "string") {
-    errMsg = "Error: Campaign ID missing or invalid.";
-  } else if (!item) {
-    errMsg = "Error: Item ID missing or invalid.";
-  } else if (typeof item !== "string") {
-    errMsg = "Error: Item ID missing or invalid.";
-  } else if (!params.file) {
+  if (!params.file) {
     errMsg = "Error: upload target file invalid or missing.";
   } else if (!params.mime) {
     errMsg = "Error: Invalid or missing MIME type for target upload file."
