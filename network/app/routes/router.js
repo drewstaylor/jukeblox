@@ -221,7 +221,7 @@ router.post('/swarm/upload', function(request, response) {
       url: swarm_node,
       data: file_path + '/' + filename,
       headers: {
-        'Content-Type': params.mime
+        'Content-Type': 'audio/mpeg'
       }
     };
     // Do HTTP POST to Swarm
@@ -232,9 +232,6 @@ router.post('/swarm/upload', function(request, response) {
       if (http_error === null) {
         http_response = res;
         swarm_hash = body;
-
-        // XXX TODO:
-        // Handle Mongo storage and item / campaign / ERC1155 linkage
 
         // Send server response
         res = {
