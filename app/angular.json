@@ -26,9 +26,9 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "src/jwplayer/bin-release/jwplayer.js",
-              "src/jwplayer/bin-release/jwplayer.core.controls.js",
-              "src/jwplayer/bin-release/jwplayer.core.controls.html5.js",
+              "src/utils/jwplayer/jwplayer.js",
+              "src/utils/jwplayer/jwplayer.core.controls.js",
+              "src/utils/jwplayer/jwplayer.core.controls.html5.js",
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
@@ -81,9 +81,9 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "src/jwplayer/bin-release/jwplayer.js",
-              "src/jwplayer/bin-release/jwplayer.core.controls.js",
-              "src/jwplayer/bin-release/jwplayer.core.controls.html5.js",
+              "src/utils/jwplayer/jwplayer.js",
+              "src/utils/jwplayer/jwplayer.core.controls.js",
+              "src/utils/jwplayer/jwplayer.core.controls.html5.js",
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],
