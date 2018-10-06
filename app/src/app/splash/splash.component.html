@@ -1,9 +1,14 @@
-<div class="container-fluid h-100">
-  <div class="row h-100">
+<div class="container-fluid h-100 d-flex flex-column">
+  <div class="row flex-fill">
     <div class="col d-flex justify-content-center align-items-center">
       <a [routerLink]="['/play']" role="button" class="enter-button btn btn-outline-light rounded-circle d-flex justify-content-center align-items-center">
         <img src="assets/images/logo-draft.svg">
       </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col d-flex justify-content-center align-items-center p-4">
+      <button class="info-expand rounded-circle" type="button"><i class="expand-triangle"></i></button>
     </div>
   </div>
 </div>
