@@ -196,6 +196,8 @@ router.post('/swarm/upload', function(request, response) {
 
   const params = request.body;
 
+  console.log('PARAMS',params);
+
   var res,
       errMsg,
       errType = "POST: /swarm/upload",
@@ -355,7 +357,7 @@ router.post('/swarm/download', function(request, response) {
 toErrorMsg = function (errMsg) {
   var _errMsg = errMsg.split(':');
   var HTTP_Response = {
-    error: _errMsg[1]
+    error: _errMsg[1].trim()
   };
 
   return JSON.stringify(HTTP_Response);
