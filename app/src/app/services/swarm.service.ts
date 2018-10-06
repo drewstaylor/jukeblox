@@ -11,7 +11,7 @@ export class SwarmService {
   private namespace: string;
 
   constructor(private http: HttpClient) {
-    this.apiUrl = 'http://ec2-34-238-157-242.compute-1.amazonaws.com:3000/api';
+    this.apiUrl = 'http://ec2-54-158-49-223.compute-1.amazonaws.com:3000/api';
     this.namespace = '/swarm/upload';
   }
 
