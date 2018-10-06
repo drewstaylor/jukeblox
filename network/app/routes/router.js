@@ -189,11 +189,11 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
   */
 
   if (request.files) {
-    file_type = files.type;
-    file_path = files.path;
-    file_type = files.mimetype;
-    filename = files.filename;
-    file_full_path = files.destination + files.filename;
+    file_type = request.files.type;
+    file_path = request.files.path;
+    file_type = request.files.mimetype;
+    filename = request.files.filename;
+    file_full_path = request.files.destination + request.files.filename;
 
     if (file_type) {
       if (file_type !== 'audio/mp3') {
