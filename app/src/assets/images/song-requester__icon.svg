@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>song-requester__icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="elements/footer-content" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-314.000000, -9.000000)">
+        <g id="Group" fill="#FFFFFF" stroke="#CECECE">
+            <g id="Group-12">
+                <g id="song-requester__icon" transform="translate(315.000000, 10.000000)">
+                    <circle id="Oval-Copy" cx="10" cy="10" r="10"></circle>
+                    <g id="Group-13" transform="translate(5.000000, 3.000000)">
+                        <circle id="Oval-Copy-2" cx="5" cy="3" r="2.5"></circle>
+                        <path d="M9.25,11.25 C9.25,8.90278981 7.34721019,7 5,7 C2.65278981,7 0.75,8.90278981 0.75,11.25 C0.75,13.5972102 9.25,13.5972102 9.25,11.25 Z" id="Oval-Copy-3"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

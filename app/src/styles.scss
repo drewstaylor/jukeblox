@@ -2,5 +2,11 @@ html, body {
     height: 100%;
 }
 
+body {
+    background-image: url(assets/images/space-bkgd--placeholder.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 // Import Boostrap
 @import "../node_modules/bootstrap/scss/bootstrap";
