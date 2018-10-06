@@ -16,6 +16,7 @@
     "mongodb": "^3.1.6",
     "mongoose": "^5.3.1",
     "morgan": "~1.9.0",
+    "multer": "^1.4.0",
     "pug": "2.0.0-beta11",
     "save": "^2.3.2",
     "swarmgw": "^0.3.1",
