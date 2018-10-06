@@ -225,13 +225,21 @@ router.post('/swarm/upload', function(request, response) {
       }
     };
     // Do HTTP POST to Swarm
-    http_client.post(upload_options, function(err, res, body) {
+    http_client.post(upload_options, function(err, res, body, file) {
       //console.log(body);
       http_error = err;
-      // Validity check
+      // XXX (drew): I gotta fix this. This check is whack:
       if (http_error === null) {
         http_response = res;
         swarm_hash = body;
+        
+        // Local file refs.
+        let file_size =  (file.fileUploaded.size) ? file.fileUploaded.size : null;
+        let filename = (file.fileUploaded.name) ? file.fileUploaded.name : null;
+        let file_type = (file.fileUploaded.type) ? file.fileUploaded.type : null;
+        let file_path = (file.fileUploaded.path) ? file.fileUploaded.path : null;
+
+        console.log('filename?', filename);
 
         // Send server response
         res = {
