@@ -10,6 +10,8 @@ import { PanelComponent } from './jukebox/panel/panel.component';
 import { HeaderComponent } from './header/header.component';
 import { UploadComponent } from './jukebox/upload/upload.component';
 
+import { FileDropModule } from 'ngx-file-drop';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,8 @@ import { UploadComponent } from './jukebox/upload/upload.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FileDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
