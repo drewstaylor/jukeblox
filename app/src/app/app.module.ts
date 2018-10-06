@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { JukeboxComponent } from './jukebox/jukebox.component';
 import { PlayerComponent } from './player/player.component';
 import { PanelComponent } from './jukebox/panel/panel.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { PanelComponent } from './jukebox/panel/panel.component';
     SplashComponent,
     JukeboxComponent,
     PlayerComponent,
-    PanelComponent
+    PanelComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
