@@ -1,9 +1,21 @@
-<div class="container-fluid h-100">
-  <div class="row h-100">
+<div class="container-fluid h-100 d-flex flex-column">
+  <div class="row flex-fill">
     <div class="col d-flex justify-content-center align-items-center">
       <a [routerLink]="['/play']" role="button" class="enter-button btn btn-outline-light rounded-circle d-flex justify-content-center align-items-center">
         <img src="assets/images/logo-draft.svg">
       </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col d-flex justify-content-center align-items-center p-4">
+      <button class="info-expand rounded-circle" type="button" data-toggle="collapse" data-target="#introText">
+        <i class="expand-triangle"></i>
+      </button>
+    </div>
+  </div>
+  <div class="row collapse" id="introText">
+    <div class="col text-white">
+      <p class="p-5 font-weight-light">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
   </div>
 </div>
