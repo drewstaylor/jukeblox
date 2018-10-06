@@ -14,15 +14,8 @@ var allowCrossDomain = function(req, res, next) {
 
   next();
 }
+app.use(allowCrossDomain);
 
-app.configure(function() {
-  app.use(allowCrossDomain);
-  app.use(logger('dev'));
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: false }));
-  app.use(cookieParser());
-  app.use(express.static(path.join(__dirname, 'public')));
-});
 
 // Body Parser config
 app.use(bodyParser.urlencoded({ 
@@ -40,10 +33,15 @@ app.use('/api', router);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
-  next();
 });
 
 // error handler
