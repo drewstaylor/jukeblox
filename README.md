@@ -1,2 +1,2 @@
-# jukebox
-The ~~one and only~~ decentralized jukebox on the Ethereum blockchain :)
+# jukeblox
+The one and only decentralized jukeblox
