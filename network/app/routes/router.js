@@ -175,24 +175,78 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
       swarm_hash;
 
   console.log('files',request.files);
-  console.log('file',request.file);
 
-  // Send server response
-  res = {
-    http: {
-      status: "200",
-      msg: "Successfully uploaded file to Swarm hash: " + swarm_hash
-    },
-    data: {
-      swarm: {
-        storage_hash: swarm_hash,
-        storage_link: 'bzz:/' + swarm_hash + '/'
+  /*
+  files [ { fieldname: 'file',
+    originalname: 'mdmalways.mp3',
+    encoding: '7bit',
+    mimetype: 'audio/mp3',
+    destination: './uploads/',
+    filename: 'c9047d27a88cabb7c30f17a7f0ee5b23.mp3',
+    path: 'uploads/c9047d27a88cabb7c30f17a7f0ee5b23.mp3',
+    size: 6018354 } ]
+  */
+
+  if (request.files) {
+    file_type = files.type;
+    file_path = files.path;
+    file_type = files.mimetype;
+    filename = files.filename;
+
+    if (file_type) {
+      if (file_type !== 'audio/mp3') {
+        errMsg = "Error: Invalid file type";
       }
+    } else {
+      errMsg = "Error: Invalid file type";
     }
+
+  } else {
+    errMsg = "Error: Invalid or missing file";
   }
 
-  // Send server response
-  response.send(JSON.stringify(res));
+  if (!errMsg) {
+    http_client.post(upload_options, function(err, res, body) {
+      //console.log(body);
+      http_error = err;
+      // Validity check?
+      if (http_error === null) {
+        http_response = res;
+        swarm_hash = body;
+
+        // Send server response
+        res = {
+          http: {
+            status: "200",
+            msg: "Successfully uploaded file " + filename + " to Swarm hash: " + swarm_hash
+          },
+          data: {
+            swarm: {
+              storage_hash: swarm_hash,
+              storage_link: 'bzz:/' + swarm_hash + '/'
+            }
+          }
+        }
+        // Clean up temporary files
+        //fs.unlink(file_path + '/' + filename);
+        // Send server response
+        response.send(JSON.stringify(res));
+      } else {
+        // Clean up temporary files
+        //if (file_path && filename)
+          //fs.unlink(file_path + '/' + filename);
+        // Send server response
+        errMsg = "Error: Swarm upload failed with reason " + JSON.stringify(http_error);
+        errMsg = toErrorMsg(errMsg);
+        console.log([errType, errMsg]);
+        response.send(errMsg);
+      }
+    });
+  } else {
+    errMsg = toErrorMsg(errMsg);
+    console.log([errType, errMsg]);
+    response.send(errMsg);
+  }
 });
 
 /**
