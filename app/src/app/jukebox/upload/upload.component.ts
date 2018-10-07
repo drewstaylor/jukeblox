@@ -16,12 +16,12 @@ export class UploadComponent implements OnInit {
 
   public file: File;
   public filePath: string;
-  public chosenSong: string;
+  public chosenSongHash: string;
 
   constructor(private swarmService: SwarmService) {
     this.file = null;
     this.filePath = null;
-    this.chosenSong = null;
+    this.chosenSongHash = null;
   }
 
   ngOnInit() {
@@ -62,6 +62,10 @@ export class UploadComponent implements OnInit {
         this.filePath = droppedFile.relativePath;
 
         /**
+         * TODO: ID3 reading here...
+         */
+
+        /**
         // You could upload it like this:
         const formData = new FormData()
         formData.append('logo', file, relativePath)
@@ -92,6 +96,8 @@ export class UploadComponent implements OnInit {
       .then(response => {
         console.log('Upload response =>', response);
         if (!response.error) {
+          // Store the uploaded song's hash
+          this.chosenSongHash = response.data.storage_hash;
           this.file = null;
           jQuery('#uploadModal').modal('hide');
           const msgType = 'success';
@@ -111,12 +117,7 @@ export class UploadComponent implements OnInit {
       });
   }
 
-
-  public addUploaded(): void {
-    
-  }
  
-
   public fileOver(event){
     console.log(event);
   }
