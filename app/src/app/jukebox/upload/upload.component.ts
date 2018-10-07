@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UploadEvent, UploadFile, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { SwarmService } from '../../services/swarm.service';
+import { NotificationsComponent } from '../../services/notifications/notifications.component';
 declare var jQuery: any;
 
 @Component({
@@ -10,12 +11,17 @@ declare var jQuery: any;
 })
 export class UploadComponent implements OnInit {
 
+  @ViewChild('notifierModalOne') notifierOne: NotificationsComponent;
+  @ViewChild('notifierModalTwo') notifierTwo: NotificationsComponent;
+
   public file: File;
   public filePath: string;
+  public chosenSong: string;
 
   constructor(private swarmService: SwarmService) {
     this.file = null;
     this.filePath = null;
+    this.chosenSong = null;
   }
 
   ngOnInit() {
@@ -23,7 +29,7 @@ export class UploadComponent implements OnInit {
     jQuery('#uploadModal')
     .on('hidden.bs.modal', () => {
       this.cancelUpload();
-    })
+    });
   }
 
 
@@ -84,11 +90,30 @@ export class UploadComponent implements OnInit {
     this.swarmService.upload(this.file, this.filePath)
       .toPromise()
       .then(response => {
-        console.log(response);
+        console.log('Upload response =>', response);
+        if (!response.error) {
+          this.file = null;
+          jQuery('#uploadModal').modal('hide');
+          const msgType = 'success';
+          const msgText = 'Nice! Your song was successfully uploaded. Now you can add it to the queue!';
+          this.notifierOne.notify(msgType, msgText, false, false);
+        } else {
+          const msgType = 'danger';
+          const msgText = `Sorry, but something went wrong when trying to upload your file: ${response.error}`;
+          this.notifierTwo.notify(msgType, msgText, false, false);
+        }
       })
       .catch(error => {
         console.error(error);
+        const msgType = 'danger';
+        const msgText = `Sorry, but something went wrong when trying to upload your file: ${error}`;
+        this.notifierTwo.notify(msgType, msgText, false, false);
       });
+  }
+
+
+  public addUploaded(): void {
+    
   }
  
 

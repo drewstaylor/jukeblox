@@ -1,0 +1,19 @@
+<div class="container p-0">
+  <div *ngIf="notifications.length">
+    <div
+      class="alert alert-dismissible alert-{{ notification.type }} fade show"
+      role="alert"
+      *ngFor="let notification of notifications; let i = index"
+    >
+      <p class="float-none">{{ notification.message }}</p>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="clear();"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+</div>
