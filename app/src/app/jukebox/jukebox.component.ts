@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ContractsService } from '../services/contracts.service';
 
 @Component({
   selector: 'app-jukebox',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JukeboxComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private contractService: ContractsService
+  ) { 
+    // ...
+  }
 
   ngOnInit() {
   }

@@ -15,6 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NotificationsComponent } from './services/notifications/notifications.component';
 import { GlobalNotificationsComponent } from './services/notifications/global-notifications.component';
 
+import { ContractsService } from './services/contracts.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +35,9 @@ import { GlobalNotificationsComponent } from './services/notifications/global-no
     FileDropModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ContractsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
