@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UploadEvent, UploadFile, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { SwarmService } from '../../services/swarm.service';
 import { ContractsService } from '../../services/contracts.service';
@@ -6,7 +6,15 @@ import { NotificationsComponent } from '../../services/notifications/notificatio
 import { parse } from 'id3-parser';
 import { convertFileToBuffer } from 'id3-parser/lib/universal/helpers';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DefaultUrlHandlingStrategy } from '@angular/router/src/url_handling_strategy';
 declare var jQuery: any;
+
+
+// interface SongDuration {
+//   hours: number;
+//   minutes: number;
+//   seconds: number;
+// }
 
 
 @Component({
@@ -18,8 +26,10 @@ export class UploadComponent implements OnInit {
 
   @ViewChild('notifierModalOne') notifierOne: NotificationsComponent;
   @ViewChild('notifierModalTwo') notifierTwo: NotificationsComponent;
+  @ViewChild('audioElement') audioElement: ElementRef;
 
   public file: File;
+  public audioUrl: any;
   public filePath: string;
   public chosenSongHash: string;
   public fileReady: boolean = false;
@@ -43,6 +53,9 @@ export class UploadComponent implements OnInit {
     .on('hidden.bs.modal', () => {
       this.cancelUpload();
     });
+
+    // console.log(this.audioElement);
+    // this.audioElement.nativeElement.src = "http://localhost:4200/poop";
   }
 
 
@@ -79,6 +92,9 @@ export class UploadComponent implements OnInit {
           // Parse ID3 tags
           convertFileToBuffer(file).then(parse).then((tag: any) => {
             this.id3Tag = tag;
+
+            this.audioUrl = URL.createObjectURL(file);
+            this.audioElement.nativeElement.src = this.audioUrl;
 
             const base64ImageString = btoa(
               String.fromCharCode.apply(null, tag.image.data)
@@ -225,6 +241,37 @@ export class UploadComponent implements OnInit {
     this.fileReady = false;
   }
 
+
+  public getDuration(event: any): void {
+    var duration = event.currentTarget.duration;
+    
+    if (this.id3Tag) {
+      this.id3Tag['duration'] = duration;
+    }
+
+    console.log(this.id3Tag);
+  }
+
+
+  public formatDuration(seconds: number): string {
+    let hrs = Math.floor(seconds / 3600);
+    let mins = Math.floor((seconds / 60) - hrs);
+    let secs = Math.round(((seconds / 60) - mins) * 60);
+
+    // return {
+    //   hours: hrs,
+    //   minutes: mins,
+    //   seconds: secs
+    // };
+
+    let durationString = (hrs) ? hrs.toString() + ':' : '';
+    durationString += mins + ':';
+    durationString += secs;
+
+    return durationString;
+  }
+
+  
   public closeModal(modalType): void {
     jQuery('#' + modalType).modal('hide');
     // Clear idv3 tags
