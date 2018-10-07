@@ -9,6 +9,19 @@ body {
     background-image: url(assets/images/space-bkgd--placeholder.png);
     background-repeat: no-repeat;
     background-size: cover;
+
+    &:before {
+      transition: 1s;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
 }
 
 #player {
@@ -27,6 +40,102 @@ button:focus {
   }
 }
 
+.header-logo-anim {
+  animation: slideInLeft 1s ease-in-out 1 forwards;
+}
 
+.splash-anim__row {
+  color: white;
+}
+
+.splash-anim__content-1 {
+  color: black;
+  animation: slideInLeft 1s 0.5s ease-in-out 1 forwards;
+}
+
+.splash-anim__content-2 {
+  color: black;
+  animation: slideInLeft 1s 1s ease-in-out 1 forwards;
+}
+
+.appearIn-anim {
+  animation: appearIn 2s  ease-in-out 1 forwards;
+}
+
+
+@-webkit-keyframes slideInLeft {
+  from {
+    -webkit-transform: translate3d(-10%, 0, 0);
+    transform: translate3d(-10%, 0, 0);
+    opacity: 0;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    color: white;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    -webkit-transform: translate3d(-10%, 0, 0);
+    transform: translate3d(-10%, 0, 0);
+    opacity: 0;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+    opacity: 1;
+    color: white;
+  }
+}
+
+.slideInLeft {
+  -webkit-animation-name: slideInLeft;
+  animation-name: slideInLeft;
+}
+
+
+@-webkit-keyframes appearIn {
+  from {
+    -webkit-transform: translate3d(0, 70%, 0);
+    transform: translate3d(0, 70%, 0);
+    opacity: 0;
+    filter: blur(5rem);
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes appearIn {
+  from {
+    -webkit-transform: translate3d(0, 70%, 0);
+    transform: translate3d(0, 70%, 0);
+    opacity: 0;
+    filter: blur(5rem);
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.appearIn {
+  -webkit-animation-name: appearIn;
+  animation-name: appearIn;
+}
 
 // Import Boostrap
