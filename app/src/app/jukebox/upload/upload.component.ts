@@ -25,6 +25,7 @@ export class UploadComponent implements OnInit {
   public fileReady: boolean = false;
   public id3Tag: any;
   public sanitizedAlbumArt: SafeResourceUrl;
+  public queuable;
 
   constructor(
     private swarmService: SwarmService, 
@@ -166,6 +167,7 @@ export class UploadComponent implements OnInit {
   }
 
   public addSongToRegistry = function (): void {
+    var that = this;
     console.log('addSongToRegistry');
     console.log('this.id3Tag', this.id3Tag);
     console.log('addSong params =>', [this.id3Tag.title, this.id3Tag.artist, 0, this.chosenSongHash]);
@@ -182,9 +184,36 @@ export class UploadComponent implements OnInit {
           return;
         }
         var addSongResponse = result;
+
+        // XXX (drew): TODO: FIX THIS RESULT
+        // MUST PARSE THE REGISTRY INDEX AND PASS ON TO
+        // TO A CALLABLE SCOPE SO THEY QUEUE THE SONG
         console.log(addSongResponse);
+        if (addSongResponse.hasOwnProperty('noexist')) {
+          //this.queuable = addSongResponse;
+        }
     });
-  }    
+  }
+
+  // That's right other developers - I'm forcing you to spell the
+  // word "Queue" correctly even though you slept for 2 hours
+  public addSongToQueue (): void {
+    if (this.queuable) {
+      if (this.queuable.hasOwnProperty('index')) {
+        this.contractsService.queueSong(this.queuable.index, function (error, result) {
+          if (error) {
+            console.error(error);
+            return;
+          }
+          console.log("Queued a song", result);
+        });
+      } else {
+        console.log('No queuable songs found');
+      }
+    } else {
+      console.log('No queuable songs found');
+    }
+  }
 
   public resetFileAndMeta(): void {
     this.file = null;
@@ -192,6 +221,8 @@ export class UploadComponent implements OnInit {
     this.filePath = null;
     this.chosenSongHash = null;
     this.sanitizedAlbumArt = null;
+    this.queuable = null;
+    this.fileReady = false;
   }
 
   public closeModal(modalType): void {
