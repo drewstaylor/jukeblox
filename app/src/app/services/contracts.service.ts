@@ -87,7 +87,7 @@ export class ContractsService {
   }
 
   // Get metadata about a song by its index
-  // returns: song.title, song.artist, song.length
+  // returns: song.title, song.artist, song.length, song.swarmHash
   getSong = function (index, cb): void {
     this.instance.getSong(index, function (error, result) {
         cb(error, result);
