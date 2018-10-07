@@ -37,7 +37,7 @@ We managed to keep the scope of the project to a feasible level even though we h
 
 Our goal was to create `Jukeblox` as decentralized as possible without and centralized backend serving the client. We came up with an algorithm for managing the playlist's time flow, knowing which songs are already played, which song is playing right now, and how many seconds of the song have already elapsed (e.g. for people loading the page the first time), without having to resort to some centralized state management such as `Firebase`, nor a decentralized one which would cost `ether` to run.
 
-We are really proud over the professional look this project already has. 
+We are really proud over the professional look our project already has. 
 
 ## What We learned
 Anything that is to be run over the network at a hackathon can be troublesome, due to possible IFI issues and low throughput.
@@ -47,8 +47,8 @@ Always keep the scope to a minimum to actually have something done and be able t
 ## What's next for Jukeblox
 Implementing voting on songs, banning malicious users, offering royalties of songs played and lotteries for track uploaders.
 
-We're also looking for a crafy way for users to manage equivalency settings for how much a "quarter" is, the limit of song length accepted, and the max length of the queue.
+We're also looking for a crafty way for users to manage equivalency settings for how much a "quarter" is, the limit of song length accepted, and the max length of the queue.
 
-Our penultimate goal is to host our entire web client on Swarm or IPFS and connecting an `.eth` ens address to it. We don't plan to stop until we can finalize the decentralization!
+Our penultimate goal is to host our entire web client on Swarm or IPFS and connecting an `.eth` / ens address to it. We don't plan to stop until we can finalize the decentralization!
 
 We're thinking about how we can scale `Jukeblox` from handling a few hundred songs, to tens of thousands of songs. This is where indexing and searchability becomes a challenge because we don't neccessarily want to store track metadata any longer in the smart contract at that point.
