@@ -14,16 +14,17 @@
       <div class="modal-body">
         <!-- Notifications -->
         <app-notifications #notifierModalOne></app-notifications>
-        <!-- <p>Choose a song to add to the Jukeblox queue, or upload your own!</p> -->
-        <div class="row row__gray row__search-song pt-3 pl-3 pr-3 pb-5 mt-0 mb-3 ml-3 mr-3">
-          <div class="col-md-12 mx-auto mt-3">
-            <input type="text" placeholder="Enter an Artist, Song or Composer" class="row__search-song--input w-100 mb-0 pt-3 pb-3 input-group-text text-left">
-            <img src="assets/images/search-icon.svg" class="row__search-song--icon" alt="">
-          </div>
-          <div class="col-md-12 mx-auto">
-            <p class="d-block text-center m-3 p-3">OR</p>
-            <button type="button" class="btn btn-secondary d-block mx-auto p-3" (click)="openUploadModal();">Upload a new song to the blockchain</button>
-          </div>
+        <p>Choose a song to add to the Jukeblox queue, or upload your own.</p>
+        <div class="waiting" *ngIf="waitingForRegistryConfirmation">
+          <p>Hang in there homeslice, we're waiting for your transaction to confirm!</p>
+          <div class="spinner"></div>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-between">
+        <button type="button" class="btn btn-outline-primary" (click)="openUploadModal();">Upload</button>
+        <div class="btn-group" role="group" aria-label="Add song or cancel">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="closeModal('addSongModal');">Cancel</button>
+          <button type="button" class="btn btn-outline-primary" [disabled]="!fileReady || waitingForRegistryConfirmation" (click)="addSongToQueue();">Add Song</button>
         </div>
       </div>
     </div>
@@ -34,7 +35,10 @@
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
+        <h4 class="modal-title d-block text-center pt-2 w-100 font-weight-bold">Upload a Song</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <!-- Notifications -->
