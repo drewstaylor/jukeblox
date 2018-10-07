@@ -35,7 +35,7 @@ Getting `Swarm` to work. Lots of tedious work to analyze network and (micro) ins
 ## Accomplishments that We're proud of
 We managed to keep the scope of the project to a feasible level even though we have lots of features we want and can extend it with, such as voting on songs, royalties of songs played, etc.
 
-Our goal was to create `Jukeblox` as decentralized as possible without and centralized backend serving the client. We came up with an algorithm for managing the playlist's time flow, knowing which songs are already played, which song is playing right now, and how many seconds of the song have already elapsed (e.g. for people loading the page the first time), without having to resort to some centralized state management such as `Firebase`, nor a decentralized one which would cost `ether` to run.
+Our goal was to create `Jukeblox` as decentralized as possible without a centralized backend serving the dApp. We came up with an algorithm for managing the playlist's time flow, knowing which songs are already played, which song is playing right now, and how many seconds of the song have already elapsed (e.g. for people loading the page the first time), without having to resort to some centralized state management such as `Firebase`, nor a decentralized one which would cost `ether` to run.
 
 We are really proud over the professional look our project already has. 
 
