@@ -1,3 +1,4 @@
+// Get contract
 if(typeof(Contracts)==="undefined") var Contracts={};
 (function(module, Contracts) {
     var data={
@@ -16,48 +17,63 @@ function JukeBlox(Contract) {
     this.Contract = Contract;
 }
 
+// Get all songs available to be queued
 JukeBlox.prototype.getNrSongs = function (cb) {
     this.instance.nrSongs(function (error, result) {
         cb(error, result);
     });
 }
 
+// Get the number of times people put coins in the jukebox
 JukeBlox.prototype.getTotalQueueLength = function (cb) {
     this.instance.nrQueued(function (error, result) {
         cb(error, result);
     });
 }
 
+// Anyone can queue a song, but only an added user has
+// permissions to add a song to the registry of songs
+// Adds a new user address:
 JukeBlox.prototype.addUser = function (userAddress, cb) {
     this.instance.addUser(userAddress, function (error, result) {
         cb(error, result);
     });
 }
 
+// Add a song (registered users only)
 JukeBlox.prototype.addSong = function (title, artist, length, swarmHash, cb) {
     this.instance.addSong(title, artist, length, swarmHash, function (error, result) {
         cb(error, result);
     });
 }
 
+// Add a song to the queue
+// Song needs to be registered first
 JukeBlox.prototype.queueSong = function (index, cb) {
     this.instance.queueSong(index, function (error, result) {
         cb(error, result);
     });
 }
 
+// Get data about a song
+// returns: song.title, song.artist, song.length
 JukeBlox.prototype.getSong = function (index, cb) {
     this.instance.getSong(index, function (error, result) {
         cb(error, result);
     });
 }
 
+// Get the currently playing song
+// returns: song index in the array (index), the current time index of playback (seek), and the remaining time untill the end of the song (duration)
 JukeBlox.prototype.getCurrentSong = function (timestamp, cb) {
     this.instance.getCurrentSong(index, function (error, result) {
         cb(error, result);
     });
 }
 
+// After getting the current song queue index (see: fn getCurrentSong())
+// Take that index and get the current queued item (song)
+// returns: queued.startTime, queued.song.index
 JukeBlox.prototype.getQueued = function (index, cb) {
     this.instance.getQueued(index, function (error, result) {
         cb(error, result);

@@ -13,6 +13,8 @@ import { UploadComponent } from './jukebox/upload/upload.component';
 import { FileDropModule } from 'ngx-file-drop';
 import { HttpClientModule } from '@angular/common/http';
 
+import { ContractsService } from './services/contracts.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,9 @@ import { HttpClientModule } from '@angular/common/http';
     FileDropModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ContractsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
