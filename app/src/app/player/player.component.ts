@@ -163,7 +163,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
                 const length = result[2].toNumber();
                 const swarmHash = web3.toAscii(result[3]);
 
-                playSong(this.serverUrl + swarmHash + '.mp3');
+                this.playSong(this.serverUrl + swarmHash + '.mp3');
 
                 // Timeout for the duration left for the song to reload.
                 let timeOut = this.currentSong.duration * 1000;
