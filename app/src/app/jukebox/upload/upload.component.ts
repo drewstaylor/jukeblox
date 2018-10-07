@@ -37,6 +37,7 @@ export class UploadComponent implements OnInit {
   public sanitizedAlbumArt: SafeResourceUrl;
   public queuable;
   public nrSongs;
+  public waitingForRegistryConfirmation: boolean = false;
 
   constructor(
     private swarmService: SwarmService, 
@@ -46,6 +47,8 @@ export class UploadComponent implements OnInit {
     this.file = null;
     this.filePath = null;
     this.chosenSongHash = null;
+
+    this.contractsService.init();
   }
 
   ngOnInit() {
@@ -58,6 +61,7 @@ export class UploadComponent implements OnInit {
       }
       var nrSongs = result.toNumber();
       that.nrSongs = nrSongs;
+      console.log('NRSONGS INIT', that.nrSongs);
     });
     // Bind dialog reset to modal close event
     jQuery('#uploadModal')
@@ -165,7 +169,7 @@ export class UploadComponent implements OnInit {
           //this.resetFileAndMeta();
           jQuery('#uploadModal').modal('hide');
           const msgType = 'success';
-          const msgText = 'Nice! Your song was successfully uploaded. Now you can add it to the queue!';
+          const msgText = 'Thanks for the sweet tune! You can add it to the Jukeblox library once your transaction confirms';
           this.notifierOne.notify(msgType, msgText, false, false);
           // Unlock add to queue
           this.fileReady = true;
@@ -197,6 +201,7 @@ export class UploadComponent implements OnInit {
 
   public addSongToRegistry = function (): void {
     var that = this;
+    console.log('this.nrSongs',this.nrSongs);
     console.log('addSongToRegistry');
     console.log('this.id3Tag', this.id3Tag);
     console.log('addSong params =>', [this.id3Tag.title, this.id3Tag.artist, 0, this.chosenSongHash]);
@@ -216,6 +221,7 @@ export class UploadComponent implements OnInit {
         // tx hash
         console.log(addSongResponse);
         // get new total of items in library
+        that.waitingForRegistryConfirmation = true;
         that.waitForSongRegistry(that.nrSongs);
     });
   }
@@ -287,20 +293,29 @@ export class UploadComponent implements OnInit {
     this.resetFileAndMeta();
   }
 
+  // XXX (drew): Needs refactoring to be robust this won't scale
+  // but I could sleep, I could sleep on like a pile of scales
+  // true story
   private waitForSongRegistry = function (nrSongs) {
     var that = this;
-    this.contractsService.getNrSongs(function (error, result, nrSongs) {
+    this.contractsService.getNrSongs(function (error, result) {
       if (error) {
           console.error(error);
           return;
       }
       // Compare playlist height to see if block was confirmed
       if (result.toNumber() > nrSongs) {
+        that.nrSongs = result.toNumber();
         console.log('Block resolved...');
-        // Send song to queue
+        // Create queuable item
+        that.queuable = {};
+        that.queuable.index = that.nrSongs;
+        console.log('that.queuable',that.queuable);
+        // Unlock add to queue button
+        that.waitingForRegistryConfirmation = false;
       } else {
         setTimeout(function () {
-          console.log('Polling for playlist height...', [result.toNumber(), that.nrSongs]);
+          //console.log('Polling for playlist height...', [result.toNumber(), nrSongs]);
           that.waitForSongRegistry(that.nrSongs);
         }, 2000);
       }
