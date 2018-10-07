@@ -7,7 +7,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Add Music to Queue</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal('addSongModal');">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -19,7 +19,7 @@
       <div class="modal-footer d-flex justify-content-between">
         <button type="button" class="btn btn-outline-primary" (click)="openUploadModal();">Upload</button>
         <div class="btn-group" role="group" aria-label="Add song or cancel">
-          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="closeModal('addSongModal');">Cancel</button>
           <button type="button" class="btn btn-outline-primary" [disabled]="!fileReady" (click)="addSongToRegistry();">Add Song</button>
         </div>
       </div>
@@ -32,7 +32,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Upload a Song</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal('uploadModal');">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -45,7 +45,21 @@
           (onFileOver)="fileOver($event)"
           (onFileLeave)="fileLeave($event)"
         >
-          <span *ngIf="file && filePath; else no_file">{{ filePath }}</span>
+        <div class="upload-song-info w-100 h-100 py-3 px-4" *ngIf="file && filePath; else no_file">
+          <div class="media small text-dark h-100" *ngIf="id3Tag; else no_tag">
+            <img class="album-image rounded mr-3" [src]="sanitizedAlbumArt" *ngIf="sanitizedAlbumArt">
+            <div class="media-body">
+              <h5 *ngIf="id3Tag.title" class="font-weight-bold mb-1">{{ id3Tag.title }}</h5>
+              <p *ngIf="id3Tag.artist" class="font-weight-bold mb-1">{{ id3Tag.artist }}</p>
+              <p *ngIf="id3Tag.album" class="mb-1 d-inline"><em>{{ id3Tag.album }}</em></p>
+              <p *ngIf="id3Tag.album && id3Tag.year" class="d-inline">&nbsp;&mdash;&nbsp;</p>
+              <p *ngIf="id3Tag.year" class="mb-1 d-inline">{{ id3Tag.year }}</p>
+            </div>
+          </div>
+          <ng-template #no_tag>
+            <span>{{ filePath }}</span>
+          </ng-template>
+        </div>
           <ng-template #no_file>
             <span>Drag and drop an MP3 file here to upload!</span>
           </ng-template>

@@ -3,7 +3,11 @@ import { UploadEvent, UploadFile, FileSystemFileEntry, FileSystemDirectoryEntry 
 import { SwarmService } from '../../services/swarm.service';
 import { ContractsService } from '../../services/contracts.service';
 import { NotificationsComponent } from '../../services/notifications/notifications.component';
+import { parse } from 'id3-parser';
+import { convertFileToBuffer } from 'id3-parser/lib/universal/helpers';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 declare var jQuery: any;
+
 
 @Component({
   selector: 'app-upload',
@@ -19,10 +23,13 @@ export class UploadComponent implements OnInit {
   public filePath: string;
   public chosenSongHash: string;
   public fileReady: boolean = false;
+  public id3Tag: any;
+  public sanitizedAlbumArt: SafeResourceUrl;
 
   constructor(
     private swarmService: SwarmService, 
-    private contractsService: ContractsService
+    private contractsService: ContractsService,
+    private sanitizer: DomSanitizer
   ) {
     this.file = null;
     this.filePath = null;
@@ -45,13 +52,14 @@ export class UploadComponent implements OnInit {
 
 
   public cancelUpload(): void {
-    this.file = null;
+    //this.resetFileAndMeta();
     jQuery('#uploadModal').modal('hide');
     jQuery('#addSongModal').modal('show');
   }
 
 
   public dropped(event: UploadEvent) {
+    var that = this;
     const droppedFile = event.files[0];
     console.log(droppedFile);
  
@@ -65,6 +73,27 @@ export class UploadComponent implements OnInit {
 
         this.file = file;
         this.filePath = droppedFile.relativePath;
+
+        if (file.type === 'audio/mp3') {
+          // Parse ID3 tags
+          convertFileToBuffer(file).then(parse).then((tag: any) => {
+            console.log(tag);
+
+            this.id3Tag = tag;
+
+            const base64ImageString = btoa(
+              String.fromCharCode.apply(null, tag.image.data)
+            );
+
+            const imageSrc = 'data:' + tag.image.mime + ';base64, ' + base64ImageString;
+            this.sanitizedAlbumArt = this.sanitizer.bypassSecurityTrustUrl(imageSrc);
+            // this.sanitizedAlbumArt = imageSrc;
+
+            console.log(this.sanitizedAlbumArt);
+          });
+        } else {
+          // TODO: put validation / error message here
+        }
 
         /**
          * TODO: ID3 reading here...
@@ -102,8 +131,8 @@ export class UploadComponent implements OnInit {
         console.log('Upload response =>', response);
         if (!response.error) {
           // Store the uploaded song's hash
-          this.chosenSongHash = response.data.storage_hash;
-          this.file = null;
+          this.chosenSongHash = response.data.swarm.storage_hash;
+          //this.resetFileAndMeta();
           jQuery('#uploadModal').modal('hide');
           const msgType = 'success';
           const msgText = 'Nice! Your song was successfully uploaded. Now you can add it to the queue!';
@@ -136,12 +165,37 @@ export class UploadComponent implements OnInit {
 
   public addSongToRegistry = function (): void {
     console.log('addSongToRegistry');
+    console.log('this.id3Tag', this.id3Tag);
+    console.log('addSong params =>', [this.id3Tag.title, this.id3Tag.artist, 0, this.chosenSongHash]);
     // Put it on the blockchain waddup
-    //addSong = function (title, artist, length, swarmHash, cb): void {
-    
     // XXX (drew): TODO: Check for user permissions
-    //this.contractsService.addSong();
-    
+    this.contractsService.addSong(
+      (this.id3Tag.hasOwnProperty('title')) ? this.id3Tag.title : null, 
+      (this.id3Tag.hasOwnProperty('artist')) ? this.id3Tag.artist : null, 
+      (this.id3Tag.hasOwnProperty('duration')) ? this.id3Tag.duration : null, 
+      (this.chosenSongHash) ? this.chosenSongHash : null,
+      function (error, result) {
+        if (error) {
+          console.error(error);
+          return;
+        }
+        var addSongResponse = result;
+        console.log(addSongResponse);
+    });
+  }    
+
+  public resetFileAndMeta(): void {
+    this.file = null;
+    this.id3Tag = null;
+    this.filePath = null;
+    this.chosenSongHash = null;
+    this.sanitizedAlbumArt = null;
+  }
+
+  public closeModal(modalType): void {
+    jQuery('#' + modalType).modal('hide');
+    // Clear idv3 tags
+    this.resetFileAndMeta();
   }
 
 }

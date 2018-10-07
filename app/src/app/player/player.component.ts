@@ -8,10 +8,11 @@ declare var jwplayer: any;
 })
 export class PlayerComponent implements OnInit {
 
-  public soundOn: boolean;
+  private player: any;
+  public isMuted: boolean;
 
   constructor() {
-    this.soundOn = false;
+    this.isMuted = true;
   }
 
   ngOnInit() {
@@ -27,13 +28,15 @@ export class PlayerComponent implements OnInit {
         file: '../../assets/audio/01\ Out\ There.mp3'
       }
     ];
+
     // Setup the player
-    const player = jwplayer('player').setup({
+    this.player = jwplayer('player').setup({
       playlist: playlist,
       width: 500,
       height: 40,
       controls: false,
-      autostart: true
+      autostart: true,
+      mute: true
     });
 
     // // Listen to an event
@@ -53,7 +56,12 @@ export class PlayerComponent implements OnInit {
 
 
   public toggleSound(): void {
-    this.soundOn = (this.soundOn) ? false : true;
+    this.isMuted = this.player.getMute();
+    if (this.isMuted) {
+      this.player.setMute(false);
+    } else {
+      this.player.setMute(true);
+    }
   }
 
 }
