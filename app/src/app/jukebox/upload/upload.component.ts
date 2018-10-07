@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UploadEvent, UploadFile, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { SwarmService } from '../../services/swarm.service';
+import { ContractsService } from '../../services/contracts.service';
 import { NotificationsComponent } from '../../services/notifications/notifications.component';
 declare var jQuery: any;
 
@@ -17,8 +18,12 @@ export class UploadComponent implements OnInit {
   public file: File;
   public filePath: string;
   public chosenSongHash: string;
+  public fileReady: boolean = false;
 
-  constructor(private swarmService: SwarmService) {
+  constructor(
+    private swarmService: SwarmService, 
+    private contractsService: ContractsService
+  ) {
     this.file = null;
     this.filePath = null;
     this.chosenSongHash = null;
@@ -103,6 +108,8 @@ export class UploadComponent implements OnInit {
           const msgType = 'success';
           const msgText = 'Nice! Your song was successfully uploaded. Now you can add it to the queue!';
           this.notifierOne.notify(msgType, msgText, false, false);
+          // Unlock add to queue
+          this.fileReady = true;
         } else {
           const msgType = 'danger';
           const msgText = `Sorry, but something went wrong when trying to upload your file: ${response.error}`;
@@ -125,6 +132,15 @@ export class UploadComponent implements OnInit {
 
   public fileLeave(event){
     console.log(event);
+  }
+
+  public addSongToRegistry = function (): void {
+    // Put it on the blockchain waddup
+    //addSong = function (title, artist, length, swarmHash, cb): void {
+    
+    // XXX (drew): TODO: Check for user permissions
+    //this.contractsService.addSong();
+    
   }
 
 }

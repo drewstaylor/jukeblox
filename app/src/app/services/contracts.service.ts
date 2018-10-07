@@ -12,13 +12,19 @@ export class ContractsService {
   public Contract;
   public web3 = null;
   public instance = null;
+  public nrSongs;
+  public web3Enabled: boolean;
+  public currentSong;
 
   constructor() {
     if (typeof window.web3 !== 'undefined') {
+      this.web3Enabled = true;
+      this.currentSong = {};
       this.bootstrap();
     } else {
       // XXX: replace this...
       console.warn('Please use a dapp browser like mist or MetaMask plugin for chrome.');
+      this.web3Enabled = false;
     }
   }
 
@@ -120,7 +126,7 @@ export class ContractsService {
     this.instance = contract_interface.at(this.Contract.address);
   };
 
-  // Main - Let's kick out the jams
+  // Let's kick out the jams
   main = function (): void {
     var that = this;
     this.getNrSongs(function (error, result) {
@@ -130,7 +136,8 @@ export class ContractsService {
       }
 
       var nrSongs = result.toNumber();
-      console.log("Total nr songs", nrSongs)
+      that.nrSongs = nrSongs;
+      console.log("Total nr songs", nrSongs);
 
       // Non-base 16 numbers like 0 throw an error;
       if (nrSongs > 0) {
@@ -149,6 +156,21 @@ export class ContractsService {
             }
             console.log("Queued a song.");
           });*/
+        });
+
+        var currentTime = Math.floor(Date.now() / 1000);
+
+        that.getCurrentSong(currentTime, function (error, result) {
+          if (error) {
+            console.error(error);
+            return;
+          }
+          // return (index, seek, duration, songsQueuedCount);
+          that.currentSong.index = (result[0]) ? result[0] : null;
+          that.currentSong.seek = (result[1]) ? result[1] : null;
+          that.currentSong.duration = (result[2]) ? result[2] : null;
+          that.currentSong.songsQueuedCount = (result[3]) ? result[3] : null;
+          console.log('getCurrentSong', that.currentSong);
         });
       }
 
