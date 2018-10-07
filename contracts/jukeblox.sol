@@ -7,7 +7,7 @@ contract JukeBlox {
         uint16 length;   // Length in seconds
         address creator;
         uint256 timestamp;
-        bytes32 swarmHash;
+        bytes swarmHash;
         uint16 reports;
         uint256 queuedCount;
         uint256 index;  // the index of this object in the array.
@@ -36,8 +36,8 @@ contract JukeBlox {
     uint256 public maxQueueTime = 3600;  // Max one hour of queued material.
     uint256 public nrSongs = 0;
     uint256 public nrQueued = 0;
-    uint256 public maxSongLength = 5 * 60;  // Max five minutes
-
+    uint256 public maxSongLength = 10 * 60;  // Max ten minutes
+    uint256 public minimumQueueValue = 0.001 ether;
     constructor() public {
         creator = msg.sender;
         addUser(creator, "Creator");
@@ -65,7 +65,7 @@ contract JukeBlox {
      * Add a song to the library of songs.
      *
      */
-    function addSong(string title, string artist, uint16 length, bytes32 swarmHash) onlyUser public {
+    function addSong(string title, string artist, uint16 length, bytes swarmHash) onlyUser public {
         require(length < maxSongLength);
 
         Song memory song = Song(
@@ -88,8 +88,9 @@ contract JukeBlox {
      * Queue a song from the library in the playlist.
      *
      */
-    function queueSong(uint256 index) public {
+    function queueSong(uint256 index) public payable {
         require(songs.length > index);
+        require(msg.value >= minimumQueueValue);
 
         // Find the next start time for a newly queued item.
         uint256 startTime = now;
@@ -122,10 +123,10 @@ contract JukeBlox {
      * Get a song from the library.
      *
      */
-    function getSong(uint256 index) view public returns(string, string, uint16) {
+    function getSong(uint256 index) view public returns(string, string, uint16, bytes) {
         Song storage song = songs[index];
         
-        return (song.title, song.artist, song.length);
+        return (song.title, song.artist, song.length, song.swarmHash);
     }
 
     /**

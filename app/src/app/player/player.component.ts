@@ -12,7 +12,7 @@ export class PlayerComponent implements OnInit {
   public isMuted: boolean;
 
   constructor() {
-    this.isMuted = true;
+    this.isMuted = false;
   }
 
   ngOnInit() {
@@ -36,8 +36,10 @@ export class PlayerComponent implements OnInit {
       height: 40,
       controls: false,
       autostart: true,
-      mute: true
+      mute: false
     });
+
+    console.log(this.player.getMute());
 
     // // Listen to an event
     // player.on('pause', (event) => {
@@ -62,5 +64,6 @@ export class PlayerComponent implements OnInit {
     } else {
       this.player.setMute(true);
     }
+    this.isMuted = this.player.getMute();
   }
 }

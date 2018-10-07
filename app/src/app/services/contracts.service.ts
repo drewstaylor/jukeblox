@@ -12,13 +12,22 @@ export class ContractsService {
   public Contract;
   public web3 = null;
   public instance = null;
+  public nrSongs;
+  public web3Enabled: boolean;
+  public currentSong;
+  public currentQueued;
+  
+  private contractAddress: string = '0x60c895a999e34f72f8e0c42f77f5d58c411263ba';
 
   constructor() {
     if (typeof window.web3 !== 'undefined') {
+      this.web3Enabled = true;
+      this.currentSong = {};
       this.bootstrap();
     } else {
       // XXX: replace this...
       console.warn('Please use a dapp browser like mist or MetaMask plugin for chrome.');
+      this.web3Enabled = false;
     }
   }
 
@@ -26,10 +35,10 @@ export class ContractsService {
     // Get contract
     let that = this;
     var data = {
-        address: "0x163cc6ca8157ef8d099cf5a61de6c4477d700785",
+        address: this.contractAddress,
         network: "rinkeby",
         endpoint: "https://rinkeby.infura.io/",
-        abi: [{"constant":true,"inputs":[{"name":"index","type":"uint256"}],"name":"getQueued","outputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"creator","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"nrQueued","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"index","type":"uint256"}],"name":"getSong","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"uint16"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newUserAddress","type":"address"},{"name":"newUserName","type":"string"}],"name":"addUser","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"timestamp","type":"uint256"}],"name":"getCurrentSong","outputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"},{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"maxSongLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"nrSongs","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"title","type":"string"},{"name":"artist","type":"string"},{"name":"length","type":"uint16"},{"name":"swarmHash","type":"bytes32"}],"name":"addSong","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"index","type":"uint256"}],"name":"queueSong","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"maxQueueTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
+        abi: [{"constant":true,"inputs":[{"name":"index","type":"uint256"}],"name":"getQueued","outputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"creator","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"nrQueued","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"index","type":"uint256"}],"name":"getSong","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"uint16"},{"name":"","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newUserAddress","type":"address"},{"name":"newUserName","type":"string"}],"name":"addUser","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"timestamp","type":"uint256"}],"name":"getCurrentSong","outputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"},{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"maxSongLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"title","type":"string"},{"name":"artist","type":"string"},{"name":"length","type":"uint16"},{"name":"swarmHash","type":"bytes"}],"name":"addSong","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"nrSongs","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"minimumQueueValue","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"index","type":"uint256"}],"name":"queueSong","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[],"name":"maxQueueTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
     };
     this.Contract = data;
     // Do initialize provider
@@ -79,7 +88,7 @@ export class ContractsService {
   }
 
   // Get metadata about a song by its index
-  // returns: song.title, song.artist, song.length
+  // returns: song.title, song.artist, song.length, song.swarmHash
   getSong = function (index, cb): void {
     this.instance.getSong(index, function (error, result) {
         cb(error, result);
@@ -120,7 +129,7 @@ export class ContractsService {
     this.instance = contract_interface.at(this.Contract.address);
   };
 
-  // Main - Let's kick out the jams
+  // Let's kick out the jams
   main = function (): void {
     var that = this;
     this.getNrSongs(function (error, result) {
@@ -130,10 +139,21 @@ export class ContractsService {
       }
 
       var nrSongs = result.toNumber();
-      console.log("Total nr songs", nrSongs)
+      that.nrSongs = nrSongs;
+      console.log("Total nr songs", nrSongs);
 
       // Non-base 16 numbers like 0 throw an error;
       if (nrSongs > 0) {
+
+        // Check if there are songs queued
+        that.getTotalQueueLength (function (error, result) {
+          if (error) {
+            console.error(error);
+            return;
+          }
+          console.log('total queue length', result);
+        });
+
         that.getSong(0, function (error, result) {
           if (error) {
             console.error(error);
@@ -149,6 +169,34 @@ export class ContractsService {
             }
             console.log("Queued a song.");
           });*/
+        });
+
+
+        // Get current song if available
+        var currentTime = Math.floor(Date.now() / 1000);
+        that.getCurrentSong(currentTime, function (error, result) {
+          if (error) {
+            console.error(error);
+            return;
+          }
+          // return (index, seek, duration, songsQueuedCount);
+          that.currentSong.index = (result[0]) ? result[0] : null;
+          that.currentSong.seek = (result[1]) ? result[1] : null;
+          that.currentSong.duration = (result[2]) ? result[2] : null;
+          that.currentSong.songsQueuedCount = (result[3]) ? result[3] : null;
+          console.log('getCurrentSong', that.currentSong);
+
+          // Now get the next queued song
+          if (that.currentSong.index !== null) {
+            // XXX (drew): TODO: FIX THIS CURRENT SONG INDEX INT
+            that.getQueued(that.currentSong.index, function (error, result) {
+              if (error) {
+                console.error(error);
+                return;
+              }
+              console.log('Next in queue after currentSong =>', result);
+            });
+          }
         });
       }
 
