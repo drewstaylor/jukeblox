@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UploadEvent, UploadFile, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { SwarmService } from '../../services/swarm.service';
+import { NotificationsComponent } from '../../services/notifications/notifications.component';
 declare var jQuery: any;
 
 @Component({
@@ -10,12 +11,17 @@ declare var jQuery: any;
 })
 export class UploadComponent implements OnInit {
 
+  @ViewChild('notifierModalOne') notifierOne: NotificationsComponent;
+  @ViewChild('notifierModalTwo') notifierTwo: NotificationsComponent;
+
   public file: File;
   public filePath: string;
+  public chosenSongHash: string;
 
   constructor(private swarmService: SwarmService) {
     this.file = null;
     this.filePath = null;
+    this.chosenSongHash = null;
   }
 
   ngOnInit() {
@@ -23,7 +29,7 @@ export class UploadComponent implements OnInit {
     jQuery('#uploadModal')
     .on('hidden.bs.modal', () => {
       this.cancelUpload();
-    })
+    });
   }
 
 
@@ -42,6 +48,7 @@ export class UploadComponent implements OnInit {
 
   public dropped(event: UploadEvent) {
     const droppedFile = event.files[0];
+    console.log(droppedFile);
  
     // Is it a file?
     if (droppedFile.fileEntry.isFile) {
@@ -53,6 +60,10 @@ export class UploadComponent implements OnInit {
 
         this.file = file;
         this.filePath = droppedFile.relativePath;
+
+        /**
+         * TODO: ID3 reading here...
+         */
 
         /**
         // You could upload it like this:
@@ -83,14 +94,30 @@ export class UploadComponent implements OnInit {
     this.swarmService.upload(this.file, this.filePath)
       .toPromise()
       .then(response => {
-        console.log(response);
+        console.log('Upload response =>', response);
+        if (!response.error) {
+          // Store the uploaded song's hash
+          this.chosenSongHash = response.data.storage_hash;
+          this.file = null;
+          jQuery('#uploadModal').modal('hide');
+          const msgType = 'success';
+          const msgText = 'Nice! Your song was successfully uploaded. Now you can add it to the queue!';
+          this.notifierOne.notify(msgType, msgText, false, false);
+        } else {
+          const msgType = 'danger';
+          const msgText = `Sorry, but something went wrong when trying to upload your file: ${response.error}`;
+          this.notifierTwo.notify(msgType, msgText, false, false);
+        }
       })
       .catch(error => {
         console.error(error);
+        const msgType = 'danger';
+        const msgText = `Sorry, but something went wrong when trying to upload your file: ${error}`;
+        this.notifierTwo.notify(msgType, msgText, false, false);
       });
   }
- 
 
+ 
   public fileOver(event){
     console.log(event);
   }

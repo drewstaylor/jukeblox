@@ -12,6 +12,8 @@ import { UploadComponent } from './jukebox/upload/upload.component';
 
 import { FileDropModule } from 'ngx-file-drop';
 import { HttpClientModule } from '@angular/common/http';
+import { NotificationsComponent } from './services/notifications/notifications.component';
+import { GlobalNotificationsComponent } from './services/notifications/global-notifications.component';
 
 import { ContractsService } from './services/contracts.service';
 
@@ -23,7 +25,9 @@ import { ContractsService } from './services/contracts.service';
     PlayerComponent,
     PanelComponent,
     HeaderComponent,
-    UploadComponent
+    UploadComponent,
+    NotificationsComponent,
+    GlobalNotificationsComponent
   ],
   imports: [
     BrowserModule,

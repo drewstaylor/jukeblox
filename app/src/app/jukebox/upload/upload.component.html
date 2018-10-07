@@ -12,6 +12,8 @@
         </button>
       </div>
       <div class="modal-body">
+        <!-- Notifications -->
+        <app-notifications #notifierModalOne></app-notifications>
         <p>Choose a song to add to the Jukeblox queue, or upload your own!</p>
       </div>
       <div class="modal-footer d-flex justify-content-between">
@@ -35,6 +37,8 @@
         </button>
       </div>
       <div class="modal-body">
+        <!-- Notifications -->
+        <app-notifications #notifierModalTwo></app-notifications>
         <!-- <p>Upload a song to add to the queue. :)</p> -->
         <file-drop
           (onFileDrop)="dropped($event)" 
