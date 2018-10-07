@@ -8,9 +8,7 @@ import { ContractsService } from './services/contracts.service';
 })
 export class AppComponent implements OnInit{
 
-  constructor(private contractsService: ContractsService) {
-
-  }
+  constructor(private contractsService: ContractsService) {}
 
   ngOnInit() {
     
