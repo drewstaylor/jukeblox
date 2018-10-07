@@ -88,9 +88,9 @@ contract JukeBlox {
      * Queue a song from the library in the playlist.
      *
      */
-    function queueSong(uint256 index) public payable {
+    function queueSong(uint256 index) public /*payable*/ {
         require(songs.length > index);
-        require(msg.value >= minimumQueueValue);
+//        require(msg.value >= minimumQueueValue);
 
         // Find the next start time for a newly queued item.
         uint256 startTime = now;
