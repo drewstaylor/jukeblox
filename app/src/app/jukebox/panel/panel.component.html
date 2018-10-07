@@ -1,16 +1,23 @@
 <div class="container-fluid bg-white border text-dark p-0">
   <div class="row no-gutters">
-    <div class="media small h-100 col-12 col-md-6 col-lg-3 border-right p-3" *ngIf="id3Tag">
-      <img class="album-image rounded mr-3" [src]="sanitizedAlbumArt || defaultImage">
-      <div class="media-body">
-        <p *ngIf="id3Tag.title" class="font-weight-bold mb-1 d-inline">{{ id3Tag.title }}</p>
-        <p *ngIf="id3Tag.album && id3Tag.year" class="d-inline">&nbsp;&nbsp;|&nbsp;&nbsp;</p>
-        <p *ngIf="id3Tag.artist" class="mb-1 d-inline">{{ id3Tag.artist }}</p>
-        <br>
-        <p *ngIf="id3Tag.album" class="mb-1 d-inline"><em>{{ id3Tag.album }}</em></p>
-        <p *ngIf="id3Tag.album && id3Tag.year" class="d-inline">&nbsp;&mdash;&nbsp;</p>
-        <p *ngIf="id3Tag.year" class="mb-1 d-inline">{{ id3Tag.year }}</p>
-      </div>
+    <div class="media small h-100 col-12 col-md-6 col-lg-3 border-right p-3">
+      <ng-template *ngIf="id3Tag; else nothing_queued">
+        <img class="album-image rounded mr-3" [src]="sanitizedAlbumArt || defaultImage">
+        <div class="media-body">
+          <p *ngIf="id3Tag.title" class="font-weight-bold mb-1 d-inline">{{ id3Tag.title }}</p>
+          <p *ngIf="id3Tag.album && id3Tag.year" class="d-inline">&nbsp;&nbsp;|&nbsp;&nbsp;</p>
+          <p *ngIf="id3Tag.artist" class="mb-1 d-inline">{{ id3Tag.artist }}</p>
+          <br>
+          <p *ngIf="id3Tag.album" class="mb-1 d-inline"><em>{{ id3Tag.album }}</em></p>
+          <p *ngIf="id3Tag.album && id3Tag.year" class="d-inline">&nbsp;&mdash;&nbsp;</p>
+          <p *ngIf="id3Tag.year" class="mb-1 d-inline">{{ id3Tag.year }}</p>
+        </div>
+      </ng-template>
+      <ng-template #nothing_queued>
+        <div class="media-body">
+          Nothing Queued!
+        </div>
+      </ng-template>
     </div>
     <!-- <div class="media col-12 col-md-6 col-lg-3 border-right p-3">
       <img class="mr-2" src="assets/images/song-requester__icon.svg">
