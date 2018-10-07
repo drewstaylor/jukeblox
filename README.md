@@ -1,5 +1,5 @@
 # Jukeblox
-A `ETHSanFrancisco hackathon 2018 project`, by:
+An `ETHSanFrancisco hackathon 2018 project`, by:
 `@mondo989`
 `@drewstaylor`
 `@functioncreep`
