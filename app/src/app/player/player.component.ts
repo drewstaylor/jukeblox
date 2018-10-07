@@ -8,7 +8,11 @@ declare var jwplayer: any;
 })
 export class PlayerComponent implements OnInit {
 
-  constructor() { }
+  public soundOn: boolean;
+
+  constructor() {
+    this.soundOn = false;
+  }
 
   ngOnInit() {
     console.log(jwplayer);
@@ -29,7 +33,7 @@ export class PlayerComponent implements OnInit {
       width: 500,
       height: 40,
       controls: false,
-      autostart: false
+      autostart: true
     });
 
     // // Listen to an event
@@ -45,6 +49,11 @@ export class PlayerComponent implements OnInit {
     //   player.setVolume(vol + 10);
     // }
     // bumpIt();
+  }
+
+
+  public toggleSound(): void {
+    this.soundOn = (this.soundOn) ? false : true;
   }
 
 }
