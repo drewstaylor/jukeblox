@@ -1,12 +1,12 @@
-<button class="btn btn-block btn-primary h-100" type="button" data-toggle="modal" data-target="#addSongModal">
+<button class="btn btn-block btn-primary h-100 w-80" type="button" data-toggle="modal" data-target="#addSongModal">
   Add Music to Queue
 </button>
 
 <div class="modal fade" id="addSongModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add Music to Queue</h5>
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content pt-3 pb-3">
+      <div class="modal-header pt-0 pb-0">
+        <h4 class="modal-title d-block text-center pt-2 w-100 font-weight-bold">Search for a song to play or upload a new song</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -14,24 +14,28 @@
       <div class="modal-body">
         <!-- Notifications -->
         <app-notifications #notifierModalOne></app-notifications>
-        <p>Choose a song to add to the Jukeblox queue, or upload your own!</p>
-      </div>
-      <div class="modal-footer d-flex justify-content-between">
-        <button type="button" class="btn btn-outline-primary" (click)="openUploadModal();">Upload</button>
-        <div class="btn-group" role="group" aria-label="Add song or cancel">
-          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-outline-primary disabled" disabled>Add Song</button>
+        <!-- <p>Choose a song to add to the Jukeblox queue, or upload your own!</p> -->
+        <div class="row row__gray row__search-song pt-3 pl-3 pr-3 pb-5 mt-0 mb-3 ml-3 mr-3">
+          <div class="col-md-12 mx-auto mt-3">
+            <input type="text" placeholder="Enter an Artist, Song or Composer" class="row__search-song--input w-100 mb-0 pt-3 pb-3 input-group-text text-left">
+            <img src="assets/images/search-icon.svg" class="row__search-song--icon" alt="">
+          </div>
+          <div class="col-md-12 mx-auto">
+            <p class="d-block text-center m-3 p-3">OR</p>
+            <button type="button" class="btn btn-secondary d-block mx-auto p-3" (click)="openUploadModal();">Upload a new song to the blockchain</button>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
 </div>
 
 <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Upload a Song</h5>
+        <h4 class="modal-title d-block text-center pt-2 w-100 font-weight-bold">Upload a Song</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -41,7 +45,7 @@
         <app-notifications #notifierModalTwo></app-notifications>
         <!-- <p>Upload a song to add to the queue. :)</p> -->
         <file-drop
-          (onFileDrop)="dropped($event)" 
+          (onFileDrop)="dropped($event)"
           (onFileOver)="fileOver($event)"
           (onFileLeave)="fileLeave($event)"
         >
@@ -67,7 +71,6 @@
       </div>
       <div class="modal-footer">
         <div class="btn-group" role="group" aria-label="Add song or cancel">
-          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
           <button type="button" class="btn btn-outline-primary" (click)="uploadFile();" [disabled]="!file || !filePath">Upload</button>
         </div>
       </div>
