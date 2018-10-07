@@ -4,4 +4,4 @@ uploads/
 downloads/
 *.mp3
 src/jwplayer/
-
+package-lock.json
