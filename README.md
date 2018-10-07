@@ -27,28 +27,28 @@ Curators of songs are added by already existing curators, as a friend invite typ
 ## How We built it
 It's a smart contract managed Universal Jukebox where songs can be put into a queue by inserting a "quarter" (in eth), the songs are served over `Swarm` and played by the web client.
 
-The smart contract is build and deployed using [Superblocks Lab](https://lab.superblocks.com). The web client is build with `Angular` and can upload songs to `Swarm`. These songs metadata is stored in the contract to be searchable by the client.
+The smart contract is built and deployed using [Superblocks Lab](https://lab.superblocks.com). The web client is built with `Angular` and can upload songs to `Swarm`. Metadata of the song library is stored in the contract to be searchable by the client.
 
 ## Challenges We ran into
-Getting `Swarm` to work. Lots of tedious work to analyze network and (micro) instance overload issues.
+Getting `Swarm` to work. Lots of tedious work to analyze network and (micro) instance overload issues. Chris' laptop wifi is also potentially a ticking uranium isotope timebomb just waiting to release packets.
 
 ## Accomplishments that We're proud of
-We managed to keep the scope of the project to a feasible level, even though we have lots of features we want and can extend it with, such as voting on songs, royalties of songs played, etc.
+We managed to keep the scope of the project to a feasible level even though we have lots of features we want and can extend it with, such as voting on songs, royalties of songs played, etc.
 
-A goal was to create `Jukeblox` as decentralized as possible without and centralized backend serving the client. We come up with an algorithm for managing the playlist's time flow to knowing which songs are already played and which song is playing right now and how many seconds in it is, without having to resort to some centralized state management such as `Firebase` nor a decentralized one which would cost `ether` to run.
+Our goal was to create `Jukeblox` as decentralized as possible without and centralized backend serving the client. We came up with an algorithm for managing the playlist's time flow, knowing which songs are already played, which song is playing right now, and how many seconds of the song have already elapsed (e.g. for people loading the page the first time), without having to resort to some centralized state management such as `Firebase`, nor a decentralized one which would cost `ether` to run.
 
 We are really proud over the professional look this project already has. 
 
 ## What We learned
 Anything that is to be run over the network at a hackathon can be troublesome, due to possible IFI issues and low throughput.
 
-Always keep the scope to a minimum to actually have something done, and be able to enjoy the ride, even though you of course will need to work through the nights.
+Always keep the scope to a minimum to actually have something done and be able to enjoy the ride, even though you of course will need to work through the nights. Endlessly. And, really, just never sleep ^_^
 
 ## What's next for Jukeblox
-Implementing voting on songs, banning of users, royalties of songs played.
+Implementing voting on songs, banning malicious users, offering royalties of songs played and lotteries for track uploaders.
 
-A way for users to manage settings for how much a "quarter" is, the limit of song length accepted and the max length of the queue.
+We're also looking for a crafy way for users to manage equivalency settings for how much a "quarter" is, the limit of song length accepted, and the max length of the queue.
 
-Putting the web client on Swarm/IPFS and connecting an `.eth` name to it, to finalize the decentralization.
+Our penultimate goal is to host our entire web client on Swarm or IPFS and connecting an `.eth` ens address to it. We don't plan to stop until we can finalize the decentralization!
 
-Think about how we can scale `Jukeblox` from handling a few hundred songs to tens of thousands of songs, where indexing and searchability becomes a challenge because we don't want to store metadata any longer in the smart contract at that point.
+We're thinking about how we can scale `Jukeblox` from handling a few hundred songs, to tens of thousands of songs. This is where indexing and searchability becomes a challenge because we don't neccessarily want to store track metadata any longer in the smart contract at that point.
