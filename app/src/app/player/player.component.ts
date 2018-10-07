@@ -63,5 +63,4 @@ export class PlayerComponent implements OnInit {
       this.player.setMute(true);
     }
   }
-
 }
