@@ -309,7 +309,7 @@ export class UploadComponent implements OnInit {
         console.log('Block resolved...');
         // Create queuable item
         that.queuable = {};
-        that.queuable.index = that.nrSongs;
+        that.queuable.index = that.nrSongs - 1;
         console.log('that.queuable',that.queuable);
         // Unlock add to queue button
         that.waitingForRegistryConfirmation = false;
