@@ -135,6 +135,7 @@ export class UploadComponent implements OnInit {
   }
 
   public addSongToRegistry = function (): void {
+    console.log('addSongToRegistry');
     // Put it on the blockchain waddup
     //addSong = function (title, artist, length, swarmHash, cb): void {
     
