@@ -67,8 +67,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
     // const playlist = [];
 
-    // this.updateCurrent();
-
     // Setup the player
     this.player = jwplayer('player').setup({
       file: placeHolder,
@@ -119,81 +117,80 @@ export class PlayerComponent implements OnInit, OnDestroy {
     var currentTime = Math.floor(Date.now() / 1000);
     this.contractService.init();
 
-    // const fn = () => {
-
-      this.contractService.getCurrentSong(currentTime, (error, result) => {
+    // Get the currently playing queue object by the current timestamp.
+    this.contractService.getCurrentSong(currentTime, (error, result) => {
         if (error) {
-          console.error(error);
-          return;
+            console.error(error);
+            return;
         }
-        console.log("getCurrentSong result", result);
+        console.log("getCurrentSong =>", result);
 
-        // return (index, seek, duration, songsQueuedCount);
-        this.currentSong.queueIndex = (result[0]) ? result[0].toNumber() : null;
-        this.currentSong.seek = (result[1]) ? result[1].toNumber() : null;
-        this.currentSong.duration = (result[2]) ? result[2].toNumber() : null;
-        this.currentSong.songsQueuedCount = (result[3]) ? result[3].toNumber() : null;
-        console.log('getCurrentSong parsed', this.currentSong);
-
-        // If nothing currentyl playing, wait 5 sec and reload.
-        if (this.currentSong.duration <= 0) {
+        // return (queueIndex, seek, duration (time left), songsQueuedCount (how many songs are queued after this one));
+        if (!result || result[2] == 0 || result[2].toNumber() == 0) {
+            // Non item, wait and reload
             setTimeout(() => {
               this.updateCurrent();
             }, 5000);
             return;
         }
 
-        // We got the queued object, now get the actual song
+        this.currentSong.queueIndex = result[0].toNumber();
+        this.currentSong.seek = result[1].toNumber();
+        this.currentSong.duration = result[2].toNumber();
+        this.currentSong.songsQueuedCount = result[3].toNumber();
+        console.log('getCurrentSong parsed =>', this.currentSong);
 
-
+        // We got the queued object index, now get the actual queued object.
         this.contractService.getQueued(this.currentSong.queueIndex, (error, result) => {
-          if (error) {
-            console.error(error);
-            return;
-          }
-          // Get current song meta data
-          this.contractService.getSong(this.currentSong.queueIndex, (error, result) => {
             if (error) {
-              console.error(error);
-              return;
+                console.error(error);
+                return;
             }
-            console.log('Get song result =>', result);
+            console.log("getQueued =>", result);
 
-            const playlistEntry = {
-              file: this.serverUrl + web3.toAscii(result[3]) + '.mp3'
-            };
+            // Get current song meta data
+            var songIndex = result[1].toNumber();
+            console.log("Get song by index =>", songIndex)
+            this.contractService.getSong(songIndex, (error, result) => {
+                if (error) {
+                    console.error(error);
+                    return;
+                }
+                console.log('getSong =>', result);
 
-            this.playlist.push(playlistEntry);
+                const title = result[0];
+                const artist = result[1];
+                const length = result[2].toNumber();
+                const swarmHash = web3.toAscii(result[3]);
 
-            console.log(this.playlist);
-            console.log('JWPLAYER =>', this.player);
+                playSong(this.serverUrl + swarmHash + '.mp3');
 
-            this.player.on('playlist', playlist => {
-              console.log('- - - L O A D E D    P L A Y L I S T - - -', playlist)
-              this.player.next();
+                // Timeout for the duration left for the song to reload.
+                let timeOut = this.currentSong.duration * 1000;
+                setTimeout(() => {
+                    this.updateCurrent();
+                }, timeOut);
             });
-
-            this.player.load(this.playlist);
-
-            let timeOut = (this.currentSong.duration) ? this.currentSong.duration * 1000 : 5000;
-            setTimeout(() => {
-              this.updateCurrent();
-            }, timeOut);
-          })
         });
-
-      // Now get the next queued song
-      // if (this.currentSong.queueIndex !== null) {
-      //   // this.contractService.init();
-      //   this.contractService.getQueued(this.currentSong.queueIndex, (error, result) => {
-      //     if (error) {
-      //       console.error(error);
-      //       return;
-      //     }
-      //     this.contractService.currentQueued = (result[1]) ? result[1].toNumber() : null;
-      //     console.log('Next in queue =>', this.contractService.currentQueued);
-      //   });
-      // }
     });
   }
+
+    private playSong(file) : void {
+
+        const playlistEntry = {
+            file: file
+        };
+
+        const playlist = [push(playlistEntry];
+
+        console.log("Playlist =>", playlist);
+        console.log('JWPLAYER =>', this.player);
+
+        this.player.on('playlist', playlist => {
+            console.log('- - - L O A D E D    P L A Y L I S T - - -', playlist)
+            this.player.next();
+        });
+
+        this.player.load(playlist);
+    }
 }
