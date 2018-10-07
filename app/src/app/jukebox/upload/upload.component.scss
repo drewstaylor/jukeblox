@@ -31,3 +31,27 @@
         -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
     }
 }
+
+.row__search-song {
+  position: relative;
+
+  .row__search-song--input {
+    font-size: 18px;
+    text-indent: 35px;
+  }
+  .row__search-song--icon {
+    left: 25px;
+    position: absolute;
+    top: 16px;
+  }
+}
+
+.row__gray {
+  background: #FAFAFA;
+  border: 1px solid #CECECE;
+  border-radius: 3px;
+}
+
+.modal-header {
+  border-bottom: 0;
+}
