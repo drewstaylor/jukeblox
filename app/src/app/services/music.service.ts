@@ -14,6 +14,7 @@ export class MusicService implements OnDestroy {
   private _totalRegistered: BehaviorSubject<number>;
   private _currentSong: BehaviorSubject<any>;
   private _songRegistry: BehaviorSubject<Array<any>>;
+  private _getSong: BehaviorSubject<Array<any>>;
 
   private datastore: {
     totalRegistered: number;
@@ -33,6 +34,7 @@ export class MusicService implements OnDestroy {
     this._totalRegistered = new BehaviorSubject<number>(null);
     this._currentSong = new BehaviorSubject<any>(null);
     this._songRegistry = new BehaviorSubject<Array<any>>([]);
+    this._getSong = new BehaviorSubject<Array<any>>([]);
 
     this.contractService.init();
   }
@@ -128,6 +130,20 @@ export class MusicService implements OnDestroy {
         this._currentSong.next(currentSong);
       }
     })
+  }
+
+
+  public getSong(index: number): Observable<Array<any>> {
+    this.contractService.getSong(index, (error: any, result: any) => {
+      if (error) {
+        console.error(error);
+        this._getSong.error(error);
+      } else {
+        this._getSong.next(result);
+      }
+    });
+
+    return this._getSong.asObservable();
   }
 
   // TODO: Get queue (or just up next)

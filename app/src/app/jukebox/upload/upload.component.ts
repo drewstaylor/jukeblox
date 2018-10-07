@@ -111,19 +111,22 @@ export class UploadComponent implements OnInit {
             this.audioUrl = URL.createObjectURL(file);
             this.audioElement.nativeElement.src = this.audioUrl;
 
-            const base64ImageString = btoa(
-              String.fromCharCode.apply(null, tag.image.data)
-            );
-            const imageSrc = 'data:' + tag.image.mime + ';base64, ' + base64ImageString;
-            const img = document.createElement('img');
+            if (tag.image) {
+              const base64ImageString = btoa(
+                String.fromCharCode.apply(null, tag.image.data)
+              );
+              const imageSrc = 'data:' + tag.image.mime + ';base64, ' + base64ImageString;
+              const img = document.createElement('img');
+  
+              img.src = imageSrc;
+              img.onerror = () => {
+                this.sanitizedAlbumArt = null;
+              };
+              img.onload = () => {
+                this.sanitizedAlbumArt = this.sanitizer.bypassSecurityTrustUrl(imageSrc);
+              };
+            }
 
-            img.src = imageSrc;
-            img.onerror = () => {
-              this.sanitizedAlbumArt = null;
-            };
-            img.onload = () => {
-              this.sanitizedAlbumArt = this.sanitizer.bypassSecurityTrustUrl(imageSrc);
-            };
           });
         } else {
           // TODO: put validation / error message here
