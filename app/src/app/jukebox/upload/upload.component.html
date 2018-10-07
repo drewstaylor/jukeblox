@@ -45,8 +45,21 @@
           (onFileOver)="fileOver($event)"
           (onFileLeave)="fileLeave($event)"
         >
-          <!-- <img [src]="sanitizedAlbumArt" *ngIf="sanitizedAlbumArt"> -->
-          <span *ngIf="file && filePath; else no_file">{{ filePath }}</span>
+        <div class="upload-song-info w-100 h-100 py-3 px-4" *ngIf="file && filePath; else no_file">
+          <div class="media small text-dark h-100" *ngIf="id3Tag; else no_tag">
+            <img class="album-image rounded mr-3" [src]="sanitizedAlbumArt" *ngIf="sanitizedAlbumArt">
+            <div class="media-body">
+              <h5 *ngIf="id3Tag.title" class="font-weight-bold mb-1">{{ id3Tag.title }}</h5>
+              <p *ngIf="id3Tag.artist" class="font-weight-bold mb-1">{{ id3Tag.artist }}</p>
+              <p *ngIf="id3Tag.album" class="mb-1 d-inline"><em>{{ id3Tag.album }}</em></p>
+              <p *ngIf="id3Tag.album && id3Tag.year" class="d-inline">&nbsp;&mdash;&nbsp;</p>
+              <p *ngIf="id3Tag.year" class="mb-1 d-inline">{{ id3Tag.year }}</p>
+            </div>
+          </div>
+          <ng-template #no_tag>
+            <span>{{ filePath }}</span>
+          </ng-template>
+        </div>
           <ng-template #no_file>
             <span>Drag and drop an MP3 file here to upload!</span>
           </ng-template>
