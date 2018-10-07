@@ -17,7 +17,15 @@ export class JukeboxComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.musicService.getAllRegistered();
+    this.musicService.currentSong
+      .subscribe(song => {
+        if (!song) {
+          this.musicService.updateCurrentSong();
+        }
+        console.log('sonnnnnngggg =>', song);
+      });
+
+    // this.musicService.getAllRegistered();
 
     // this.musicService.totalRegistered
     //   .subscribe(total => {
