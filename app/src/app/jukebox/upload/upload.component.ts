@@ -36,6 +36,7 @@ export class UploadComponent implements OnInit {
   public id3Tag: any;
   public sanitizedAlbumArt: SafeResourceUrl;
   public queuable;
+  public nrSongs;
 
   constructor(
     private swarmService: SwarmService, 
@@ -48,6 +49,16 @@ export class UploadComponent implements OnInit {
   }
 
   ngOnInit() {
+    var that = this;
+    // get new total of items in library
+    this.contractsService.getNrSongs(function (error, result) {
+      if (error) {
+          console.error(error);
+          return;
+      }
+      var nrSongs = result.toNumber();
+      that.nrSongs = nrSongs;
+    });
     // Bind dialog reset to modal close event
     jQuery('#uploadModal')
     .on('hidden.bs.modal', () => {
@@ -158,6 +169,8 @@ export class UploadComponent implements OnInit {
           this.notifierOne.notify(msgType, msgText, false, false);
           // Unlock add to queue
           this.fileReady = true;
+          // Add song to registry
+          this.addSongToRegistry();
         } else {
           const msgType = 'danger';
           const msgText = `Sorry, but something went wrong when trying to upload your file: ${response.error}`;
@@ -200,14 +213,10 @@ export class UploadComponent implements OnInit {
           return;
         }
         var addSongResponse = result;
-
-        // XXX (drew): TODO: FIX THIS RESULT
-        // MUST PARSE THE REGISTRY INDEX AND PASS ON TO
-        // TO A CALLABLE SCOPE SO THEY QUEUE THE SONG
+        // tx hash
         console.log(addSongResponse);
-        if (addSongResponse.hasOwnProperty('noexist')) {
-          //this.queuable = addSongResponse;
-        }
+        // get new total of items in library
+        that.waitForSongRegistry(that.nrSongs);
     });
   }
 
@@ -276,6 +285,26 @@ export class UploadComponent implements OnInit {
     jQuery('#' + modalType).modal('hide');
     // Clear idv3 tags
     this.resetFileAndMeta();
+  }
+
+  private waitForSongRegistry = function (nrSongs) {
+    var that = this;
+    this.contractsService.getNrSongs(function (error, result, nrSongs) {
+      if (error) {
+          console.error(error);
+          return;
+      }
+      // Compare playlist height to see if block was confirmed
+      if (result.toNumber() > nrSongs) {
+        console.log('Block resolved...');
+        // Send song to queue
+      } else {
+        setTimeout(function () {
+          console.log('Polling for playlist height...', [result.toNumber(), that.nrSongs]);
+          that.waitForSongRegistry(that.nrSongs);
+        }, 2000);
+      }
+    });
   }
 
 }
