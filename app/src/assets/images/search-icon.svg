@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 13</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Dapp-main__queue-open" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-379.000000, -309.000000)">
+        <g id="Group-2" fill="#FFFFFF" stroke="#CECECE">
+            <g id="Group-4" transform="translate(275.000000, 194.000000)">
+                <g id="Group-3" transform="translate(45.000000, 85.000000)">
+                    <g id="Group-7" transform="translate(50.000000, 20.000000)">
+                        <g id="Group-8">
+                            <g id="Group-12" transform="translate(10.000000, 11.000000)">
+                                <g id="Group-13">
+                                    <circle id="Oval-2" cx="14" cy="14" r="14"></circle>
+                                    <path d="M13.7530483,18.1464466 C10.4393398,18.1464466 7.75304833,15.4601551 7.75304833,12.1464466 C7.75304833,8.83273811 10.4393398,6.14644661 13.7530483,6.14644661 C17.0667568,6.14644661 19.7530483,8.83273811 19.7530483,12.1464466 C19.7530483,15.4601551 17.0667568,18.1464466 13.7530483,18.1464466 Z M13.2530483,18.1464466 L14.2530483,18.1464466 L14.2530483,23.1464466 L13.2530483,23.1464466 L13.2530483,18.1464466 Z" id="Combined-Shape" transform="translate(13.753048, 14.646447) rotate(-315.000000) translate(-13.753048, -14.646447) "></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

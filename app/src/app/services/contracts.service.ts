@@ -151,7 +151,8 @@ export class ContractsService {
             console.error(error);
             return;
           }
-          console.log('total queue length', result);
+          var queueLength = result.toNumber();
+          console.log('total queue length', queueLength);
         });
 
         that.getSong(0, function (error, result) {
@@ -159,8 +160,12 @@ export class ContractsService {
             console.error(error);
             return;
           }
-  
-          console.log("Song meta data", result);
+          var originalSong = result;
+          // Convert BigNumber to valid mp3 duration
+          originalSong[2] = originalSong[2].toNumber();
+          // Convert hex swarm value to real swarm hash
+          originalSong[3] = that.web3.toAscii(originalSong[3]);
+          console.log("Song meta data", originalSong);
   
           /*that.queueSong(0, function (error, result) {
             if (error) {
@@ -180,21 +185,21 @@ export class ContractsService {
             return;
           }
           // return (index, seek, duration, songsQueuedCount);
-          that.currentSong.index = (result[0]) ? result[0] : null;
-          that.currentSong.seek = (result[1]) ? result[1] : null;
-          that.currentSong.duration = (result[2]) ? result[2] : null;
-          that.currentSong.songsQueuedCount = (result[3]) ? result[3] : null;
+          that.currentSong.index = (result[0]) ? result[0].toNumber() : null;
+          that.currentSong.seek = (result[1]) ? result[1].toNumber() : null;
+          that.currentSong.duration = (result[2]) ? result[2].toNumber() : null;
+          that.currentSong.songsQueuedCount = (result[3]) ? result[3].toNumber() : null;
           console.log('getCurrentSong', that.currentSong);
 
           // Now get the next queued song
           if (that.currentSong.index !== null) {
-            // XXX (drew): TODO: FIX THIS CURRENT SONG INDEX INT
             that.getQueued(that.currentSong.index, function (error, result) {
               if (error) {
                 console.error(error);
                 return;
               }
-              console.log('Next in queue after currentSong =>', result);
+              that.currentQueued = (result[1]) ? result[1].toNumber() : null;
+              console.log('Next in queue =>', that.currentQueued);
             });
           }
         });

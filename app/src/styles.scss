@@ -1,5 +1,8 @@
+@import "theme";
+
 html, body {
     height: 100%;
+    outline: none;
 }
 
 body {
@@ -12,5 +15,18 @@ body {
     display: none;
 }
 
+button:focus {
+  outline: 0;
+}
+
+.btn-primary {
+  transition: 0.1s ease-in;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+
+
 // Import Boostrap
-@import "../node_modules/bootstrap/scss/bootstrap";

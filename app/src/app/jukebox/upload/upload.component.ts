@@ -36,6 +36,8 @@ export class UploadComponent implements OnInit {
   public id3Tag: any;
   public sanitizedAlbumArt: SafeResourceUrl;
   public queuable;
+  public nrSongs;
+  public waitingForRegistryConfirmation: boolean = false;
 
   constructor(
     private swarmService: SwarmService, 
@@ -45,9 +47,22 @@ export class UploadComponent implements OnInit {
     this.file = null;
     this.filePath = null;
     this.chosenSongHash = null;
+
+    this.contractsService.init();
   }
 
   ngOnInit() {
+    var that = this;
+    // get new total of items in library
+    this.contractsService.getNrSongs(function (error, result) {
+      if (error) {
+          console.error(error);
+          return;
+      }
+      var nrSongs = result.toNumber();
+      that.nrSongs = nrSongs;
+      console.log('NRSONGS INIT', that.nrSongs);
+    });
     // Bind dialog reset to modal close event
     jQuery('#uploadModal')
     .on('hidden.bs.modal', () => {
@@ -154,10 +169,12 @@ export class UploadComponent implements OnInit {
           //this.resetFileAndMeta();
           jQuery('#uploadModal').modal('hide');
           const msgType = 'success';
-          const msgText = 'Nice! Your song was successfully uploaded. Now you can add it to the queue!';
+          const msgText = 'Thanks for the sweet tune! You can add it to the Jukeblox library once your transaction confirms';
           this.notifierOne.notify(msgType, msgText, false, false);
           // Unlock add to queue
           this.fileReady = true;
+          // Add song to registry
+          this.addSongToRegistry();
         } else {
           const msgType = 'danger';
           const msgText = `Sorry, but something went wrong when trying to upload your file: ${response.error}`;
@@ -184,6 +201,7 @@ export class UploadComponent implements OnInit {
 
   public addSongToRegistry = function (): void {
     var that = this;
+    console.log('this.nrSongs',this.nrSongs);
     console.log('addSongToRegistry');
     console.log('this.id3Tag', this.id3Tag);
     console.log('addSong params =>', [this.id3Tag.title, this.id3Tag.artist, 0, this.chosenSongHash]);
@@ -200,14 +218,11 @@ export class UploadComponent implements OnInit {
           return;
         }
         var addSongResponse = result;
-
-        // XXX (drew): TODO: FIX THIS RESULT
-        // MUST PARSE THE REGISTRY INDEX AND PASS ON TO
-        // TO A CALLABLE SCOPE SO THEY QUEUE THE SONG
+        // tx hash
         console.log(addSongResponse);
-        if (addSongResponse.hasOwnProperty('noexist')) {
-          //this.queuable = addSongResponse;
-        }
+        // get new total of items in library
+        that.waitingForRegistryConfirmation = true;
+        that.waitForSongRegistry(that.nrSongs);
     });
   }
 
@@ -276,6 +291,35 @@ export class UploadComponent implements OnInit {
     jQuery('#' + modalType).modal('hide');
     // Clear idv3 tags
     this.resetFileAndMeta();
+  }
+
+  // XXX (drew): Needs refactoring to be robust this won't scale
+  // but I could sleep, I could sleep on like a pile of scales
+  // true story
+  private waitForSongRegistry = function (nrSongs) {
+    var that = this;
+    this.contractsService.getNrSongs(function (error, result) {
+      if (error) {
+          console.error(error);
+          return;
+      }
+      // Compare playlist height to see if block was confirmed
+      if (result.toNumber() > nrSongs) {
+        that.nrSongs = result.toNumber();
+        console.log('Block resolved...');
+        // Create queuable item
+        that.queuable = {};
+        that.queuable.index = that.nrSongs;
+        console.log('that.queuable',that.queuable);
+        // Unlock add to queue button
+        that.waitingForRegistryConfirmation = false;
+      } else {
+        setTimeout(function () {
+          //console.log('Polling for playlist height...', [result.toNumber(), nrSongs]);
+          that.waitForSongRegistry(that.nrSongs);
+        }, 2000);
+      }
+    });
   }
 
 }
