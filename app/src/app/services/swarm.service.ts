@@ -19,13 +19,13 @@ export class SwarmService {
   public upload(file: File, relativePath: string): Observable<any> {
     console.log ('Attempting upload with payload:', file);
     
-    // const formData = new FormData();
-    // formData.append('file', file, relativePath);
+    const formData = new FormData();
+    formData.append('file', file, relativePath);
 
     const payload = {
       file: file
     };
 
-    return this.http.post(this.apiUrl + this.namespace, payload);
+    return this.http.post(this.apiUrl + this.namespace, formData);
   }
 }

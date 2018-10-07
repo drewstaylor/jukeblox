@@ -42,6 +42,7 @@ export class UploadComponent implements OnInit {
 
   public dropped(event: UploadEvent) {
     const droppedFile = event.files[0];
+    console.log(droppedFile);
  
     // Is it a file?
     if (droppedFile.fileEntry.isFile) {
