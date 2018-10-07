@@ -4,7 +4,7 @@ import { SwarmService } from '../../services/swarm.service';
 import { NotificationsComponent } from '../../services/notifications/notifications.component';
 import { parse } from 'id3-parser';
 import { convertFileToBuffer } from 'id3-parser/lib/universal/helpers';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 declare var jQuery: any;
 
 
@@ -21,7 +21,8 @@ export class UploadComponent implements OnInit {
   public file: File;
   public filePath: string;
   public chosenSongHash: string;
-  public sanitizedAlbumArt: any;
+  public id3Tag: any;
+  public sanitizedAlbumArt: SafeResourceUrl;
 
   constructor(
     private swarmService: SwarmService,
@@ -48,7 +49,7 @@ export class UploadComponent implements OnInit {
 
 
   public cancelUpload(): void {
-    this.file = null;
+    this.resetFileAndMeta();
     jQuery('#uploadModal').modal('hide');
     jQuery('#addSongModal').modal('show');
   }
@@ -72,15 +73,21 @@ export class UploadComponent implements OnInit {
         if (file.type === 'audio/mp3') {
           // Parse ID3 tags
           convertFileToBuffer(file).then(parse).then((tag: any) => {
-            console.log(tag);
-            // const base64ImageString = btoa(
-            //   String.fromCharCode.apply(null, tag.image.data)
-            // );
+            this.id3Tag = tag;
 
-            // const imageSrc = 'data:image/png;base64, ' + base64ImageString;
-            // this.sanitizedAlbumArt = this.sanitizer.bypassSecurityTrustResourceUrl(imageSrc);
+            const base64ImageString = btoa(
+              String.fromCharCode.apply(null, tag.image.data)
+            );
+            const imageSrc = 'data:' + tag.image.mime + ';base64, ' + base64ImageString;
+            const img = document.createElement('img');
 
-            // console.log(this.sanitizedAlbumArt);
+            img.src = imageSrc;
+            img.onerror = () => {
+              this.sanitizedAlbumArt = null;
+            };
+            img.onload = () => {
+              this.sanitizedAlbumArt = this.sanitizer.bypassSecurityTrustUrl(imageSrc);
+            };
           });
         } else {
           // TODO: put validation / error message here
@@ -123,7 +130,7 @@ export class UploadComponent implements OnInit {
         if (!response.error) {
           // Store the uploaded song's hash
           this.chosenSongHash = response.data.storage_hash;
-          this.file = null;
+          this.resetFileAndMeta();
           jQuery('#uploadModal').modal('hide');
           const msgType = 'success';
           const msgText = 'Nice! Your song was successfully uploaded. Now you can add it to the queue!';
@@ -150,6 +157,15 @@ export class UploadComponent implements OnInit {
 
   public fileLeave(event){
     console.log(event);
+  }
+
+
+  public resetFileAndMeta(): void {
+    this.file = null;
+    this.id3Tag = null;
+    this.filePath = null;
+    this.chosenSongHash = null;
+    this.sanitizedAlbumArt = null;
   }
 
 }
