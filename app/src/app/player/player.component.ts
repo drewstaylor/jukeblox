@@ -163,7 +163,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
                 const length = result[2].toNumber();
                 const swarmHash = web3.toAscii(result[3]);
 
-                this.playSong(this.serverUrl + swarmHash + '.mp3');
+                this.playSong(this.serverUrl + swarmHash + '.mp3', this.currentSong.seek);
 
                 // Timeout for the duration left for the song to reload.
                 let timeOut = this.currentSong.duration * 1000;
@@ -175,22 +175,24 @@ export class PlayerComponent implements OnInit, OnDestroy {
     });
   }
 
-    private playSong(file) : void {
+    private playSong(file, seek) : void {
 
         const playlistEntry = {
             file: file
         };
 
-        const playlist = [push(playlistEntry];
+        const playlist = [playlistEntry];
 
         console.log("Playlist =>", playlist);
         console.log('JWPLAYER =>', this.player);
 
         this.player.on('playlist', playlist => {
             console.log('- - - L O A D E D    P L A Y L I S T - - -', playlist)
-            this.player.next();
+            // this.player.play();
         });
 
         this.player.load(playlist);
+        this.player.seek(seek);
+        this.player.play();
     }
 }
