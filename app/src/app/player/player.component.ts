@@ -21,7 +21,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   public isMuted: boolean;
 
-  constructor(private contractService: ContractsService) {
+  constructor(private contractService: ContractsService, private musicService: MusicService) {
     this.unsubscribe = new Subject<void>();
     this.isMuted = false;
     this.currentSong = {};
@@ -163,7 +163,10 @@ export class PlayerComponent implements OnInit, OnDestroy {
                 const length = result[2].toNumber();
                 const swarmHash = web3.toAscii(result[3]);
 
+                const currentUrl = this.serverUrl + swarmHash + '.mp3';
                 this.playSong(this.serverUrl + swarmHash + '.mp3', this.currentSong.seek);
+
+                this.musicService.updateMeta(currentUrl);
 
                 // Timeout for the duration left for the song to reload.
                 let timeOut = this.currentSong.duration * 1000;

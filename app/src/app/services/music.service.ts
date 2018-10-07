@@ -3,6 +3,9 @@ import { ContractsService } from './contracts.service';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { OnDestroy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
+import { parse } from 'id3-parser';
+import { convertFileToBuffer, fetchFileAsBuffer } from 'id3-parser/lib/universal/helpers';
+import universalParse from 'id3-parser/lib/universal';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +18,7 @@ export class MusicService implements OnDestroy {
   private _currentSong: BehaviorSubject<any>;
   private _songRegistry: BehaviorSubject<Array<any>>;
   private _getSong: BehaviorSubject<Array<any>>;
+  private _currentMeta: BehaviorSubject<any>;
 
   private datastore: {
     totalRegistered: number;
@@ -35,6 +39,7 @@ export class MusicService implements OnDestroy {
     this._currentSong = new BehaviorSubject<any>(null);
     this._songRegistry = new BehaviorSubject<Array<any>>([]);
     this._getSong = new BehaviorSubject<Array<any>>([]);
+    this._currentMeta = new BehaviorSubject<any>(null);
 
     this.contractService.init();
   }
@@ -58,6 +63,11 @@ export class MusicService implements OnDestroy {
 
   get songRegistry(): Observable<Array<any>> {
     return this._songRegistry.asObservable();
+  }
+
+
+  get currentMeta(): Observable<any> {
+    return this._currentMeta.asObservable();
   }
 
 
@@ -144,6 +154,13 @@ export class MusicService implements OnDestroy {
     });
 
     return this._getSong.asObservable();
+  }
+
+
+  public updateMeta(url: string): void {
+    fetchFileAsBuffer(url).then(parse).then((tag: any) => {
+      this._currentMeta.next(tag);
+    });
   }
 
   // TODO: Get queue (or just up next)
