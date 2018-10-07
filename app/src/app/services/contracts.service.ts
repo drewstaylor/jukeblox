@@ -15,6 +15,7 @@ export class ContractsService {
   public nrSongs;
   public web3Enabled: boolean;
   public currentSong;
+  public currentQueued;
   
   private contractAddress: string = '0x60c895a999e34f72f8e0c42f77f5d58c411263ba';
 
@@ -143,13 +144,28 @@ export class ContractsService {
 
       // Non-base 16 numbers like 0 throw an error;
       if (nrSongs > 0) {
+
+        // Check if there are songs queued
+        that.getTotalQueueLength (function (error, result) {
+          if (error) {
+            console.error(error);
+            return;
+          }
+          var queueLength = result.toNumber();
+          console.log('total queue length', queueLength);
+        });
+
         that.getSong(0, function (error, result) {
           if (error) {
             console.error(error);
             return;
           }
-  
-          console.log("Song meta data", result);
+          var originalSong = result;
+          // Convert BigNumber to valid mp3 duration
+          originalSong[2] = originalSong[2].toNumber();
+          // Convert hex swarm value to real swarm hash
+          originalSong[3] = that.web3.toAscii(originalSong[3]);
+          console.log("Song meta data", originalSong);
   
           /*that.queueSong(0, function (error, result) {
             if (error) {
@@ -160,19 +176,32 @@ export class ContractsService {
           });*/
         });
 
-        var currentTime = Math.floor(Date.now() / 1000);
 
+        // Get current song if available
+        var currentTime = Math.floor(Date.now() / 1000);
         that.getCurrentSong(currentTime, function (error, result) {
           if (error) {
             console.error(error);
             return;
           }
           // return (index, seek, duration, songsQueuedCount);
-          that.currentSong.index = (result[0]) ? result[0] : null;
-          that.currentSong.seek = (result[1]) ? result[1] : null;
-          that.currentSong.duration = (result[2]) ? result[2] : null;
-          that.currentSong.songsQueuedCount = (result[3]) ? result[3] : null;
+          that.currentSong.index = (result[0]) ? result[0].toNumber() : null;
+          that.currentSong.seek = (result[1]) ? result[1].toNumber() : null;
+          that.currentSong.duration = (result[2]) ? result[2].toNumber() : null;
+          that.currentSong.songsQueuedCount = (result[3]) ? result[3].toNumber() : null;
           console.log('getCurrentSong', that.currentSong);
+
+          // Now get the next queued song
+          if (that.currentSong.index !== null) {
+            that.getQueued(that.currentSong.index, function (error, result) {
+              if (error) {
+                console.error(error);
+                return;
+              }
+              that.currentQueued = (result[1]) ? result[1].toNumber() : null;
+              console.log('Next in queue =>', that.currentQueued);
+            });
+          }
         });
       }
 

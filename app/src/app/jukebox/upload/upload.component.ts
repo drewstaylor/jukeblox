@@ -35,6 +35,8 @@ export class UploadComponent implements OnInit {
   public fileReady: boolean = false;
   public id3Tag: any;
   public sanitizedAlbumArt: SafeResourceUrl;
+  public queuable;
+  public nrSongs;
 
   constructor(
     private swarmService: SwarmService, 
@@ -47,6 +49,16 @@ export class UploadComponent implements OnInit {
   }
 
   ngOnInit() {
+    var that = this;
+    // get new total of items in library
+    this.contractsService.getNrSongs(function (error, result) {
+      if (error) {
+          console.error(error);
+          return;
+      }
+      var nrSongs = result.toNumber();
+      that.nrSongs = nrSongs;
+    });
     // Bind dialog reset to modal close event
     jQuery('#uploadModal')
     .on('hidden.bs.modal', () => {
@@ -157,6 +169,8 @@ export class UploadComponent implements OnInit {
           this.notifierOne.notify(msgType, msgText, false, false);
           // Unlock add to queue
           this.fileReady = true;
+          // Add song to registry
+          this.addSongToRegistry();
         } else {
           const msgType = 'danger';
           const msgText = `Sorry, but something went wrong when trying to upload your file: ${response.error}`;
@@ -182,6 +196,7 @@ export class UploadComponent implements OnInit {
   }
 
   public addSongToRegistry = function (): void {
+    var that = this;
     console.log('addSongToRegistry');
     console.log('this.id3Tag', this.id3Tag);
     console.log('addSong params =>', [this.id3Tag.title, this.id3Tag.artist, 0, this.chosenSongHash]);
@@ -198,9 +213,32 @@ export class UploadComponent implements OnInit {
           return;
         }
         var addSongResponse = result;
+        // tx hash
         console.log(addSongResponse);
+        // get new total of items in library
+        that.waitForSongRegistry(that.nrSongs);
     });
-  }    
+  }
+
+  // That's right other developers - I'm forcing you to spell the
+  // word "Queue" correctly even though you slept for 2 hours
+  public addSongToQueue (): void {
+    if (this.queuable) {
+      if (this.queuable.hasOwnProperty('index')) {
+        this.contractsService.queueSong(this.queuable.index, function (error, result) {
+          if (error) {
+            console.error(error);
+            return;
+          }
+          console.log("Queued a song", result);
+        });
+      } else {
+        console.log('No queuable songs found');
+      }
+    } else {
+      console.log('No queuable songs found');
+    }
+  }
 
   public resetFileAndMeta(): void {
     this.file = null;
@@ -208,6 +246,8 @@ export class UploadComponent implements OnInit {
     this.filePath = null;
     this.chosenSongHash = null;
     this.sanitizedAlbumArt = null;
+    this.queuable = null;
+    this.fileReady = false;
   }
 
 
@@ -245,6 +285,26 @@ export class UploadComponent implements OnInit {
     jQuery('#' + modalType).modal('hide');
     // Clear idv3 tags
     this.resetFileAndMeta();
+  }
+
+  private waitForSongRegistry = function (nrSongs) {
+    var that = this;
+    this.contractsService.getNrSongs(function (error, result, nrSongs) {
+      if (error) {
+          console.error(error);
+          return;
+      }
+      // Compare playlist height to see if block was confirmed
+      if (result.toNumber() > nrSongs) {
+        console.log('Block resolved...');
+        // Send song to queue
+      } else {
+        setTimeout(function () {
+          console.log('Polling for playlist height...', [result.toNumber(), that.nrSongs]);
+          that.waitForSongRegistry(that.nrSongs);
+        }, 2000);
+      }
+    });
   }
 
 }
