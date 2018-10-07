@@ -77,19 +77,21 @@ export class UploadComponent implements OnInit {
         if (file.type === 'audio/mp3') {
           // Parse ID3 tags
           convertFileToBuffer(file).then(parse).then((tag: any) => {
-            console.log(tag);
-
             this.id3Tag = tag;
 
             const base64ImageString = btoa(
               String.fromCharCode.apply(null, tag.image.data)
             );
-
             const imageSrc = 'data:' + tag.image.mime + ';base64, ' + base64ImageString;
-            this.sanitizedAlbumArt = this.sanitizer.bypassSecurityTrustUrl(imageSrc);
-            // this.sanitizedAlbumArt = imageSrc;
+            const img = document.createElement('img');
 
-            console.log(this.sanitizedAlbumArt);
+            img.src = imageSrc;
+            img.onerror = () => {
+              this.sanitizedAlbumArt = null;
+            };
+            img.onload = () => {
+              this.sanitizedAlbumArt = this.sanitizer.bypassSecurityTrustUrl(imageSrc);
+            };
           });
         } else {
           // TODO: put validation / error message here
