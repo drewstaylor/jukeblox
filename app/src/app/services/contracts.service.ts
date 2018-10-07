@@ -89,7 +89,6 @@ export class ContractsService {
   // Get the currently playing song
   // returns: song index in the array (index), the current time index of playback (seek), and the remaining time untill the end of the song (duration)
   getCurrentSong = function (timestamp, cb): void {
-    // XXX (drew): double check change of index to timestamp
     this.instance.getCurrentSong(timestamp, function (error, result) {
         cb(error, result);
     });
@@ -129,9 +128,7 @@ export class ContractsService {
           console.error(error);
           return;
       }
-      // XXX (drew):  toNumber()?
-      // not sure where this prototype is from
-      // but it seems to work
+
       var nrSongs = result.toNumber();
       console.log("Total nr songs", nrSongs)
 
@@ -145,13 +142,13 @@ export class ContractsService {
   
           console.log("Song meta data", result);
   
-          that.queueSong(0, function (error, result) {
+          /*that.queueSong(0, function (error, result) {
             if (error) {
               console.error(error);
               return;
             }
             console.log("Queued a song.");
-          });
+          });*/
         });
       }
 
