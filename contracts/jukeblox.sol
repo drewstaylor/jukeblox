@@ -36,8 +36,8 @@ contract JukeBlox {
     uint256 public maxQueueTime = 3600;  // Max one hour of queued material.
     uint256 public nrSongs = 0;
     uint256 public nrQueued = 0;
-    uint256 public maxSongLength = 5 * 60;  // Max five minutes
-    uint256 public minimumQueueValue = 1 ether;
+    uint256 public maxSongLength = 10 * 60;  // Max ten minutes
+    uint256 public minimumQueueValue = 0.001 ether;
     constructor() public {
         creator = msg.sender;
         addUser(creator, "Creator");
