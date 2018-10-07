@@ -45,6 +45,7 @@
           (onFileOver)="fileOver($event)"
           (onFileLeave)="fileLeave($event)"
         >
+          <!-- <img [src]="sanitizedAlbumArt" *ngIf="sanitizedAlbumArt"> -->
           <span *ngIf="file && filePath; else no_file">{{ filePath }}</span>
           <ng-template #no_file>
             <span>Drag and drop an MP3 file here to upload!</span>

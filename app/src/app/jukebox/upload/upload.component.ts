@@ -2,7 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UploadEvent, UploadFile, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { SwarmService } from '../../services/swarm.service';
 import { NotificationsComponent } from '../../services/notifications/notifications.component';
+import { parse } from 'id3-parser';
+import { convertFileToBuffer } from 'id3-parser/lib/universal/helpers';
+import { DomSanitizer } from '@angular/platform-browser';
 declare var jQuery: any;
+
 
 @Component({
   selector: 'app-upload',
@@ -17,8 +21,12 @@ export class UploadComponent implements OnInit {
   public file: File;
   public filePath: string;
   public chosenSongHash: string;
+  public sanitizedAlbumArt: any;
 
-  constructor(private swarmService: SwarmService) {
+  constructor(
+    private swarmService: SwarmService,
+    private sanitizer: DomSanitizer
+  ) {
     this.file = null;
     this.filePath = null;
     this.chosenSongHash = null;
@@ -60,6 +68,23 @@ export class UploadComponent implements OnInit {
 
         this.file = file;
         this.filePath = droppedFile.relativePath;
+
+        if (file.type === 'audio/mp3') {
+          // Parse ID3 tags
+          convertFileToBuffer(file).then(parse).then((tag: any) => {
+            console.log(tag);
+            // const base64ImageString = btoa(
+            //   String.fromCharCode.apply(null, tag.image.data)
+            // );
+
+            // const imageSrc = 'data:image/png;base64, ' + base64ImageString;
+            // this.sanitizedAlbumArt = this.sanitizer.bypassSecurityTrustResourceUrl(imageSrc);
+
+            // console.log(this.sanitizedAlbumArt);
+          });
+        } else {
+          // TODO: put validation / error message here
+        }
 
         /**
          * TODO: ID3 reading here...
