@@ -26,7 +26,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
     this.isMuted = false;
     this.currentSong = {};
     this.playlist = [];
-    this.serverUrl = 'http://ec2-54-158-49-223.compute-1.amazonaws.com:3000/';
+    this.serverUrl = 'https://api.jukeblox.io/';
   }
 
   ngOnInit() {

@@ -120,7 +120,7 @@ export class ContractsService {
         (window.web3 && window.web3.currentProvider) ||
         new Web3.providers.HttpProvider(this.Contract.endpoint));
 
-    console.log('Welcome to the Web 3.0', this.web3);
+    //console.log('Welcome to the Web 3.0', this.web3);
 
     // Create the contract interface using the ABI provided in the configuration.
     var contract_interface = this.web3.eth.contract(this.Contract.abi);
