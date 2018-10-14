@@ -12,7 +12,7 @@ export class SwarmService {
   private jsmediatags;
 
   constructor(private http: HttpClient) {
-    this.apiUrl = 'http://ec2-54-158-49-223.compute-1.amazonaws.com:3000/api';
+    this.apiUrl = 'https://api.jukeblox.io/api';
     this.namespace = '/swarm/upload';
   }
 
