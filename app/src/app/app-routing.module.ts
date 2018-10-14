@@ -6,7 +6,6 @@ import { JukeboxComponent } from './jukebox/jukebox.component';
 const routes: Routes = [
     {path: '', component: SplashComponent},
     {path: 'play', component: JukeboxComponent}
-    {path: '.well-known/acme-challenge/:hash', component: SplashComponent}
 ];
 
 @NgModule({
