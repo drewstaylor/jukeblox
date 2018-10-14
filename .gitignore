@@ -3,5 +3,6 @@ node_modules/
 uploads/
 downloads/
 *.mp3
+.well-known/
 src/jwplayer/
 package-lock.json
