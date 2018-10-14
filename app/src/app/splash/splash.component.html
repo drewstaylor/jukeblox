@@ -1,21 +1,15 @@
 <div class="container-fluid h-100 d-flex flex-column">
   <div class="row flex-fill">
     <div class="col d-flex justify-content-center align-items-center">
-      <a [routerLink]="['/play']" role="button" class="enter-button btn rounded-circle d-flex justify-content-center align-items-center">
+      <a [routerLink]="['/play']" role="button" class="enter-button btn rounded-circle d-flex justify-content-center align-items-center appearIn-anim">
         <img src="assets/images/large-logo__splash.svg">
       </a>
     </div>
   </div>
-  <div class="row">
-    <div class="col d-flex justify-content-center align-items-center p-4">
-      <button class="info-expand rounded-circle" type="button" data-toggle="collapse" data-target="#introText">
-        <i class="expand-triangle"></i>
-      </button>
-    </div>
-  </div>
-  <div class="row collapse" id="introText">
-    <div class="col text-white">
-      <p class="descr-footer px-5 pb-3 text-justify font-weight-light">An ETHSanFrancisco hackathon 2018 project, by: @mondo989 @drewstaylor @functioncreep @Bashlund</p>
+  <div class="row splash-anim__row mb-5">
+    <div class="col d-block text-center">
+      <h2 class="splash-anim__content-1 ">An Interplanetary Jukebox</h2>
+      <h5 class="splash-anim__content-2">...built on the <strong><u>blockchain</u></strong>.</h5>
     </div>
   </div>
 </div>
