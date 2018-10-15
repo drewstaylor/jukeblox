@@ -38,6 +38,8 @@ export class UploadComponent implements OnInit {
   public queuable;
   public nrSongs;
   public waitingForRegistryConfirmation: boolean = false;
+  public waitingForQueueConfirmation: boolean = false;
+  public queueLength;
 
   constructor(
     private swarmService: SwarmService, 
@@ -232,7 +234,9 @@ export class UploadComponent implements OnInit {
   // That's right other developers - I'm forcing you to spell the
   // word "Queue" correctly even though you slept for 2 hours
   public addSongToQueue (): void {
+    var that = this;
     if (this.queuable) {
+      this.waitingForQueueConfirmation = true;
       if (this.queuable.hasOwnProperty('index')) {
         this.contractsService.queueSong(this.queuable.index, function (error, result) {
           if (error) {
@@ -240,6 +244,7 @@ export class UploadComponent implements OnInit {
             return;
           }
           console.log("Queued a song", result);
+          that.waitForQueueUpdated();
         });
       } else {
         console.log('No queuable songs found');
@@ -323,6 +328,26 @@ export class UploadComponent implements OnInit {
         }, 2000);
       }
     });
+  }
+
+  private waitForQueueUpdated = function () {
+    var that = this;
+    this.contractService.getQueued(function (error, result) {
+      if (error) {
+          console.error(error);
+          return;
+      }
+      var queueLength = result.toNumber();
+      if (queueLength > that.queueLength) {
+        console.log('Block resolved...');
+        that.waitingForQueueConfirmation = false;
+      } else {
+        setTimeout(function () {
+          that.waitForQueueUpdated();
+        }, 2000);
+      }
+    });
+
   }
 
 }
