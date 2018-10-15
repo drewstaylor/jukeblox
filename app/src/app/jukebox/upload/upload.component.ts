@@ -244,7 +244,17 @@ export class UploadComponent implements OnInit {
             return;
           }
           console.log("Queued a song", result);
+
+          const msgType = 'success';
+          const msgText = 'Your song will be added to the queue once your transaction confirms!';
+          this.notifierOne.notify(msgType, msgText, false, false);
+
           that.contractsService.getTotalQueueLength (function (error, result) {
+            if (error) {
+              console.error(error);
+              return;
+            }
+            var queueLength = result.toNumber();
             that.waitForQueueUpdated(queueLength);
           });
           
