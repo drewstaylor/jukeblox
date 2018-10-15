@@ -18,6 +18,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   private playlist: Array<any>;
   private player: any;
   private serverUrl: string;
+  private isResumableInstance: boolean;
 
   public isMuted: boolean;
 
@@ -27,6 +28,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
     this.currentSong = {};
     this.playlist = [];
     this.serverUrl = 'https://api.jukeblox.io/';
+    this.isResumableInstance = true;
   }
 
   ngOnInit() {
@@ -157,14 +159,26 @@ export class PlayerComponent implements OnInit, OnDestroy {
                     return;
                 }
                 console.log('getSong =>', result);
-
+                // Track metadata
                 const title = result[0];
                 const artist = result[1];
                 const length = result[2].toNumber();
                 const swarmHash = web3.toAscii(result[3]);
-
+                // File location
                 const currentUrl = this.serverUrl + swarmHash + '.mp3';
-                this.playSong(this.serverUrl + swarmHash + '.mp3', this.currentSong.seek);
+                
+                // Clear the resumeable seek state if the current user
+                // has queued the newest song in the current session
+                if (!this.contractService.isResumableInstance) {
+                  this.isResumableInstance = false;
+                }
+                // Playback seeking only required on first page load
+                if (this.isResumableInstance) {
+                  this.playSong(this.serverUrl + swarmHash + '.mp3', this.currentSong.seek);
+                  this.isResumableInstance = false;
+                } else {
+                  this.playSong(this.serverUrl + swarmHash + '.mp3', 0);
+                }
 
                 this.musicService.updateMeta(currentUrl);
 

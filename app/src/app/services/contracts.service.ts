@@ -16,10 +16,12 @@ export class ContractsService {
   public web3Enabled: boolean;
   public currentSong;
   public currentQueued;
+  public isResumableInstance: boolean;
   
   private contractAddress: string = '0x9ad1ddae7613cf5980c097cf08ca8dd615922dc0';
 
   constructor() {
+    this.isResumableInstance = true;
     if (typeof window.web3 !== 'undefined') {
       this.web3Enabled = true;
       this.currentSong = {};
@@ -82,8 +84,12 @@ export class ContractsService {
   // Add a song to the queue
   // Song needs to be registered first
   queueSong = function (index, cb): void {
+    var that = this;
     this.instance.queueSong(index, function (error, result) {
         cb(error, result);
+        if (!error) {
+          that.isResumableInstance = false;
+        }
     });
   }
 
