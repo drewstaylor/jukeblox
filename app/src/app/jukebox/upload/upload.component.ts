@@ -341,6 +341,7 @@ export class UploadComponent implements OnInit {
       if (queueLength > that.queueLength) {
         console.log('Block resolved...');
         that.waitingForQueueConfirmation = false;
+        that.closeModal('addSongModal');
       } else {
         setTimeout(function () {
           that.waitForQueueUpdated();

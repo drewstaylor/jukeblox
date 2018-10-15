@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-between">
-        <button type="button" class="btn btn-outline-primary" [disabled]="!fileReady || waitingForRegistryConfirmation || waitingForQueueConfirmation" (click)="openUploadModal();">Upload</button>
+        <button type="button" class="btn btn-outline-primary" [disabled]="waitingForRegistryConfirmation || waitingForQueueConfirmation" (click)="openUploadModal();">Upload</button>
         <div class="btn-group" role="group" aria-label="Add song or cancel">
           <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="closeModal('addSongModal');">Cancel</button>
           <button type="button" class="btn btn-outline-primary" [disabled]="!fileReady || waitingForRegistryConfirmation || waitingForQueueConfirmation" (click)="addSongToQueue();">Add Song</button>
