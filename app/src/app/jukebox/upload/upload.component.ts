@@ -247,7 +247,7 @@ export class UploadComponent implements OnInit {
 
           const msgType = 'success';
           const msgText = 'Your song will be added to the queue once your transaction confirms!';
-          this.notifierOne.notify(msgType, msgText, false, false);
+          that.notifierOne.notify(msgType, msgText, false, false);
 
           that.contractsService.getTotalQueueLength (function (error, result) {
             if (error) {
@@ -334,6 +334,9 @@ export class UploadComponent implements OnInit {
         console.log('that.queuable',that.queuable);
         // Unlock add to queue button
         that.waitingForRegistryConfirmation = false;
+        const msgType = 'success';
+        const msgText = 'Your song was successfully added to registry!';
+        that.notifierOne.notify(msgType, msgText, false, false);
       } else {
         setTimeout(function () {
           //console.log('Polling for playlist height...', [result.toNumber(), nrSongs]);
