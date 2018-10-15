@@ -244,7 +244,10 @@ export class UploadComponent implements OnInit {
             return;
           }
           console.log("Queued a song", result);
-          that.waitForQueueUpdated();
+          that.contractsService.getTotalQueueLength (function (error, result) {
+            that.waitForQueueUpdated(queueLength);
+          });
+          
         });
       } else {
         console.log('No queuable songs found');
@@ -330,9 +333,15 @@ export class UploadComponent implements OnInit {
     });
   }
 
-  private waitForQueueUpdated = function () {
+  private waitForQueueUpdated = function (queueLength) {
     var that = this;
-    this.contractService.getQueued(function (error, result) {
+    queueLength = (queueLength) ? parseInt(queueLength) : 0;
+
+    if (!this.queueLength) {
+      this.queueLength = queueLength;
+    }
+
+    this.contractsService.getTotalQueueLength (function (error, result) {
       if (error) {
           console.error(error);
           return;
@@ -340,6 +349,7 @@ export class UploadComponent implements OnInit {
       var queueLength = result.toNumber();
       if (queueLength > that.queueLength) {
         console.log('Block resolved...');
+        that.queueLength = null;
         that.waitingForQueueConfirmation = false;
         that.closeModal('addSongModal');
       } else {
