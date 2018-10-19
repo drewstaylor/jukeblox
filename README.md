@@ -1,9 +1,9 @@
 # Jukeblox
 An `ETHSanFrancisco hackathon 2018 project`, by:
-`@mondo989`
-`@drewstaylor`
-`@functioncreep`
-`@Bashlund`
+[@mondo989](https://github.com/mondo989), 
+[@drewstaylor](https://github.com/drewstaylor), 
+[@functioncreep](https://github.com/functioncreep), and
+[@Bashlund](https://github.com/Bashlund)
 
 ![alt text](https://raw.githubusercontent.com/drewstaylor/jukeblox/master/screenshot.png)
 
