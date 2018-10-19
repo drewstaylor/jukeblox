@@ -16,6 +16,7 @@ import { NotificationsComponent } from './services/notifications/notifications.c
 import { GlobalNotificationsComponent } from './services/notifications/global-notifications.component';
 
 import { ContractsService } from './services/contracts.service';
+import { AddSongComponent } from './jukebox/add-song/add-song.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ContractsService } from './services/contracts.service';
     HeaderComponent,
     UploadComponent,
     NotificationsComponent,
-    GlobalNotificationsComponent
+    GlobalNotificationsComponent,
+    AddSongComponent
   ],
   imports: [
     BrowserModule,
