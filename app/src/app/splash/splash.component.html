@@ -1,15 +1,60 @@
 <div class="container-fluid h-100 d-flex flex-column">
   <div class="row flex-fill">
     <div class="col d-flex justify-content-center align-items-center">
-      <a [routerLink]="['/play']" role="button" class="enter-button btn rounded-circle d-flex justify-content-center align-items-center appearIn-anim">
+      <a *ngIf="!navigationDisabled" [routerLink]="['/play']" role="button" class="enter-button btn rounded-circle d-flex justify-content-center align-items-center appearIn-anim">
         <img src="assets/images/large-logo__splash.svg">
       </a>
+      <img *ngIf="navigationDisabled" src="assets/images/large-logo__splash.svg">
     </div>
   </div>
   <div class="row splash-anim__row mb-5">
     <div class="col d-block text-center">
       <h2 class="splash-anim__content-1 ">An Interplanetary Jukebox</h2>
       <h5 class="splash-anim__content-2">...built on the <strong><u>blockchain</u></strong>.</h5>
+    </div>
+  </div>
+</div>
+
+<!-- User Has No MetaMask -->
+<div class="modal fade" id="metaMaskDisabled" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content pt-3 pb-3">
+      <div class="modal-header pt-0 pb-0">
+        <h4 class="modal-title d-block text-center pt-2 w-100 font-weight-bold">Jukeblox Requires MetaMask</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Hey there music fan, to continue using Jukeblox please download and install the MetaMask browser plugin from <a href="https://metamask.io/" target="_blank">https://metamask.io/</a> otherwise some features won't work!</p>
+      </div>
+      <div class="modal-footer d-flex justify-content-between">
+        <div class="btn-group" role="group" aria-label="Add song or cancel">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" aria-label="Close">Ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MetaMask Connected To Alternate Network -->
+<div class="modal fade" id="incorrectMetaMaskProvider" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content pt-3 pb-3">
+      <div class="modal-header pt-0 pb-0">
+        <h4 class="modal-title d-block text-center pt-2 w-100 font-weight-bold">Slow down there partner!</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="userNetworkProvider">It seems you're currently connected to the {{ userNetworkProvider.toString() | titlecase }} network. To continue using Jukeblox, please configure MetaMask to use the {{ targetProviderNetwork.toString() | titlecase }} blockchain.</p>
+      </div>
+      <div class="modal-footer d-flex justify-content-between">
+        <div class="btn-group" role="group" aria-label="Add song or cancel">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" aria-label="Close">Ok</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

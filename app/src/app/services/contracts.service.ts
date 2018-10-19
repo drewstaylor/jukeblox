@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
 declare let Web3: any;
 //declare let web3: any;
 declare let window: any;
@@ -18,10 +20,11 @@ export class ContractsService {
   public isResumableInstance: boolean;
   public id3Tag: object;
   public currentNetwork;
+  public currentNetworkChange = new BehaviorSubject<number>(null);
   
   // Blockchain instance parameters
   private contractAddress: string = '0x9ad1ddae7613cf5980c097cf08ca8dd615922dc0';
-  private network: string = "rinkeby";
+  public network: string = "rinkeby";
 
   // Networks
   readonly networks = {
@@ -30,6 +33,13 @@ export class ContractsService {
     ropsten: "3",
     rinkeby: "4",
     kovan: "42"
+  };
+  readonly networksMap = {
+    1: "mainnet",
+    2: "morden",
+    3: "ropsten",
+    4: "rinkeby",
+    42: "kovan"
   };
   readonly targetNetwork: string = this.networks.rinkeby;
 
@@ -51,6 +61,8 @@ export class ContractsService {
           console.log('Request to access MetaMask denied', error);
         }
       });
+
+      this.currentNetwork = this.currentNetworkChange.asObservable();
 
       this.bootstrap();
     } else {
@@ -169,6 +181,11 @@ export class ContractsService {
 
   // Initialize MetaMask / provider bridge
   init = function (): void {
+    if (!this.web3Enabled) {
+      this.currentNetworkChange.next("-1");
+      return;
+    }
+
     // We create a new Web3 instance using either the Metamask provider
     // or an independant provider created towards the endpoint configured for the contract.
     this.web3 = new Web3(
@@ -181,13 +198,15 @@ export class ContractsService {
     this.web3.version.getNetwork((error, network) => {
 
       if (error) {
-        console.log("Error determining user network", error);
+        console.log("Error determining user Ethereum network", error);
         return;
       }
 
-      this.currentNetwork = network;
+      this.currentNetworkChange.next(network);
+      //console.log("currentNetwork", network);
 
-      switch (network) {
+      // Debug network type:
+      /*switch (network) {
         case this.networks.mainnet:
           console.log('This is mainnet');
           break
@@ -205,7 +224,7 @@ export class ContractsService {
           break
         default:
           console.log('This is an unknown network.');
-      }
+      }*/
     });
 
     //console.log("NETWORK =>", currentProvider);
@@ -219,6 +238,10 @@ export class ContractsService {
 
   // Let's kick out the jams
   main = function (): void {
+    if (!this.web3Enabled) {
+      return;
+    }
+
     var that = this;
     this.getNrSongs(function (error, result) {
       if (error) {

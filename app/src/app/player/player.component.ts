@@ -17,8 +17,9 @@ export class PlayerComponent implements OnInit, OnDestroy {
   private currentSong: any;
   private playlist: Array<any>;
   private player: any;
-  private serverUrl: string;
   private isResumableInstance: boolean = true;
+
+  readonly serverUrl: string = "https://api.jukeblox.io/";
 
   public isMuted: boolean;
 
@@ -27,7 +28,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
     this.isMuted = false;
     this.currentSong = {};
     this.playlist = [];
-    this.serverUrl = 'https://api.jukeblox.io/';
   }
 
   ngOnInit() {
