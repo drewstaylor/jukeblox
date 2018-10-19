@@ -22,7 +22,7 @@ export class JukeboxComponent implements OnInit {
         if (!song) {
           this.musicService.updateCurrentSong();
         }
-        console.log('sonnnnnngggg =>', song);
+        console.log('song =>', song);
       });
 
     // this.musicService.getAllRegistered();

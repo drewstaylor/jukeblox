@@ -63,7 +63,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
 
   private jwplayerSetup(): void {
-    console.log(jwplayer);
+    //console.log(jwplayer);
     const placeHolder = '../../assets/audio/01\ Out\ There.mp3';
 
     // const playlist = [];
@@ -85,7 +85,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
     // console.log('JWPLAYER =>', this.player);
 
     this.player.on('meta', value => {
-      console.log('New meta! =>', value);
+      //console.log('New meta! =>', value);
     });
 
     // this.player.on('setupError', message => {

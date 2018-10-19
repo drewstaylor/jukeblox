@@ -63,7 +63,7 @@ export class UploadComponent implements OnInit {
       }
       var nrSongs = result.toNumber();
       that.nrSongs = nrSongs;
-      console.log('NRSONGS INIT', that.nrSongs);
+      //console.log('NRSONGS INIT', that.nrSongs);
     });
     // Bind dialog reset to modal close event
     jQuery('#uploadModal')
@@ -209,7 +209,7 @@ export class UploadComponent implements OnInit {
     console.log('this.nrSongs',this.nrSongs);
     console.log('addSongToRegistry');
     console.log('this.id3Tag', this.id3Tag);
-    console.log('addSong params =>', [this.id3Tag.title, this.id3Tag.artist, 0, this.chosenSongHash]);
+    console.log('addSong params =>', [this.id3Tag.title, this.id3Tag.artist, this.id3Tag.duration, this.chosenSongHash]);
     // Put it on the blockchain waddup
     // XXX (drew): TODO: Check for user permissions
     this.contractsService.addSong(

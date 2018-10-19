@@ -154,6 +154,7 @@
         "artist": "Sharing",
         "title": "Mouth Breather",
         "trackNumber": 1,
+        "index": 38,
         "album": "Totally Free...With Strings Attached",
         "tags": ["punk", "independent", "lo-fi", "noise", "pop"]
     },
@@ -333,5 +334,14 @@
         "index": 29,
         "tags": ["r&b", "hip hop", "rap", "alternative rap"]
         
+    },
+    {
+        "swarm": "03e757c6667822bc797073a6991832908d8bce5c25f2df0b9ccf8a7542c9893f",
+        "artist": "J. Cole",
+        "title": "3 Wishes",
+        "trackNumber": 6,
+        "album": "Truly Yours 2",
+        "index": "",
+        "tags": ["hip hop", "rap", "mixtape", "independent"]
     }
 ]

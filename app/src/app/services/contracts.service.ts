@@ -17,6 +17,7 @@ export class ContractsService {
   public currentSong;
   public currentQueued;
   public isResumableInstance: boolean;
+  public id3Tag: object;
   
   private contractAddress: string = '0x9ad1ddae7613cf5980c097cf08ca8dd615922dc0';
 
@@ -118,6 +119,28 @@ export class ContractsService {
     });
   }
 
+  public addSongToRegistry = function (): void {
+    var that = this;
+    console.log('addSongToRegistry');
+    console.log('this.id3Tag', this.id3Tag);
+    console.log('addSong params =>', [this.id3Tag.title, this.id3Tag.artist, this.id3Tag.duration, this.chosenSongHash]);
+    // Put it on the blockchain waddup
+    this.addSong(
+      (this.id3Tag.hasOwnProperty('title')) ? this.id3Tag.title : null, 
+      (this.id3Tag.hasOwnProperty('artist')) ? this.id3Tag.artist : null, 
+      (this.id3Tag.hasOwnProperty('duration')) ? this.id3Tag.duration : null, 
+      (this.id3Tag.swarmHash) ? this.id3Tag.swarmHash : null,
+      function (error, result) {
+        if (error) {
+          console.error(error);
+          return;
+        }
+        var addSongResponse = result;
+        // tx hash
+        console.log(addSongResponse);
+    });
+  };
+
   // Initialize MetaMask / provider bridge
   init = function (): void {
     // We create a new Web3 instance using either the Metamask provider
@@ -161,7 +184,8 @@ export class ContractsService {
           console.log('total queue length', queueLength);
         });
 
-        that.getSong(0, function (error, result) {
+        
+        /*that.getSong(0, function (error, result) {
           if (error) {
             console.error(error);
             return;
@@ -179,9 +203,8 @@ export class ContractsService {
               return;
             }
             console.log("Queued a song.");
-          });*/
-        });
-
+          });*
+        });*/
 
         // Get current song if available
         var currentTime = Math.floor(Date.now() / 1000);
