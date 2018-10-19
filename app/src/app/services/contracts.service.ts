@@ -8,7 +8,6 @@ declare let jQuery: any;
   providedIn: 'root'
 })
 export class ContractsService {
-
   public Contract;
   public web3 = null;
   public instance = null;
@@ -18,14 +17,41 @@ export class ContractsService {
   public currentQueued;
   public isResumableInstance: boolean;
   public id3Tag: object;
+  public currentNetwork;
   
+  // Blockchain instance parameters
   private contractAddress: string = '0x9ad1ddae7613cf5980c097cf08ca8dd615922dc0';
+  private network: string = "rinkeby";
+
+  // Networks
+  readonly networks = {
+    mainnet: "1",
+    morden: "2",
+    ropsten: "3",
+    rinkeby: "4",
+    kovan: "42"
+  };
+  readonly targetNetwork: string = this.networks.rinkeby;
 
   constructor() {
     this.isResumableInstance = true;
     if (typeof window.web3 !== 'undefined') {
       this.web3Enabled = true;
       this.currentSong = {};
+
+      window.addEventListener('load', async () => {  
+        // Prompt for MetaMask account access
+        // This function is N/A at the moment
+        // but will go into effect (e.g. produce
+        // a login prompt from MetaMask as of Nov. 2)
+        try {
+          await window.ethereum.enable();
+          //console.log('Ethereum enabled', window.ethereum);
+        } catch (error) {
+          console.log('Request to access MetaMask denied', error);
+        }
+      });
+
       this.bootstrap();
     } else {
       // XXX: replace this...
@@ -39,7 +65,7 @@ export class ContractsService {
     let that = this;
     var data = {
         address: this.contractAddress,
-        network: "rinkeby",
+        network: this.network,
         endpoint: "https://rinkeby.infura.io/",
         abi: [{"constant":true,"inputs":[{"name":"index","type":"uint256"}],"name":"getQueued","outputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"creator","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"nrQueued","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"index","type":"uint256"}],"name":"getSong","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"uint16"},{"name":"","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newUserAddress","type":"address"},{"name":"newUserName","type":"string"}],"name":"addUser","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"timestamp","type":"uint256"}],"name":"getCurrentSong","outputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"},{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"maxSongLength","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"title","type":"string"},{"name":"artist","type":"string"},{"name":"length","type":"uint16"},{"name":"swarmHash","type":"bytes"}],"name":"addSong","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"nrSongs","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"minimumQueueValue","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"index","type":"uint256"}],"name":"queueSong","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"maxQueueTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
     };
@@ -150,6 +176,39 @@ export class ContractsService {
         new Web3.providers.HttpProvider(this.Contract.endpoint));
 
     //console.log('Welcome to the Web 3.0', this.web3);
+
+    // Verify MetaMask network
+    this.web3.version.getNetwork((error, network) => {
+
+      if (error) {
+        console.log("Error determining user network", error);
+        return;
+      }
+
+      this.currentNetwork = network;
+
+      switch (network) {
+        case this.networks.mainnet:
+          console.log('This is mainnet');
+          break
+        case this.networks.morden:
+          console.log('This is the deprecated Morden test network.');
+          break
+        case this.networks.ropsten:
+          console.log('This is the Ropsten test network.');
+          break
+        case this.networks.rinkeby:
+          console.log('This is the Rinkeby test network.');
+          break
+        case this.networks.kovan:
+          console.log('This is the Kovan test network.');
+          break
+        default:
+          console.log('This is an unknown network.');
+      }
+    });
+
+    //console.log("NETWORK =>", currentProvider);
 
     // Create the contract interface using the ABI provided in the configuration.
     var contract_interface = this.web3.eth.contract(this.Contract.abi);
