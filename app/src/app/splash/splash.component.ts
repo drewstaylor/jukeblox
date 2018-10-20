@@ -11,16 +11,14 @@ declare let jQuery: any;
 })
 export class SplashComponent implements OnInit {
 
-  private unsubscribe: Subject<void>;
   private iterations: number = 0;
 
   public title: string = "Jukeblox";
-  public userNetworkProvider: string;
+  public userNetworkProvider;
   public navigationDisabled: boolean = true;
   public targetProviderNetwork: string;
 
   constructor(private contractsService: ContractsService) {
-    this.unsubscribe = new Subject<void>();
     this.targetProviderNetwork = this.contractsService.network;
     this.contractsService.init();
   }
@@ -33,16 +31,17 @@ export class SplashComponent implements OnInit {
       if (this.userNetworkProvider == this.targetProviderNetwork) {
         console.log("Navigation enabled");
         this.navigationDisabled = false;
-        jQuery('#incorrectMetaMaskProvider').modal('hide');
       } else {
-        if (this.userNetworkProvider == "-1") {
+        console.log('Navigation disabled', this.userNetworkProvider);
+        if (network < 0) {
           jQuery('#metaMaskDisabled').modal('show');
         } else {
           // Ignore the initial values load
           // There has to be a better way to do this
           // But on the real, I am very tired
-          if (this.iterations > 0) 
+          if (this.iterations > 0) {
             jQuery('#incorrectMetaMaskProvider').modal('show');
+          }
           else
             ++this.iterations;
         }
@@ -51,8 +50,7 @@ export class SplashComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
+    this.contractsService.currentNetwork.unsubscribe();
   }
 
 }

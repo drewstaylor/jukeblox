@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 declare let Web3: any;
 //declare let web3: any;
@@ -20,7 +20,7 @@ export class ContractsService {
   public isResumableInstance: boolean;
   public id3Tag: object;
   public currentNetwork;
-  public currentNetworkChange = new BehaviorSubject<number>(null);
+  public currentNetworkChange: Subject<number> = new BehaviorSubject<number>(null);
   
   // Blockchain instance parameters
   private contractAddress: string = '0x9ad1ddae7613cf5980c097cf08ca8dd615922dc0';
@@ -66,9 +66,9 @@ export class ContractsService {
 
       this.bootstrap();
     } else {
-      // XXX: replace this...
       console.warn('Please use a dapp browser like mist or MetaMask plugin for chrome.');
       this.web3Enabled = false;
+      this.currentNetworkChange.next(-1);
     }
   }
 
@@ -182,7 +182,10 @@ export class ContractsService {
   // Initialize MetaMask / provider bridge
   init = function (): void {
     if (!this.web3Enabled) {
-      this.currentNetworkChange.next("-1");
+      var test = 1000;
+      setTimeout(() => {
+        this.currentNetworkChange.next(test);
+      }, 0);
       return;
     }
 
@@ -202,8 +205,7 @@ export class ContractsService {
         return;
       }
 
-      this.currentNetworkChange.next(network);
-      //console.log("currentNetwork", network);
+      this.currentNetworkChange.next(parseInt(network));
 
       // Debug network type:
       /*switch (network) {
@@ -239,6 +241,7 @@ export class ContractsService {
   // Let's kick out the jams
   main = function (): void {
     if (!this.web3Enabled) {
+      this.currentNetworkChange.next(-1);
       return;
     }
 
