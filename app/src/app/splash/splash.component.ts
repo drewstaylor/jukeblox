@@ -50,7 +50,7 @@ export class SplashComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.contractsService.currentNetwork.unsubscribe();
+    this.userNetworkProvider.unsubscribe();
   }
 
 }
