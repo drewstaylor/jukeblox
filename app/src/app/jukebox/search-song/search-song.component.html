@@ -1,3 +1,11 @@
-<p>
-  search-song works!
-</p>
+<div class="search-wrapper container-fluid p-0">
+  <div class="row">
+    <div class="col">
+      <input
+        type="text"
+        [formControl]="queryField"
+        placeholder="Search for a song, artist or album."
+      >
+    </div>
+  </div>
+</div>

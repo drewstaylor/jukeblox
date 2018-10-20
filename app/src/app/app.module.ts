@@ -18,6 +18,7 @@ import { GlobalNotificationsComponent } from './services/notifications/global-no
 import { ContractsService } from './services/contracts.service';
 import { AddSongComponent } from './jukebox/add-song/add-song.component';
 import { SearchSongComponent } from './jukebox/search-song/search-song.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SearchSongComponent } from './jukebox/search-song/search-song.component
     BrowserModule,
     AppRoutingModule,
     FileDropModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     ContractsService
