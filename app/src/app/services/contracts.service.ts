@@ -45,6 +45,8 @@ export class ContractsService {
 
   constructor() {
     this.isResumableInstance = true;
+    this.currentNetwork = this.currentNetworkChange.asObservable();
+
     if (typeof window.web3 !== 'undefined') {
       this.web3Enabled = true;
       this.currentSong = {};
@@ -61,8 +63,6 @@ export class ContractsService {
           console.log('Request to access MetaMask denied', error);
         }
       });
-
-      this.currentNetwork = this.currentNetworkChange.asObservable();
 
       this.bootstrap();
     } else {
