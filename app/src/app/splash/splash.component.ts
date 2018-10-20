@@ -16,6 +16,7 @@ export class SplashComponent implements OnInit {
 
   public title: string = "Jukeblox";
   public userNetworkProvider;
+  public userNetworkProviderSubscription;
   public navigationDisabled: boolean = true;
   public targetProviderNetwork: string;
 
@@ -25,7 +26,7 @@ export class SplashComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userNetworkProvider = this.contractsService.currentNetwork.subscribe(network => {
+    this.userNetworkProviderSubscription = this.contractsService.currentNetwork.subscribe(network => {
       this.userNetworkProvider = this.contractsService.networksMap[network];
       // Enable navigation to '/play' if user MetaMask
       // account is connected to the correct provider
@@ -52,7 +53,7 @@ export class SplashComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.userNetworkProvider.unsubscribe();
+    this.userNetworkProviderSubscription.unsubscribe();
   }
 
 }
