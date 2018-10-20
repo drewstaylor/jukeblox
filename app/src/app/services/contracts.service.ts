@@ -182,10 +182,7 @@ export class ContractsService {
   // Initialize MetaMask / provider bridge
   init = function (): void {
     if (!this.web3Enabled) {
-      var test = 1000;
-      setTimeout(() => {
-        this.currentNetworkChange.next(test);
-      }, 0);
+      this.currentNetworkChange.next(-1);
       return;
     }
 
