@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
+import {ChangeDetectorRef} from '@angular/core';
 import { ContractsService } from '../services/contracts.service';
 
 declare let jQuery: any;
@@ -18,7 +19,7 @@ export class SplashComponent implements OnInit {
   public navigationDisabled: boolean = true;
   public targetProviderNetwork: string;
 
-  constructor(private contractsService: ContractsService) {
+  constructor(private contractsService: ContractsService, private changeDetector: ChangeDetectorRef) {
     this.targetProviderNetwork = this.contractsService.network;
     this.contractsService.init();
   }
@@ -31,6 +32,7 @@ export class SplashComponent implements OnInit {
       if (this.userNetworkProvider == this.targetProviderNetwork) {
         console.log("Navigation enabled");
         this.navigationDisabled = false;
+        this.changeDetector.detectChanges();
       } else {
         console.log('Navigation disabled', this.userNetworkProvider);
         if (network < 0) {

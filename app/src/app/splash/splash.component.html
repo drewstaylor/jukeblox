@@ -1,10 +1,10 @@
 <div class="container-fluid h-100 d-flex flex-column">
   <div class="row flex-fill">
     <div class="col d-flex justify-content-center align-items-center">
-      <a *ngIf="!navigationDisabled" [routerLink]="['/play']" role="button" class="enter-button btn rounded-circle d-flex justify-content-center align-items-center appearIn-anim">
+      <a *ngIf="navigationDisabled === false" [routerLink]="['/play']" role="button" class="enter-button btn rounded-circle d-flex justify-content-center align-items-center appearIn-anim">
         <img src="assets/images/large-logo__splash.svg">
       </a>
-      <img *ngIf="navigationDisabled" src="assets/images/large-logo__splash.svg">
+      <img *ngIf="navigationDisabled === true" src="assets/images/large-logo__splash.svg">
     </div>
   </div>
   <div class="row splash-anim__row mb-5">
