@@ -85,7 +85,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
     // console.log('JWPLAYER =>', this.player);
 
     this.player.on('meta', value => {
-      //console.log('New meta! =>', value);
+      console.log('New song meta =>', value);
     });
 
     // this.player.on('setupError', message => {
