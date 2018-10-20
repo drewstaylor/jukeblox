@@ -4,7 +4,7 @@
       <a *ngIf="navigationDisabled === false" [routerLink]="['/play']" role="button" class="enter-button btn rounded-circle d-flex justify-content-center align-items-center appearIn-anim">
         <img src="assets/images/large-logo__splash.svg">
       </a>
-      <img *ngIf="navigationDisabled === true" src="assets/images/large-logo__splash.svg">
+      <img *ngIf="navigationDisabled === true && splashLogoReady === true" src="assets/images/large-logo__splash.svg">
     </div>
   </div>
   <div class="row splash-anim__row mb-5">

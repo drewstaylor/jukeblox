@@ -17,6 +17,7 @@ export class SplashComponent implements OnInit {
   public userNetworkProvider;
   public userNetworkProviderSubscription;
   public navigationDisabled: boolean = true;
+  public splashLogoReady: boolean = false;
   public targetProviderNetwork: string;
 
   constructor(private contractsService: ContractsService, private changeDetector: ChangeDetectorRef) {
@@ -36,12 +37,14 @@ export class SplashComponent implements OnInit {
       } else {
         console.log('Navigation disabled', this.userNetworkProvider);
         if (network < 0) {
+          this.splashLogoReady = true;
           jQuery('#metaMaskDisabled').modal('show');
         } else {
           // Ignore the initial values load
           // There has to be a better way to do this
           // But on the real, I am very tired
           if (this.iterations > 0) {
+            this.splashLogoReady = true;
             jQuery('#incorrectMetaMaskProvider').modal('show');
           }
           else
