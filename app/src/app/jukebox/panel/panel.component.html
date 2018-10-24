@@ -4,7 +4,7 @@
       <img class="album-image rounded mr-3" [src]="sanitizedAlbumArt || defaultImage">
       <div class="media-body">
         <p *ngIf="id3Tag.title" class="font-weight-bold mb-1 d-inline">{{ id3Tag.title }}</p>
-        <p *ngIf="id3Tag.album && id3Tag.year" class="d-inline">&nbsp;&nbsp;|&nbsp;&nbsp;</p>
+        <p *ngIf="id3Tag.title && id3Tag.artist" class="d-inline">&nbsp;&nbsp;|&nbsp;&nbsp;</p>
         <p *ngIf="id3Tag.artist" class="mb-1 d-inline">{{ id3Tag.artist }}</p>
         <br>
         <p *ngIf="id3Tag.album" class="mb-1 d-inline"><em>{{ id3Tag.album }}</em></p>
