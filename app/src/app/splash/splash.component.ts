@@ -45,6 +45,7 @@ export class SplashComponent implements OnInit {
           // But on the real, I am very tired
           if (this.iterations > 0) {
             this.splashLogoReady = true;
+            this.changeDetector.detectChanges();
             jQuery('#incorrectMetaMaskProvider').modal('show');
           }
           else
