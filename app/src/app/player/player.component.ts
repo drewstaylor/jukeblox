@@ -3,8 +3,10 @@ import { MusicService } from '../services/music.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ContractsService } from '../services/contracts.service';
+
 declare var jwplayer: any;
 declare var web3: any;
+declare var require: any;
 
 @Component({
   selector: 'app-player',
@@ -15,19 +17,29 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   private unsubscribe: Subject<void>;
   private currentSong: any;
+  private currentSwarmHash: any;
   private playlist: Array<any>;
   private player: any;
   private isResumableInstance: boolean = true;
+  private Random;
 
   readonly serverUrl: string = "https://api.jukeblox.io/";
 
   public isMuted: boolean;
+  public jsonLibrary: any;
 
   constructor(private contractService: ContractsService, private musicService: MusicService) {
     this.unsubscribe = new Subject<void>();
     this.isMuted = false;
     this.currentSong = {};
     this.playlist = [];
+
+    // Local song library
+    this.jsonLibrary = require('../../assets/json/library.json');
+    console.log('Song Catalogue', this.jsonLibrary);
+
+    // Random number generator (for uniform distribution)
+    this.Random = require("random-js");
   }
 
   ngOnInit() {
@@ -63,6 +75,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
 
   private jwplayerSetup(): void {
+    var that = this;
     //console.log(jwplayer);
     const placeHolder = '../../assets/audio/01\ Out\ There.mp3';
 
@@ -83,9 +96,10 @@ export class PlayerComponent implements OnInit, OnDestroy {
     // this.player.playlistItem(0);
 
     // console.log('JWPLAYER =>', this.player);
-
     this.player.on('meta', value => {
       console.log('New song meta =>', value);
+      // Set song metadata in UI
+      that.musicService.updateMeta(that.currentSwarmHash);
     });
 
     // this.player.on('setupError', message => {
@@ -129,9 +143,12 @@ export class PlayerComponent implements OnInit, OnDestroy {
         // return (queueIndex, seek, duration (time left), songsQueuedCount (how many songs are queued after this one));
         if (!result || result[2] == 0 || result[2].toNumber() == 0) {
             // Non item, wait and reload
-            setTimeout(() => {
-              this.updateCurrent();
-            }, 5000);
+            //setTimeout(() => {
+            //  this.updateCurrent();
+            //}, 5000);
+            //return;
+            console.log('No song currently playing from queue', result);
+            this.playRandomSong();
             return;
         }
 
@@ -159,10 +176,13 @@ export class PlayerComponent implements OnInit, OnDestroy {
                 }
                 console.log('getSong =>', result);
                 // Track metadata
+                // XXX (drew): Use these unsued vars to set
+                // track in UI?
                 const title = result[0];
                 const artist = result[1];
                 const length = result[2].toNumber();
                 const swarmHash = web3.toAscii(result[3]);
+
                 // File location
                 const currentUrl = this.serverUrl + swarmHash + '.mp3';
                 
@@ -176,39 +196,92 @@ export class PlayerComponent implements OnInit, OnDestroy {
                   this.playSong(this.serverUrl + swarmHash + '.mp3', this.currentSong.seek);
                   this.isResumableInstance = false;
                 } else {
+                  // Don't seek unless the using is resuming a 
+                  // currently playing song from page load
                   this.playSong(this.serverUrl + swarmHash + '.mp3', 0);
                 }
 
-                this.musicService.updateMeta(currentUrl);
+                // TODO @chris: Should we make updating metadata better?
+                // See my above XXX
+                //this.musicService.updateMeta(currentUrl);
 
-                // Timeout for the duration left for the song to reload.
-                let timeOut = this.currentSong.duration * 1000;
+                /*let timeOut = this.currentSong.duration * 1000;
                 setTimeout(() => {
                     this.updateCurrent();
-                }, timeOut);
+                }, timeOut);*/
             });
         });
     });
   }
 
-    private playSong(file, seek) : void {
+  private playSong(file, seek): void {
+      var that = this;
 
-        const playlistEntry = {
-            file: file
-        };
+      const playlistEntry = {
+          file: file
+      };
 
-        const playlist = [playlistEntry];
+      const playlist = [playlistEntry];
 
-        console.log("Playlist =>", playlist);
-        console.log('JWPLAYER =>', this.player);
+      console.log("Playlist =>", playlist);
+      console.log('JWPLAYER =>', this.player);
 
-        this.player.on('playlist', playlist => {
-            console.log('- - - L O A D E D    P L A Y L I S T - - -', playlist)
-            // this.player.play();
-        });
+      this.player.on('playlist', playlist => {
+          console.log('- - - L O A D E D    P L A Y L I S T - - -', playlist)
+          //this.player.play();
+      });
 
-        this.player.load(playlist);
+      this.player.load(playlist);
+
+      // Only seek as necessary
+      if (parseInt(seek) > 0) {
         this.player.seek(seek);
-        this.player.play();
+      }
+
+      // Play target song
+      this.currentSwarmHash = file;
+      this.player.play().on('complete', function () {
+        // On complete, play another song
+        console.log('Song completed, re-instancing...');
+        setTimeout(function (){
+          that.updateCurrent();
+        }, 0);
+      });
+  }
+
+  private playRandomSong(): void {
+    var randomNumberInstance = 0;
+    // Fallback if library json not loaded correctly
+    if (typeof this.jsonLibrary !== "object") {
+      console.log("Song catalogue not loaded, defaulting to song index: 0.");
+      return;
+    } else if (!this.jsonLibrary.length) {
+      console.log("Song catalogue not loaded, defaulting to song index: 0.");
+    } else {
+      randomNumberInstance = this.randomNumber(0, this.jsonLibrary.length);
+      console.log('Random number instance: ', randomNumberInstance);
     }
-}
+    // Create song refs.
+    let songTarget = this.jsonLibrary[randomNumberInstance];
+    let filePath = this.serverUrl + songTarget.swarm + '.mp3';
+    // Play the random song
+    this.playSong(filePath, 0);
+  }
+
+  private randomNumber(min: number, max: number): number {
+    const Random = this.Random;
+    var number,
+        random = new Random(Random.engines.mt19937().autoSeed());
+    // Generates a random number, within given range,
+    // with a uniform distribution
+    if (typeof min === "number" && typeof max === "number") {
+      number = random.integer(min, max);
+    } else {
+      // Fallback, but should never happen
+      number = 0;
+    }
+    // Return random index
+    return number;
+  }
+
+};

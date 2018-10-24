@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 
 declare let Web3: any;
-//declare let web3: any;
 declare let window: any;
 declare let jQuery: any;
 
@@ -279,13 +278,13 @@ export class ContractsService {
           originalSong[3] = that.web3.toAscii(originalSong[3]);
           console.log("Song meta data", originalSong);
   
-          /*that.queueSong(0, function (error, result) {
+          that.queueSong(0, function (error, result) {
             if (error) {
               console.error(error);
               return;
             }
             console.log("Queued a song.");
-          });*
+          });
         });*/
 
         // Get current song if available
