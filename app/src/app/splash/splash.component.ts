@@ -31,11 +31,11 @@ export class SplashComponent implements OnInit {
       // Enable navigation to '/play' if user MetaMask
       // account is connected to the correct provider
       if (this.userNetworkProvider == this.targetProviderNetwork) {
-        console.log("Navigation enabled");
+        //console.log("Navigation enabled");
         this.navigationDisabled = false;
         this.changeDetector.detectChanges();
       } else {
-        console.log('Navigation disabled', this.userNetworkProvider);
+        //console.log('Navigation disabled', this.userNetworkProvider);
         if (network < 0) {
           this.splashLogoReady = true;
           jQuery('#metaMaskDisabled').modal('show');
