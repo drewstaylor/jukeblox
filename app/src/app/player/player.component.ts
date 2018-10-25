@@ -100,7 +100,12 @@ export class PlayerComponent implements OnInit, OnDestroy {
     this.player.on('meta', value => {
       console.log('New song meta =>', value);
       // Set song metadata in UI
-      that.musicService.updateMeta(that.currentPlayUrl);
+      //that.musicService.updateMeta(that.currentPlayUrl);
+    });
+
+    this.player.on('firstFrame', loadTime => {
+      console.log('Playback starting...', loadTime);
+      this.musicService.updateMeta(that.currentPlayUrl);
     });
 
     this.player.on('playlist', playlist => {
