@@ -7,6 +7,7 @@ import { ContractsService } from '../services/contracts.service';
 declare var jwplayer: any;
 declare var web3: any;
 declare var require: any;
+declare let jQuery: any;
 
 @Component({
   selector: 'app-player',
@@ -17,7 +18,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   private unsubscribe: Subject<void>;
   private currentSong: any;
-  private currentSwarmHash: any;
+  private currentPlayUrl: any;
   private playlist: Array<any>;
   private player: any;
   private isResumableInstance: boolean = true;
@@ -99,7 +100,12 @@ export class PlayerComponent implements OnInit, OnDestroy {
     this.player.on('meta', value => {
       console.log('New song meta =>', value);
       // Set song metadata in UI
-      that.musicService.updateMeta(that.currentSwarmHash);
+      that.musicService.updateMeta(that.currentPlayUrl);
+    });
+
+    this.player.on('playlist', playlist => {
+      console.log('- - - L O A D E D    P L A Y L I S T - - -', playlist)
+      //this.player.play();
     });
 
     // this.player.on('setupError', message => {
@@ -222,16 +228,10 @@ export class PlayerComponent implements OnInit, OnDestroy {
       };
 
       const playlist = [playlistEntry];
+      this.player.load(playlist);
 
       console.log("Playlist =>", playlist);
       console.log('JWPLAYER =>', this.player);
-
-      this.player.on('playlist', playlist => {
-          console.log('- - - L O A D E D    P L A Y L I S T - - -', playlist)
-          //this.player.play();
-      });
-
-      this.player.load(playlist);
 
       // Only seek as necessary
       if (parseInt(seek) > 0) {
@@ -239,13 +239,17 @@ export class PlayerComponent implements OnInit, OnDestroy {
       }
 
       // Play target song
-      this.currentSwarmHash = file;
-      this.player.play().on('complete', function () {
-        // On complete, play another song
-        console.log('Song completed, re-instancing...');
-        setTimeout(function (){
-          that.updateCurrent();
-        }, 0);
+      this.currentPlayUrl = file;
+      //this.player.file = file;
+      jQuery(document).ready(function () {
+        console.log('Now playing...', that.currentPlayUrl);
+        that.player.play().on('complete', function () {
+          // On complete, play another song
+          console.log('Song completed, re-instancing...');
+          setTimeout(function (){
+            that.updateCurrent();
+          }, 0);
+        });
       });
   }
 
