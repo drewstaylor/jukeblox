@@ -158,9 +158,39 @@ export class MusicService implements OnDestroy {
 
 
   public updateMeta(url: string): void {
-    fetchFileAsBuffer(url).then(parse).then((tag: any) => {
-      this._currentMeta.next(tag);
-    });
+    console.log('url', url);
+
+    if (!url) {
+      console.log('Req. URL empty');
+      return;
+    }
+
+    var urlIsValid = this.isValidURL(url);
+    
+    if (urlIsValid) {
+      fetchFileAsBuffer(url).then(parse).then((tag: any) => {
+        this._currentMeta.next(tag);
+      });
+    }
+  }
+
+  private isValidURL(url): boolean {
+    if (!url) {
+      return false;
+    }
+
+    if (!url.length) {
+      return false;
+    }
+
+    let parser = document.createElement('a');
+    parser.href = url;
+
+    if (parser.protocol && parser.host && parser.pathname) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // TODO: Get queue (or just up next)
