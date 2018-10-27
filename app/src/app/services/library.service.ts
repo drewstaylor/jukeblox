@@ -30,18 +30,26 @@ export class LibraryService {
     if (!queryString) {
       return [];
     } else {
+      // Search these three fields
       const searchKeys = ['title', 'artist', 'album'];
-      return this.library.filter((song: any) => {
+      var result = this.library.filter((song: any) => {
+        // Try each field if available
         for (const key of searchKeys) {
-          if (
-            song.hasOwnProperty(key) && 
-            song[key].toLowerCase().includes(queryString.toLowerCase())
-          ) {
-            return true;
+          if (song.hasOwnProperty(key)) {
+            const needle = queryString.toLowerCase();
+            // Factor out punctuation
+            const haystack = song[key].replace(/([^\w\s]|_)/gi, '').toLowerCase();
+            
+            if (haystack.includes(needle)) {
+              return true;
+            }
           }
         }
         return false;
       });
+
+      console.log(result);
+      return result;
     }
   }
 

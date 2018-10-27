@@ -11,42 +11,33 @@ import { debounceTime, distinctUntilChanged, mergeMap } from 'rxjs/operators';
 })
 export class SearchSongComponent implements OnInit, OnDestroy {
 
-  public searchResults: Array<any>;
+  public searchResults: Observable<Array<any>>;
   public queryField: FormControl;
   public defaultImage: string;
 
   private unsubscribe: Subject<void>;
 
   constructor(private libraryService: LibraryService) {
-    this.searchResults = [];
     this.queryField = new FormControl();
     this.unsubscribe = new Subject<void>();
     this.defaultImage = 'assets/images/drake-cover__large.png';
-  }
 
-  ngOnInit() {
-    this.queryField.valueChanges
+    this.searchResults = this.queryField.valueChanges
       .pipe(
         debounceTime(200),
         distinctUntilChanged(),
         mergeMap((value: any) => {
           return this.libraryService.search(value);
         })
-      )
-      .subscribe((result: any) => {
-        console.log(result);
-      });
+      );
   }
+
+  ngOnInit() { }
 
 
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
-  }
-
-
-  public search(queryString: string) {
-
   }
 
 }

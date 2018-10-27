@@ -7,45 +7,26 @@
         [formControl]="queryField"
         placeholder="Search for a song, artist or album."
       >
-      <div class="row search-results-wrapper container-fluid position-absolute">
-        <div class="row no-gutters search-results-inner border rounded">
-          <div class="col-12 media small p-2 border border-top-0 bg-light">
+      <div
+        *ngIf="(searchResults | async) as searchResults"
+        class="row search-results-wrapper container-fluid position-absolute"
+      >
+        <div
+          *ngIf="searchResults.length"
+          class="row w-100 no-gutters search-results-inner border rounded"
+        >
+          <div
+            *ngFor="let result of searchResults"
+            class="col-12 media small p-2 border border-top-0 bg-light"
+          >
             <img class="album-image rounded mr-3" src="{{ defaultImage }}">
             <div class="media-body">
-              Testing...
+              <p class="font-weight-bold mb-1"><em>{{ result.title || "Unknown Song" }}</em> - {{ result.artist || "Unknown Artist" }}</p>
+              <!-- <p class="font-weight-bold mb-1">Artist: {{ result.artist || "Unknown Artist" }}</p> -->
+              <p class="mb-1">{{ result.album || "Unknown Album" }}</p>
             </div>
           </div>
-          <div class="col-12 media small p-2 border border-top-0 bg-light">
-            <img class="album-image rounded mr-3" src="{{ defaultImage }}">
-            <div class="media-body">
-              Testing...
-            </div>
-          </div>
-          <div class="col-12 media small p-2 border border-top-0 bg-light">
-            <img class="album-image rounded mr-3" src="{{ defaultImage }}">
-            <div class="media-body">
-              Testing...
-            </div>
-          </div>
-          <div class="col-12 media small p-2 border border-top-0 bg-light">
-            <img class="album-image rounded mr-3" src="{{ defaultImage }}">
-            <div class="media-body">
-              Testing...
-            </div>
-          </div>
-          <div class="col-12 media small p-2 border border-top-0 bg-light">
-            <img class="album-image rounded mr-3" src="{{ defaultImage }}">
-            <div class="media-body">
-              Testing...
-            </div>
-          </div>
-          <div class="col-12 media small p-2 border border-top-0 bg-light">
-            <img class="album-image rounded mr-3" src="{{ defaultImage }}">
-            <div class="media-body">
-              Testing...
-            </div>
-          </div>
-      </div>
+        </div>
       </div>
     </div>
   </div>
