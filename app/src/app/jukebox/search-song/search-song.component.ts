@@ -13,6 +13,7 @@ export class SearchSongComponent implements OnInit, OnDestroy {
 
   public searchResults: Array<any>;
   public queryField: FormControl;
+  public defaultImage: string;
 
   private unsubscribe: Subject<void>;
 
@@ -20,6 +21,7 @@ export class SearchSongComponent implements OnInit, OnDestroy {
     this.searchResults = [];
     this.queryField = new FormControl();
     this.unsubscribe = new Subject<void>();
+    this.defaultImage = 'assets/images/drake-cover__large.png';
   }
 
   ngOnInit() {
