@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subscriber } from 'rxjs';
+import { Observable, Subscriber, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,32 +26,30 @@ export class LibraryService {
   }
 
 
-  private libraryFind(queryString: string): any {
-    const searchPatt = new RegExp(queryString, 'gi');
-    const searchKeys = [
-      'title',
-      'artist',
-      'album'
-    ];
-
-    return this.library.filter((song: any) => {
-      for (const key of searchKeys) {
-        if (song.hasOwnProperty(key) && searchPatt.test(song[key])) {
-          return true;
-          break;
-        } else {
-          return false;
+  private libraryFilter(queryString: string): Array<any> {
+    if (!queryString) {
+      return [];
+    } else {
+      const searchKeys = ['title', 'artist', 'album'];
+      return this.library.filter((song: any) => {
+        for (const key of searchKeys) {
+          if (
+            song.hasOwnProperty(key) && 
+            song[key].toLowerCase().includes(queryString.toLowerCase())
+          ) {
+            return true;
+          }
         }
-      }
-    });
+        return false;
+      });
+    }
   }
 
 
   public search(queryString: string): Observable<any> {
-    const searchObservable = new Observable((observer: Subscriber<any>) => {
-      // next:
+    // console.log(typeof queryString, queryString);
+    return new Observable((observer: Subscriber<any>) => {
+      observer.next(this.libraryFilter(queryString));
     });
-
-    return searchObservable;
   }
 }

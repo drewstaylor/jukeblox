@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LibraryService } from '../../services/library.service';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-song',
@@ -26,10 +26,13 @@ export class SearchSongComponent implements OnInit, OnDestroy {
     this.queryField.valueChanges
       .pipe(
         debounceTime(200),
-        distinctUntilChanged()
+        distinctUntilChanged(),
+        mergeMap((value: any) => {
+          return this.libraryService.search(value);
+        })
       )
-      .subscribe((value: any) => {
-        console.log(typeof value, value);
+      .subscribe((result: any) => {
+        console.log(result);
       });
   }
 
