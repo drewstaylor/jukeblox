@@ -16,7 +16,7 @@
         <app-notifications #notifierModalOne></app-notifications>
         <p>Choose a song to add to the Jukeblox queue, or upload your own.</p>
 
-        <app-search-song></app-search-song>
+        <app-search-song (songSelected)="songSelected($event)"></app-search-song>
 
         <div class="waiting" *ngIf="waitingForRegistryConfirmation || waitingForQueueConfirmation">
           <p>Hang in there homeslice, we're waiting for your transaction to confirm!</p>

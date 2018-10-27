@@ -374,4 +374,8 @@ export class AddSongComponent implements OnInit {
 
   }
 
+  public songSelected(song: any) {
+    console.log('SELECTED SONG:', song);
+  }
+
 }

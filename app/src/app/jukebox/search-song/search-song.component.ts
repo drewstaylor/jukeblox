@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { LibraryService } from '../../services/library.service';
 import { FormControl } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, mergeMap } from 'rxjs/operators';
+declare let jQuery: any;
 
 @Component({
   selector: 'app-search-song',
@@ -10,6 +11,8 @@ import { debounceTime, distinctUntilChanged, mergeMap } from 'rxjs/operators';
   styleUrls: ['./search-song.component.scss']
 })
 export class SearchSongComponent implements OnInit, OnDestroy {
+
+  @Output() songSelected: EventEmitter<any>;
 
   public searchResults: Observable<Array<any>>;
   public queryField: FormControl;
@@ -21,6 +24,7 @@ export class SearchSongComponent implements OnInit, OnDestroy {
     this.queryField = new FormControl();
     this.unsubscribe = new Subject<void>();
     this.defaultImage = 'assets/images/drake-cover__large.png';
+    this.songSelected = new EventEmitter<any>();
 
     this.searchResults = this.queryField.valueChanges
       .pipe(
@@ -38,6 +42,22 @@ export class SearchSongComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
+  }
+
+
+  public chooseSong(song: any) {
+    this.songSelected.emit(song);
+    this.hideResults();
+  }
+
+
+  public showResults(): void {
+    jQuery('#resultsWrapper').show();
+  }
+
+
+  public hideResults(): void {
+    jQuery('#resultsWrapper').hide();
   }
 
 }

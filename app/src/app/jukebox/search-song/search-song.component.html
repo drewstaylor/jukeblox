@@ -1,13 +1,26 @@
 <div class="search-wrapper container-fluid position-relative p-0">
   <div class="row">
     <div class="col">
-      <input
-        type="text"
-        class="form-control"
-        [formControl]="queryField"
-        placeholder="Search for a song, artist or album."
-      >
+      <div class="input-wrapper position-relative">
+        <input
+          type="text"
+          class="form-control"
+          [formControl]="queryField"
+          placeholder="Search for a song, artist or album."
+          (focus)="showResults();"
+          (blur)="hideResults();"
+        >
+        <button
+          *ngIf="queryField.value"
+          type="button"
+          class="search-clear btn btn-link position-absolute"
+          (click)="queryField.reset();"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
       <div
+        id="resultsWrapper"
         *ngIf="(searchResults | async) as searchResults"
         class="row search-results-wrapper container-fluid position-absolute"
       >
@@ -17,7 +30,8 @@
         >
           <div
             *ngFor="let result of searchResults"
-            class="col-12 media small p-2 border border-top-0 bg-light"
+            class="song-item col-12 media small p-2 border border-top-0 bg-light"
+            (click)="chooseSong(result)"
           >
             <img class="album-image rounded mr-3" src="{{ defaultImage }}">
             <div class="media-body">
