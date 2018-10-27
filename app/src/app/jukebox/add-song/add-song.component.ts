@@ -40,6 +40,7 @@ export class AddSongComponent implements OnInit {
   public waitingForRegistryConfirmation: boolean = false;
   public waitingForQueueConfirmation: boolean = false;
   public queueLength;
+  public defaultImage: string;
 
   constructor(
     private swarmService: SwarmService, 
@@ -49,7 +50,8 @@ export class AddSongComponent implements OnInit {
     this.file = null;
     this.filePath = null;
     this.chosenSongHash = null;
-
+    // XXX: Just a placeholder for now!
+    this.defaultImage = 'assets/images/drake-cover__large.png';
     this.contractsService.init();
   }
 
@@ -374,8 +376,15 @@ export class AddSongComponent implements OnInit {
 
   }
 
+
   public songSelected(song: any) {
     console.log('SELECTED SONG:', song);
+    this.queuable = song;
+  }
+
+
+  public clearSelected(): void {
+    this.queuable = null;
   }
 
 }

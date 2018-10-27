@@ -23,6 +23,7 @@ export class SearchSongComponent implements OnInit, OnDestroy {
   constructor(private libraryService: LibraryService) {
     this.queryField = new FormControl();
     this.unsubscribe = new Subject<void>();
+    // XXX: Just a placeholder for now!
     this.defaultImage = 'assets/images/drake-cover__large.png';
     this.songSelected = new EventEmitter<any>();
 
@@ -57,7 +58,7 @@ export class SearchSongComponent implements OnInit, OnDestroy {
 
 
   public hideResults(): void {
-    jQuery('#resultsWrapper').hide();
+    setTimeout(() => { jQuery('#resultsWrapper').hide(); }, 100);
   }
 
 }

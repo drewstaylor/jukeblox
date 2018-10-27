@@ -16,7 +16,36 @@
         <app-notifications #notifierModalOne></app-notifications>
         <p>Choose a song to add to the Jukeblox queue, or upload your own.</p>
 
-        <app-search-song (songSelected)="songSelected($event)"></app-search-song>
+        <div class="mb-3">
+          <app-search-song (songSelected)="songSelected($event)"></app-search-song>
+        </div>
+
+        <!-- Chosen Song -->
+        <div
+          *ngIf="queuable" 
+          class="
+            alert
+            alert-dismissible
+            border
+            border-primary
+            shadow
+            media
+            fade
+            show
+            mb-0
+          "
+          role="alert"
+        >
+          <img class="album-image-lg rounded mr-3" src="{{ defaultImage }}">
+          <div class="media-body">
+            <h5 class="font-weight-bold"><em>{{ queuable.title || "Unknown Title" }}</em></h5>
+            <h6>by <strong>{{ queuable.artist || "Unknown Artist" }}</strong></h6>
+            <h6 class="mb-0">Album: <strong>{{ queuable.album || "Unknown Album" }}</strong></h6>
+          </div>
+          <button type="button" class="close" aria-label="Close" (click)="clearSelected();">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
 
         <div class="waiting" *ngIf="waitingForRegistryConfirmation || waitingForQueueConfirmation">
           <p>Hang in there homeslice, we're waiting for your transaction to confirm!</p>
@@ -26,8 +55,24 @@
       <div class="modal-footer d-flex justify-content-between">
         <button type="button" class="btn btn-outline-primary" [disabled]="waitingForRegistryConfirmation || waitingForQueueConfirmation" (click)="openUploadModal();">Upload</button>
         <div class="btn-group" role="group" aria-label="Add song or cancel">
-          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="closeModal('addSongModal');">Cancel</button>
-          <button type="button" class="btn btn-outline-primary" [disabled]="!fileReady || waitingForRegistryConfirmation || waitingForQueueConfirmation" (click)="addSongToQueue();">Add Song</button>
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            data-dismiss="modal"
+            (click)="closeModal('addSongModal');"
+          >Cancel</button>
+          <!-- <button
+            type="button"
+            class="btn btn-outline-primary"
+            [disabled]="!fileReady || waitingForRegistryConfirmation || waitingForQueueConfirmation"
+            (click)="addSongToQueue();"
+          >Add Song</button> -->
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            [disabled]="!queuable"
+            (click)="addSongToQueue();"
+          >Add Song</button>
         </div>
       </div>
     </div>

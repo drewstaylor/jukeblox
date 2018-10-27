@@ -9,12 +9,6 @@
 
 .song-item {
     cursor: pointer;
-
-    &:hover {
-        background-color: #ffffff !important;
-        box-shadow: 0px 2px 5px 0px rgba(216, 216, 216, 0.25);
-        z-index: 1;
-    }
 }
 
 .search-clear {
