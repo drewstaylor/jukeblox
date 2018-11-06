@@ -1,0 +1,19 @@
+.search-results-wrapper {
+    z-index: 1;
+    max-height: 40vh;
+}
+
+.search-results-inner {
+    overflow-y: auto;
+}
+
+.song-item {
+    cursor: pointer;
+}
+
+.search-clear {
+    top: 0;
+    right: 0;
+    opacity: 0.25;
+    color: #000000;
+}

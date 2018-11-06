@@ -16,6 +16,9 @@ import { NotificationsComponent } from './services/notifications/notifications.c
 import { GlobalNotificationsComponent } from './services/notifications/global-notifications.component';
 
 import { ContractsService } from './services/contracts.service';
+import { AddSongComponent } from './jukebox/add-song/add-song.component';
+import { SearchSongComponent } from './jukebox/search-song/search-song.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,13 +30,16 @@ import { ContractsService } from './services/contracts.service';
     HeaderComponent,
     UploadComponent,
     NotificationsComponent,
-    GlobalNotificationsComponent
+    GlobalNotificationsComponent,
+    AddSongComponent,
+    SearchSongComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FileDropModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     ContractsService

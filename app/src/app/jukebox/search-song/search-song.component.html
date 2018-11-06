@@ -1,0 +1,48 @@
+<div class="search-wrapper container-fluid position-relative p-0">
+  <div class="row">
+    <div class="col">
+      <div class="dropdown input-wrapper position-relative">
+        <input
+          type="text"
+          class="form-control"
+          [formControl]="queryField"
+          placeholder="Search for a song, artist or album."
+          (focus)="showResults();"
+          (blur)="hideResults();"
+        >
+        <button
+          *ngIf="queryField.value"
+          type="button"
+          class="search-clear btn btn-link position-absolute"
+          (click)="queryField.reset();"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div
+        id="resultsWrapper"
+        *ngIf="(searchResults | async) as searchResults"
+        class="row search-results-wrapper container-fluid position-absolute"
+      >
+        <div
+          *ngIf="searchResults.length"
+          class="search-results-inner list-group w-100 no-gutters shadow"
+        >
+          <div
+            *ngFor="let result of searchResults"
+            class="song-item list-group-item list-group-item-action p-2"
+            (click)="chooseSong(result)"
+          >
+          <div class="media small">
+            <img class="album-image rounded mr-3" src="{{ defaultImage }}">
+            <div class="media-body">
+              <p class="font-weight-bold mb-0"><em>{{ result.title || "Unknown Song" }}</em> - {{ result.artist || "Unknown Artist" }}</p>
+              <!-- <p class="font-weight-bold mb-1">Artist: {{ result.artist || "Unknown Artist" }}</p> -->
+              <p class="mb-1">{{ result.album || "Unknown Album" }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
