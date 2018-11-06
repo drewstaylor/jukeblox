@@ -8,7 +8,6 @@
           [formControl]="queryField"
           placeholder="Search for a song, artist or album."
           (focus)="showResults();"
-          (blur)="hideResults();"
         >
         <button
           *ngIf="queryField.value"
@@ -31,9 +30,8 @@
           <div
             *ngFor="let result of searchResults"
             class="song-item list-group-item list-group-item-action p-2"
-            (click)="chooseSong(result)"
           >
-          <div class="media small">
+          <div class="media small" (click)="chooseSong(result)">
             <img class="album-image rounded mr-3" src="{{ defaultImage }}">
             <div class="media-body">
               <p class="font-weight-bold mb-0"><em>{{ result.title || "Unknown Song" }}</em> - {{ result.artist || "Unknown Artist" }}</p>
