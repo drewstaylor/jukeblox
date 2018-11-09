@@ -246,7 +246,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
       // Play target song
       this.currentPlayUrl = file;
       //this.player.file = file;
-      jQuery(document).ready(function () {
+      //jQuery(document).ready(function () {
         console.log('Now playing...', that.currentPlayUrl);
         that.player.play().on('complete', function () {
           // On complete, play another song
@@ -255,7 +255,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
             that.updateCurrent();
           }, 0);
         });
-      });
+      //});
   }
 
   private playRandomSong(): void {
