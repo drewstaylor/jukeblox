@@ -7,7 +7,6 @@ import { ContractsService } from '../services/contracts.service';
 declare var jwplayer: any;
 declare var web3: any;
 declare var require: any;
-declare let jQuery: any;
 
 @Component({
   selector: 'app-player',
