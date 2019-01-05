@@ -252,11 +252,10 @@ export class PlayerComponent implements OnInit, OnDestroy {
       that.player.play().on('complete', function () {
         // On complete, play another song
         if (!that.hasActiveListener) {
+          that.hasActiveListener = true;
           setTimeout(function (){
             that.updateCurrent();
           }, 0);
-        } else {
-          that.hasActiveListener = true;
         }
       });
 
