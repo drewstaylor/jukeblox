@@ -22,6 +22,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   private playlist: Array<any>;
   private player: any;
   private isResumableInstance: boolean = true;
+  private hasActiveListener: boolean = false;
   private Random;
 
   readonly serverUrl: string = "https://api.jukeblox.io/";
@@ -246,16 +247,19 @@ export class PlayerComponent implements OnInit, OnDestroy {
       // Play target song
       this.currentPlayUrl = file;
       //this.player.file = file;
-      //jQuery(document).ready(function () {
-        console.log('Now playing...', that.currentPlayUrl);
-        that.player.play().on('complete', function () {
-          // On complete, play another song
-          console.log('Song completed, re-instancing...');
+
+      console.log('Now playing...', that.currentPlayUrl);
+      that.player.play().on('complete', function () {
+        // On complete, play another song
+        if (!that.hasActiveListener) {
           setTimeout(function (){
             that.updateCurrent();
           }, 0);
-        });
-      //});
+        } else {
+          that.hasActiveListener = true;
+        }
+      });
+
   }
 
   private playRandomSong(): void {
