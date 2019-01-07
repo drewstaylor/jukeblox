@@ -27,11 +27,12 @@ const multer = require('multer');
 const storage = multer.diskStorage({
   destination: './uploads/',
   filename: function (req, file, cb) {
-    crypto.pseudoRandomBytes(16, function (err, raw) {
+    /*crypto.pseudoRandomBytes(16, function (err, raw) {
       if (err) return cb(err)
 
       cb(null, raw.toString('hex') + path.extname(file.originalname))
-    })
+    })*/
+    cb(null, 'jukeblox' + path.extname(file.originalname))
   }
 });
 
@@ -142,8 +143,7 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
             data: {
               swarm: {
                 storage_hash: swarm_hash,
-                filename: filename,
-                storage_link: 'bzz:/' + swarm_hash + '/' + filename
+                storage_link: 'bzz:/' + swarm_hash + '/jukeblox.mp3'
               }
             }
           }

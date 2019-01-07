@@ -25,6 +25,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   private Random;
 
   readonly serverUrl: string = "https://api.jukeblox.io/";
+  readonly swarmGateway: string = "https://swarm-gateways.net/bzz:/";
 
   public isMuted: boolean;
   public jsonLibrary: any;
@@ -193,9 +194,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
                 const artist = result[1];
                 const length = result[2].toNumber();
                 const swarmHash = web3.toAscii(result[3]);
-
-                // File location
-                const currentUrl = this.serverUrl + swarmHash + '.mp3';
                 
                 // Clear the resumeable seek state if the current user
                 // has queued the newest song in the current session
@@ -204,22 +202,19 @@ export class PlayerComponent implements OnInit, OnDestroy {
                 }
                 // Playback seeking only required on first page load
                 if (this.isResumableInstance) {
-                  this.playSong(this.serverUrl + swarmHash + '.mp3', this.currentSong.seek);
-                  this.isResumableInstance = false;
+                  try {
+                    this.playSong(this.swarmGateway + swarmHash + '/jukeblox.mp3', this.currentSong.seek);
+                    this.isResumableInstance = false;
+                  } catch (err) {
+                    console.log('Error connecting to Swarm gateway', err);
+                    // XXX: Add swarm gateway fallback
+                    //this.playSong(this.serverUrl + swarmHash + '.mp3', this.currentSong.seek);
+                  } 
                 } else {
                   // Don't seek unless the using is resuming a 
                   // currently playing song from page load
-                  this.playSong(this.serverUrl + swarmHash + '.mp3', 0);
+                  this.playSong(this.swarmGateway + swarmHash + '/jukeblox.mp3', 0);
                 }
-
-                // TODO @chris: Should we make updating metadata better?
-                // See my above XXX
-                //this.musicService.updateMeta(currentUrl);
-
-                /*let timeOut = this.currentSong.duration * 1000;
-                setTimeout(() => {
-                    this.updateCurrent();
-                }, timeOut);*/
             });
         });
     });
@@ -272,9 +267,13 @@ export class PlayerComponent implements OnInit, OnDestroy {
     }
     // Create song refs.
     let songTarget = this.jsonLibrary[randomNumberInstance];
-    let filePath = this.serverUrl + songTarget.swarm + '.mp3';
+    let filePath = this.swarmGateway + songTarget.swarm + '/jukeblox.mp3';
     // Play the random song
-    this.playSong(filePath, 0);
+    try {
+      this.playSong(filePath, 0);
+    } catch (err) {
+      console.log('Error connecting to Swarm gateway', err);
+    }
   }
 
   private randomNumber(min: number, max: number): number {
