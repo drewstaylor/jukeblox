@@ -6,18 +6,6 @@ const exec = require('child_process').exec;
 const util = require('util');
 const fs = require('fs');
 
-// Web3
-const Web3 = require('web3');
-const web3 = new Web3('http://localhost:8545');
-
-// Nodes
-const node = 'http://localhost:8545';
-const swarm_node = 'http://localhost:8500/bzz:/';
-
-// IPC
-//var ipcPath = process.env['HOME'] + '/.local/share/io.parity.ethereum/jsonrpc.ipc';
-//var ipcProvider = provider = new web3.providers.IpcProvider(ipcPath, net);
-
 // Crypto
 const crypto = require('crypto');
 
