@@ -1,11 +1,29 @@
 [
     {
-        "swarm": "edffbb7da30504c3ec6cca1291f5b593c8198cb794f200b9d6b42fad610caece",
+        "swarm": "4cd8e17af9e21cab87149132bfaf37639a31cd3b43c71773f146a99d97b50149",
         "artist": "Frank Ocean",
-        "title": "White Ferrari",
-        "trackNumber": 14,
+        "title": "Nikes",
+        "trackNumber": 1,
         "album": "Blonde",
-        "index": 22,
+        "index": null,
+        "tags": ["r&b", "alternative r&b"]
+    },
+    {
+        "swarm": "50711e2964949a7e3612f10ab23c3616392833ba62547cee9b4c815fa8a38258",
+        "artist": "Frank Ocean",
+        "title": "Ivy",
+        "trackNumber": 2,
+        "album": "Blonde",
+        "index": null,
+        "tags": ["r&b", "alternative r&b"]
+    },
+    {
+        "swarm": "fad4e3afeb7def601380d784855ba9f9c8d7e0c4c683cca503688edd424eb5e4",
+        "artist": "Frank Ocean",
+        "title": "Pink + White",
+        "trackNumber": 3,
+        "album": "Blonde",
+        "index": null,
         "tags": ["r&b", "alternative r&b"]
     }
 ]
