@@ -53,101 +53,6 @@ try {
   }
 }
 
-const swarmgw = require('swarmgw')(/* opts */);
-
-// Database
-//var mongoose = require('mongoose');
-//var mongoUrl = 'mongodb://localhost:27017/jukebox';
-//var connection = mongoose.createConnection(mongoUrl);
-
-
-// Accepted file extensions
-// XXX TODO: Tighten this up?
-const swarm_approved_file_extensions = ['.mp3'];
-
-/**
- * Request block data from a transaction hash. For example, can be used to get a contract address from a transaction hash. Or to check if a transaction has been already mined.
- * 
- * <h5 style="margin-top:4px;margin-bottom:4px">Params:</h5>
- * 
- * <pre>
- * {String} tx - The transaction hash of the target block you are requesting data for.
- * </pre>
- * 
- * <h5 style="margin-top:4px;margin-bottom:4px">Example Request:</h5>
- * 
- * <pre>
- * {
- *    "tx": "0xd4b6198151e4be95e5bf4b53bd563990d8c0e559eb1f0ee4b9c6b66775021018"
- * }
- * </pre>
- * 
- * <h5 style="margin-top:4px;margin-bottom:4px">Example Response:</h5>
- * 
- * <pre>
- * {  
- *   "http":{  
- *   "status":"200",
- *   "msg":"200 OK"
- * },
- * "data":{
- *   // lots of block data :)
- *   // ...
- * }
- * </pre>
- * 
- * @section Transactions
- * @type POST
- * @url POST: /api/transaction/hash
- * @param {String} tx - The hash (tx hash) of the target transaction for which to receive block data.
- */
-router.post('/transaction/hash', function(request, response) {
-  // Ensure valid JSON header
-  response.header('Content-Type', 'application/json');
-
-  const params = request.body;
-
-  var res,
-      txData = null,
-      errMsg,
-      errType = "POST: /transaction/hash";
-
-
-  // Detect missing req. parameters
-  if ( Object.keys(params).length === 0 && params.constructor === Object ) {
-    errMsg = "Error: Post body is empty.";
-  } else if ( !params.hasOwnProperty('tx') ) {
-    errMsg = "Error: An Organziation ID is required.";
-  }
-
-  if (!errMsg) {
-    txData = web3.eth.getTransaction(params.tx);
-    txData.then(function (_txData) {
-      console.log('txData', txData);
-      // Process response / API output
-      if (errMsg) {
-        errMsg = toErrorMsg(errMsg);
-        console.log([errType, errMsg]);
-        response.send(errMsg);
-      } else {
-        res = {
-          http: {
-            status: "200",
-            msg: "200 OK"
-          },
-          data: _txData
-        }
-        response.send(JSON.stringify(res));
-      }
-    });
-  } else {
-    errMsg = toErrorMsg(errMsg);
-    console.log([errType, errMsg]);
-    response.send(errMsg);
-  }
-
-});
-
 // Swarm API
 
 /**
@@ -237,7 +142,8 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
             data: {
               swarm: {
                 storage_hash: swarm_hash,
-                storage_link: 'bzz:/' + swarm_hash + '/'
+                filename: filename,
+                storage_link: 'bzz:/' + swarm_hash + '/' + filename
               }
             }
           }
@@ -249,8 +155,9 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
             fs.unlink(file_full_path, (err) => {});
           }
 
+          // LEGACY DOWNLOAD & SERVE SONG FROM API SERVER:
           // Download and start serving the file
-          let swarm_down = 'swarm down bzz:/' + swarm_hash;
+          /*let swarm_down = 'swarm down bzz:/' + swarm_hash;
           exec(swarm_down, (error, stdout, stderr) => {
             console.log('Swarm down successful');
             fs.rename(swarm_hash, 'public/' + swarm_hash + '.mp3', (err) => {
@@ -260,7 +167,7 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
                 console.log('File now being served from ./public');
               }
             });
-          });
+          });*/
         } else {
           // Send error response
           errMsg = toErrorMsg(errMsg);

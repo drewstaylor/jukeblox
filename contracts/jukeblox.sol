@@ -1,4 +1,4 @@
-pragma solidity ^0.4.21;
+pragma solidity ^0.4.23;
 
 contract JukeBlox {
     struct Song {
@@ -38,6 +38,7 @@ contract JukeBlox {
     uint256 public nrQueued = 0;
     uint256 public maxSongLength = 10 * 60;  // Max ten minutes
     uint256 public minimumQueueValue = 0.001 ether;
+    
     constructor() public {
         creator = msg.sender;
         addUser(creator, "Creator");
