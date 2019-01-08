@@ -25,5 +25,131 @@
         "album": "Blonde",
         "index": null,
         "tags": ["r&b", "alternative r&b"]
+    },
+    {
+        "swarm": "77f1e6d23221316620f02c016e5d832a60b3a0b66574cc6033d3fccdb1b028e2",
+        "artist": "Frank Ocean",
+        "title": "Be Yourself",
+        "trackNumber": 4,
+        "album": "Blonde",
+        "index": null,
+        "tags": ["r&b", "alternative r&b", "spoken word"]
+    },
+    {
+        "swarm": "5f184fbfbd85dbf10e4b3e12c55f6a639fd57ee12f651a2e4f1d64a8425b9ecd",
+        "artist": "Frank Ocean",
+        "title": "Solo",
+        "trackNumber": 5,
+        "album": "Blonde",
+        "index": null,
+        "tags": ["r&b", "alternative r&b"]
+    },
+    {
+        "swarm": "4cede7246f658f86c64af7dd47c23772cac27952aa20aa4a137fdcad33f5ed7c",
+        "artist": "Frank Ocean",
+        "title": "Skyline To",
+        "trackNumber": 6,
+        "album": "Blonde",
+        "index": null,
+        "tags": ["r&b", "alternative r&b"]
+    },
+    {
+        "swarm": "eb7c3d2407714300017bd5abb3abb7905bbfccff047acaaeba2cce2e91926785",
+        "artist": "Frank Ocean",
+        "title": "Self Control",
+        "trackNumber": 7,
+        "album": "Blonde",
+        "index": null,
+        "tags": ["r&b", "alternative r&b"]
+    },
+    {
+        "swarm": "0b85e7296f02f93559365e379b2acde47b4b3bd9ed842aa29070a91df00297c0",
+        "artist": "Frank Ocean",
+        "title": "Good Guy",
+        "trackNumber": 8,
+        "album": "Blonde",
+        "index": null,
+        "tags": ["r&b", "alternative r&b"]
+    },
+    {
+        "swarm": "10ae07a01c0c58d2e03e339a11d4c5f788cf795a9fd3eae77cdc41688d8b1f88",
+        "artist": "Frank Ocean",
+        "title": "Nights",
+        "trackNumber": 9,
+        "album": "Blonde",
+        "index": null,
+        "tags": ["r&b", "alternative r&b"]
+    },
+    {
+        "swarm": "ad8633dbdc8b0b8306713ab25a115786c59d6140fd62c4ae6ee4d159282b7443",
+        "artist": "Frank Ocean",
+        "title": "Solo (Reprise)",
+        "trackNumber": 10,
+        "album": "Blonde",
+        "index": null,
+        "tags": ["r&b", "alternative r&b"]
+    },
+    {
+        "swarm": "08415f9eeb2bac3e001c8a0971ca5ca73a648426f18bc0ef0ca5256a0ea6d818",
+        "artist": "Frank Ocean",
+        "title": "Pretty Sweet",
+        "trackNumber": 11,
+        "album": "Blonde",
+        "index": null,
+        "tags": ["r&b", "alternative r&b"]
+    },
+    {
+        "swarm": "a59e1f7bb28f7a1dfaaf48fbd10b99a53b970523bd4c371bab02c0f83a6e4228",
+        "artist": "Frank Ocean",
+        "title": "Facebook Story",
+        "trackNumber": 12,
+        "album": "Blonde",
+        "index": null,
+        "tags": ["r&b", "alternative r&b", "spoken word"]
+    },
+    {
+        "swarm": "1afb91c1d84b4687c50733539bd2133c281eb587513f57f99d2ce76947ddad23",
+        "artist": "Frank Ocean",
+        "title": "Close To You",
+        "trackNumber": 13,
+        "album": "Blonde",
+        "index": null,
+        "tags": ["r&b", "alternative r&b"]
+    },
+    {
+        "swarm": "0a90ae248fabf099c3eb2ce822cc9749ca2b4c8242f4e4cda819c51849b426c8",
+        "artist": "Frank Ocean",
+        "title": "White Ferrari",
+        "trackNumber": 14,
+        "album": "Blonde",
+        "index": null,
+        "tags": ["r&b", "alternative r&b"]
+    },
+    {
+        "swarm": "b35b6d040b6ae6d78301fabbf74533b9e60d39965ff470a19b1b606823252f87",
+        "artist": "Frank Ocean",
+        "title": "Siegfried",
+        "trackNumber": 15,
+        "album": "Blonde",
+        "index": null,
+        "tags": ["r&b", "alternative r&b"]
+    },
+    {
+        "swarm": "d35f415719b700a6c45631bf6ddef964cdaedd22c91e8b73158d569bab6a19c0",
+        "artist": "Frank Ocean",
+        "title": "Godspeed",
+        "trackNumber": 16,
+        "album": "Blonde",
+        "index": null,
+        "tags": ["r&b", "alternative r&b"]
+    },
+    {
+        "swarm": "f54f49ef3728521a6a38c61930f6bf6af185cd41831935561a10f14d1500f11b",
+        "artist": "Frank Ocean",
+        "title": "Futura Free",
+        "trackNumber": 17,
+        "album": "Blonde",
+        "index": null,
+        "tags": ["r&b", "alternative r&b"]
     }
 ]

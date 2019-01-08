@@ -203,7 +203,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
                 // Playback seeking only required on first page load
                 if (this.isResumableInstance) {
                   try {
-                    this.playSong(this.swarmGateway + swarmHash + '/jukeblox.mp3', this.currentSong.seek);
+                    this.playSong(this.serverUrl + swarmHash + '/jukeblox.mp3', this.currentSong.seek);
                     this.isResumableInstance = false;
                   } catch (err) {
                     console.log('Error connecting to Swarm gateway', err);
@@ -213,7 +213,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
                 } else {
                   // Don't seek unless the using is resuming a 
                   // currently playing song from page load
-                  this.playSong(this.swarmGateway + swarmHash + '/jukeblox.mp3', 0);
+                  this.playSong(this.serverUrl + swarmHash + '/jukeblox.mp3', 0);
                 }
             });
         });
@@ -246,7 +246,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
       that.player.play().on('complete', function () {
         // On complete, play another song
         if (!that.hasActiveListener) {
-          that.hasActiveListener = true;
+          //that.hasActiveListener = true;
           that.updateCurrent();
         }
       });
@@ -267,7 +267,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
     }
     // Create song refs.
     let songTarget = this.jsonLibrary[randomNumberInstance];
-    let filePath = this.swarmGateway + songTarget.swarm + '/jukeblox.mp3';
+    let filePath = this.serverUrl + songTarget.swarm + '/jukeblox.mp3';
     // Play the random song
     try {
       this.playSong(filePath, 0);
