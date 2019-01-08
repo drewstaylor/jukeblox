@@ -114,6 +114,11 @@ export class PlayerComponent implements OnInit, OnDestroy {
       //this.player.play();
     });
 
+    this.player.on('complete', function () {
+      // On complete, play another song
+      that.updateCurrent();
+    });
+
     // this.player.on('setupError', message => {
     //   console.error(message);
     // });
@@ -243,13 +248,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
       //this.player.file = file;
 
       console.log('Now playing...', that.currentPlayUrl);
-      that.player.play().on('complete', function () {
-        // On complete, play another song
-        if (!that.hasActiveListener) {
-          //that.hasActiveListener = true;
-          that.updateCurrent();
-        }
-      });
+      that.player.play();
 
   }
 
