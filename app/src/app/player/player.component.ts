@@ -21,7 +21,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
   private playlist: Array<any>;
   private player: any;
   private isResumableInstance: boolean = true;
-  private hasActiveListener: boolean = false;
   private Random;
 
   readonly serverUrl: string = "https://api.jukeblox.io/";
@@ -116,7 +115,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
     this.player.on('complete', function () {
       // On complete, play another song
-      that.updateCurrent();
+      this.updateCurrent();
     });
 
     // this.player.on('setupError', message => {
