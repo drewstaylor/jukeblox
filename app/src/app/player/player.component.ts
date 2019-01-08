@@ -113,7 +113,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
       //this.player.play();
     });
 
-    this.player.on('complete', function () {
+    this.player.on('complete', playback => {
       // On complete, play another song
       this.updateCurrent();
     });
