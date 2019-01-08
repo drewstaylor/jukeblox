@@ -115,7 +115,9 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
     this.player.on('complete', playback => {
       // On complete, play another song
-      this.updateCurrent();
+      setTimeout(function () { // TODO XXX (drew): Remove this wait when I stop uploading manually
+        that.updateCurrent();
+      }, 650)
     });
 
     // this.player.on('setupError', message => {
@@ -197,7 +199,17 @@ export class PlayerComponent implements OnInit, OnDestroy {
                 const title = result[0];
                 const artist = result[1];
                 const length = result[2].toNumber();
-                const swarmHash = web3.toAscii(result[3]);
+                var swarmHash;
+                if (typeof result[3] === "string") {
+                  if (result[3].substr(0,2) == "0x") {
+                    let hashArray = result[3].split("0x");
+                    swarmHash = hashArray[1];
+                  } else {
+                    swarmHash = web3.toAscii(result[3]);  
+                  }
+                } else {
+                  swarmHash = web3.toAscii(result[3]);
+                }
                 
                 // Clear the resumeable seek state if the current user
                 // has queued the newest song in the current session
@@ -248,7 +260,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
       console.log('Now playing...', that.currentPlayUrl);
       that.player.play();
-
   }
 
   private playRandomSong(): void {
@@ -281,7 +292,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
     // Generates a random number, within given range,
     // with a uniform distribution
     if (typeof min === "number" && typeof max === "number") {
-      number = random.integer(min, max);
+      number = random.integer(min, max - 1);
     } else {
       // Fallback, but should never happen
       number = 0;

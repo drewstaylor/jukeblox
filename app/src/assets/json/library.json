@@ -5,7 +5,7 @@
         "title": "Nikes",
         "trackNumber": 1,
         "album": "Blonde",
-        "index": null,
+        "index": 0,
         "tags": ["r&b", "alternative r&b"]
     },
     {
@@ -14,7 +14,7 @@
         "title": "Ivy",
         "trackNumber": 2,
         "album": "Blonde",
-        "index": null,
+        "index": 1,
         "tags": ["r&b", "alternative r&b"]
     },
     {
@@ -23,7 +23,7 @@
         "title": "Pink + White",
         "trackNumber": 3,
         "album": "Blonde",
-        "index": null,
+        "index": 2,
         "tags": ["r&b", "alternative r&b"]
     },
     {
@@ -32,7 +32,7 @@
         "title": "Be Yourself",
         "trackNumber": 4,
         "album": "Blonde",
-        "index": null,
+        "index": 3,
         "tags": ["r&b", "alternative r&b", "spoken word"]
     },
     {
@@ -41,7 +41,7 @@
         "title": "Solo",
         "trackNumber": 5,
         "album": "Blonde",
-        "index": null,
+        "index": 4,
         "tags": ["r&b", "alternative r&b"]
     },
     {
@@ -50,7 +50,7 @@
         "title": "Skyline To",
         "trackNumber": 6,
         "album": "Blonde",
-        "index": null,
+        "index": 5,
         "tags": ["r&b", "alternative r&b"]
     },
     {
@@ -59,7 +59,7 @@
         "title": "Self Control",
         "trackNumber": 7,
         "album": "Blonde",
-        "index": null,
+        "index": 6,
         "tags": ["r&b", "alternative r&b"]
     },
     {
@@ -68,7 +68,7 @@
         "title": "Good Guy",
         "trackNumber": 8,
         "album": "Blonde",
-        "index": null,
+        "index": 7,
         "tags": ["r&b", "alternative r&b"]
     },
     {
@@ -77,7 +77,7 @@
         "title": "Nights",
         "trackNumber": 9,
         "album": "Blonde",
-        "index": null,
+        "index": 8,
         "tags": ["r&b", "alternative r&b"]
     },
     {
@@ -86,7 +86,7 @@
         "title": "Solo (Reprise)",
         "trackNumber": 10,
         "album": "Blonde",
-        "index": null,
+        "index": 9,
         "tags": ["r&b", "alternative r&b"]
     },
     {
@@ -95,7 +95,7 @@
         "title": "Pretty Sweet",
         "trackNumber": 11,
         "album": "Blonde",
-        "index": null,
+        "index": 10,
         "tags": ["r&b", "alternative r&b"]
     },
     {
@@ -104,7 +104,7 @@
         "title": "Facebook Story",
         "trackNumber": 12,
         "album": "Blonde",
-        "index": null,
+        "index": 11,
         "tags": ["r&b", "alternative r&b", "spoken word"]
     },
     {
@@ -113,7 +113,7 @@
         "title": "Close To You",
         "trackNumber": 13,
         "album": "Blonde",
-        "index": null,
+        "index": 12,
         "tags": ["r&b", "alternative r&b"]
     },
     {
@@ -122,7 +122,7 @@
         "title": "White Ferrari",
         "trackNumber": 14,
         "album": "Blonde",
-        "index": null,
+        "index": 13,
         "tags": ["r&b", "alternative r&b"]
     },
     {
@@ -131,7 +131,7 @@
         "title": "Siegfried",
         "trackNumber": 15,
         "album": "Blonde",
-        "index": null,
+        "index": 14,
         "tags": ["r&b", "alternative r&b"]
     },
     {
@@ -140,7 +140,7 @@
         "title": "Godspeed",
         "trackNumber": 16,
         "album": "Blonde",
-        "index": null,
+        "index": 15,
         "tags": ["r&b", "alternative r&b"]
     },
     {
@@ -149,7 +149,7 @@
         "title": "Futura Free",
         "trackNumber": 17,
         "album": "Blonde",
-        "index": null,
+        "index": 16,
         "tags": ["r&b", "alternative r&b"]
     }
 ]
