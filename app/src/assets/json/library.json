@@ -241,5 +241,113 @@
         "album": "I Have Fought Against It, But I Can't Any Longer",
         "index": 26,
         "tags": ["metal", "Portland", "electronic"]
+    },
+    {
+        "swarm": "202d3a7d531421889e4aca9bc3d1715356be1a10c50bce3ee2e853179900ee04",
+        "artist": "Røyksopp",
+        "title": "Triumphant",
+        "trackNumber": 1,
+        "album": "The Understanding",
+        "index": 27,
+        "tags": ["electronic", "Norway", "edm", "pop"]
+    },
+    {
+        "swarm": "5be5c8de69225e374981770b254b69eaf7d3459077d14e48a16e53eb56f8cbc3",
+        "artist": "Røyksopp",
+        "title": "Only This Moment",
+        "trackNumber": 2,
+        "album": "The Understanding",
+        "index": 28,
+        "tags": ["electronic", "Norway", "edm", "pop"]
+    },
+    {
+        "swarm": "87edb55dc4fee28b82f26d8aa96c42a97dab6a0e94f71870c330fa809b262d60",
+        "artist": "Røyksopp",
+        "title": "49 Percent",
+        "trackNumber": 3,
+        "album": "The Understanding",
+        "index": 29,
+        "tags": ["electronic", "Norway", "edm", "pop"]
+    },
+    {
+        "swarm": "016995aef49e7f4ccd3ebad6066cbca2d493afb6e9dfdadc5897692f8a4c319a",
+        "artist": "Røyksopp",
+        "title": "Sombre Detune",
+        "trackNumber": 4,
+        "album": "The Understanding",
+        "index": 30,
+        "tags": ["electronic", "Norway", "edm", "pop"]
+    },
+    {
+        "swarm": "8206009175b21f34d75851ef0105310279132653937fda0f29769c17ca0640dc",
+        "artist": "Røyksopp",
+        "title": "Follow My Ruin",
+        "trackNumber": 5,
+        "album": "The Understanding",
+        "index": 31,
+        "tags": ["electronic", "Norway", "edm", "pop"]
+    },
+    {
+        "swarm": "0573bc9a2d4f8465f1d61ab31d8224403aa1cf6378ff1152aaedee604afef368",
+        "artist": "Røyksopp",
+        "title": "Beautiful Day Without You",
+        "trackNumber": 6,
+        "album": "The Understanding",
+        "index": 32,
+        "tags": ["electronic", "Norway", "edm", "pop"]
+    },
+    {
+        "swarm": "67bc00f38c2d94af2a45646a045fc5fd606637181c5527cae6e8e97b4aee744d",
+        "artist": "Røyksopp",
+        "title": "What Else Is There?",
+        "trackNumber": 7,
+        "album": "The Understanding",
+        "index": 33,
+        "tags": ["electronic", "Norway", "edm", "pop"]
+    },
+    {
+        "swarm": "914260426bfc95fd8a0fe5f15811c47af4e444ce36d00f069e54a51ac1d33955",
+        "artist": "Røyksopp",
+        "title": "Circuit Breaker",
+        "trackNumber": 8,
+        "album": "The Understanding",
+        "index": 34,
+        "tags": ["electronic", "Norway", "edm", "pop"]
+    },
+    {
+        "swarm": "c04e52c1a399a509e23e42e50deff73e0ad9ef1248f25c4cc4051cbb190ea71b",
+        "artist": "Røyksopp",
+        "title": "Alpha Male",
+        "trackNumber": 9,
+        "album": "The Understanding",
+        "index": 35,
+        "tags": ["electronic", "Norway", "edm", "pop"]
+    },
+    {
+        "swarm": "76d606a1522a6264ff17103eca96363664bee6868d5f8852a530d44fdc591228",
+        "artist": "Røyksopp",
+        "title": "Someone Like Me",
+        "trackNumber": 10,
+        "album": "The Understanding",
+        "index": 36,
+        "tags": ["electronic", "Norway", "edm", "pop"]
+    },
+    {
+        "swarm": "0459e27d3f882f71d2fa15cc78c3a3b95b85b1473e9bf6ea686b84fd5dc42051",
+        "artist": "Røyksopp",
+        "title": "Dead to the World",
+        "trackNumber": 11,
+        "album": "The Understanding",
+        "index": 37,
+        "tags": ["electronic", "Norway", "edm", "pop"]
+    },
+    {
+        "swarm": "fa0fceed3d4abfb10e5e02fa6556c3f5483f7b7b0fa6cf2044c4657ac5b0e42d",
+        "artist": "Røyksopp",
+        "title": "Tristesse Globale",
+        "trackNumber": 12,
+        "album": "The Understanding",
+        "index": 38,
+        "tags": ["electronic", "Norway", "edm", "pop"]
     }
 ]
