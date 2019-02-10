@@ -200,7 +200,8 @@ export class PlayerComponent implements OnInit, OnDestroy {
                 const artist = result[1];
                 const length = result[2].toNumber();
                 var swarmHash;
-                if (typeof result[3] === "string") {
+                //const swarmHash = web3.toAscii(result[3]);
+                if ( !(result[3].length > 66) ) {
                   if (result[3].substr(0,2) == "0x") {
                     let hashArray = result[3].split("0x");
                     swarmHash = hashArray[1];
