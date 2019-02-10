@@ -160,5 +160,86 @@
         "album": "I Have Fought Against It, But I Can't Any Longer",
         "index": 17,
         "tags": ["metal", "Portland", "electronic"]
+    },
+    {
+        "swarm": "e6a17e647c54638a8b673af3ada8c8d8b9bf7338ba927966281b5f5dce5d63d5",
+        "artist": "The Body",
+        "title": "Can Carry No Weight",
+        "trackNumber": 2,
+        "album": "I Have Fought Against It, But I Can't Any Longer",
+        "index": 18,
+        "tags": ["metal", "Portland", "electronic"]
+    },
+    {
+        "swarm": "b834daa521c1b15d58eb7b2eb2a87d89e00cf5b041c8eb42db2cbfed4d088abd",
+        "artist": "The Body",
+        "title": "Partly Alive",
+        "trackNumber": 3,
+        "album": "I Have Fought Against It, But I Can't Any Longer",
+        "index": 19,
+        "tags": ["metal", "Portland", "electronic"]
+    },
+    {
+        "swarm": "12b809c30a8f3d701c8f92047ff9c08b7f6ca99f53dd22a16d6e1eef873afb20",
+        "artist": "The Body",
+        "title": "The West Has Failed",
+        "trackNumber": 4,
+        "album": "I Have Fought Against It, But I Can't Any Longer",
+        "index": 20,
+        "tags": ["metal", "Portland", "electronic"]
+    },
+    {
+        "swarm": "b873739b54538f5ae055efa3825f3e935e87d3e5790ea1ea340067707c6dc01e",
+        "artist": "The Body",
+        "title": "Nothing Stirs",
+        "trackNumber": 5,
+        "album": "I Have Fought Against It, But I Can't Any Longer",
+        "index": 21,
+        "tags": ["metal", "Portland", "electronic"]
+    },
+    {
+        "swarm": "26ea7ed15c0aee83efadc28c6283a6922913afff24589576bce840af033b2248",
+        "artist": "The Body",
+        "title": "Off Script",
+        "trackNumber": 6,
+        "album": "I Have Fought Against It, But I Can't Any Longer",
+        "index": 22,
+        "tags": ["metal", "Portland", "electronic"]
+    },
+    {
+        "swarm": "5f71da1e930582ed9e035b2c48a02aa0f0749c6aa652bdade44f55535a56beb3",
+        "artist": "The Body",
+        "title": "An Urn",
+        "trackNumber": 7,
+        "album": "I Have Fought Against It, But I Can't Any Longer",
+        "index": 23,
+        "tags": ["metal", "Portland", "electronic"]
+    },
+    {
+        "swarm": "1679aeeb87b78cae7c29b5e31d892076b6a72e27bcfa374f4430e84463d22daa",
+        "artist": "The Body",
+        "title": "Blessed, Alone",
+        "trackNumber": 8,
+        "album": "I Have Fought Against It, But I Can't Any Longer",
+        "index": 24,
+        "tags": ["metal", "Portland", "electronic"]
+    },
+    {
+        "swarm": "4ec154c97147d94954959eb3f92a8b28e1c9fefcd03ec73f6da460ed1bd6db63",
+        "artist": "The Body",
+        "title": "Sickly Heart Of Sand",
+        "trackNumber": 9,
+        "album": "I Have Fought Against It, But I Can't Any Longer",
+        "index": 25,
+        "tags": ["metal", "Portland", "electronic"]
+    },
+    {
+        "swarm": "ddc451c87b9b89907dac2ce7c852aadd57aafe8fc97be35d2ab10129a76614d2",
+        "artist": "The Body",
+        "title": "Ten Times A Day, Every Day, A Stranger",
+        "trackNumber": 10,
+        "album": "I Have Fought Against It, But I Can't Any Longer",
+        "index": 26,
+        "tags": ["metal", "Portland", "electronic"]
     }
 ]
