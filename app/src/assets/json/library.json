@@ -448,5 +448,140 @@
         "album": "Coexist",
         "index": 49,
         "tags": ["indie", "pop", "British", "London"]
+    },
+    {
+        "swarm": "5b0b4b9647712a6dea4157d325ab107752336de5fafa2eea9cfb43b493d9efaf",
+        "artist": "Ween",
+        "title": "It's Gonna Be a Long Night",
+        "trackNumber": 1,
+        "album": "Quebec",
+        "index": 50,
+        "tags": ["indie", "pop", "rock"]
+    },
+    {
+        "swarm": "a0d35a4096ca162b73ea290c2fc70d170ff586a6bf1e6705aa767a6ed9960b72",
+        "artist": "Ween",
+        "title": "Zoloft",
+        "trackNumber": 2,
+        "album": "Quebec",
+        "index": 51,
+        "tags": ["indie", "pop", "rock"]
+    },
+    {
+        "swarm": "ed759ce20b868c0bfe730cf43cad69e68ce78cb8da79f42be6f80968f52aeaf4",
+        "artist": "Ween",
+        "title": "Transdermal Celebration",
+        "trackNumber": 3,
+        "album": "Quebec",
+        "index": 52,
+        "tags": ["indie", "pop", "rock"]
+    },
+    {
+        "swarm": "a021955c18125084738a643ab72e27737769ceb99fd22aace77f26eda2d3f6af",
+        "artist": "Ween",
+        "title": "Among His Tribe",
+        "trackNumber": 4,
+        "album": "Quebec",
+        "index": 53,
+        "tags": ["indie", "pop", "rock"]
+    },
+    {
+        "swarm": "8c297dfcfc2f26abd74d2c4db00eb880cf2c80d351e0f24e998ecc623dc4a8a4",
+        "artist": "Ween",
+        "title": "So Many People in the Neighborhood",
+        "trackNumber": 5,
+        "album": "Quebec",
+        "index": 54,
+        "tags": ["indie", "pop", "rock"]
+    },
+    {
+        "swarm": "053cdbcb54a8e16b011ea0a7c5efa05241c6ca9c6a6243658df0dc8c9d9ed0b9",
+        "artist": "Ween",
+        "title": "Tried and True",
+        "trackNumber": 6,
+        "album": "Quebec",
+        "index": 55,
+        "tags": ["indie", "pop", "rock"]
+    },
+    {
+        "swarm": "cd795676ebcc8083df4ddf82f65dd0ca73426f945255302ef181bde03bbf7bcd",
+        "artist": "Ween",
+        "title": "Happy Colored Marbles",
+        "trackNumber": 7,
+        "album": "Quebec",
+        "index": 56,
+        "tags": ["indie", "pop", "rock"]
+    },
+    {
+        "swarm": "26574b001ee508cc349cb72df76311a2576785bf755b0e3a6a7d3739d95a0d51",
+        "artist": "Ween",
+        "title": "Hey There Fancy Pants",
+        "trackNumber": 8,
+        "album": "Quebec",
+        "index": 57,
+        "tags": ["indie", "pop", "rock"]
+    },
+    {
+        "swarm": "e5f09e4be9569563a4815b84c5d76e5a795f01a2a829916e60001dde7f765707",
+        "artist": "Ween",
+        "title": "Captain",
+        "trackNumber": 9,
+        "album": "Quebec",
+        "index": 58,
+        "tags": ["indie", "pop", "rock"]
+    },
+    {
+        "swarm": "30720bb4ce2abd8f2aa91e4771fb3e570c1321387587175fc393ea2f43656efb",
+        "artist": "Ween",
+        "title": "Chocolate Town",
+        "trackNumber": 10,
+        "album": "Quebec",
+        "index": 59,
+        "tags": ["indie", "pop", "rock"]
+    },
+    {
+        "swarm": "4cc4aae1d8e51c0103a44fad9e0042b4a6a8cbbfc4278c7ed431826d8bc171bc",
+        "artist": "Ween",
+        "title": "I Don't Want It",
+        "trackNumber": 11,
+        "album": "Quebec",
+        "index": 60,
+        "tags": ["indie", "pop", "rock"]
+    },
+    {
+        "swarm": "59de62c1f808485767aebc302da75fcdc0f88caca0b96069475f1d0baea889db",
+        "artist": "Ween",
+        "title": "The F**ked Jam",
+        "trackNumber": 12,
+        "album": "Quebec",
+        "index": 61,
+        "tags": ["indie", "pop", "rock"]
+    },
+    {
+        "swarm": "e0013d92004e713bd2ad73e902f853d4efd7efb59c1eb42293854764d088b945",
+        "artist": "Ween",
+        "title": "Alcan Road",
+        "trackNumber": 13,
+        "album": "Quebec",
+        "index": 62,
+        "tags": ["indie", "pop", "rock"]
+    },
+    {
+        "swarm": "4d4a180ba9e079e848de4f4ca8603f0f57ab93456e80e6b0b5471857ac6939b0",
+        "artist": "Ween",
+        "title": "The Argus",
+        "trackNumber": 14,
+        "album": "Quebec",
+        "index": 63,
+        "tags": ["indie", "pop", "rock"]
+    },
+    {
+        "swarm": "bea5a43da80fc34960b950c37cc9af50486e31a12e6fe79bca5c0fb0e0f11285",
+        "artist": "Ween",
+        "title": "If You Could Save Yourself (You'd Save Us All)",
+        "trackNumber": 15,
+        "album": "Quebec",
+        "index": 64,
+        "tags": ["indie", "pop", "rock"]
     }
 ]
