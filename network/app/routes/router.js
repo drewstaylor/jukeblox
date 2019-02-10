@@ -143,19 +143,23 @@ router.post('/swarm/upload', uploads.any(), (request, response) => {
             fs.unlink(file_full_path, (err) => {});
           }
 
-          // LEGACY DOWNLOAD & SERVE SONG FROM API SERVER:
+          // Create directory based on swarm hash
+          if (!fs.existsSync('public/' + swarm_hash)){
+            fs.mkdirSync('public/' + swarm_hash);
+          }
+
           // Download and start serving the file
-          /*let swarm_down = 'swarm down bzz:/' + swarm_hash;
+          let swarm_down = 'swarm down bzz:/' + swarm_hash;
           exec(swarm_down, (error, stdout, stderr) => {
             console.log('Swarm down successful');
-            fs.rename(swarm_hash, 'public/' + swarm_hash + '.mp3', (err) => {
+            fs.rename(swarm_hash, 'public/' + swarm_hash + '/' + swarm_hash + '.mp3', (err) => {
               if (err) {
                 console.log('Error moving file', err);
               } else {
                 console.log('File now being served from ./public');
               }
             });
-          });*/
+          });
         } else {
           // Send error response
           errMsg = toErrorMsg(errMsg);
