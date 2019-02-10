@@ -583,5 +583,113 @@
         "album": "Quebec",
         "index": 64,
         "tags": ["indie", "pop", "rock"]
+    },
+    {
+        "swarm": "c4f7340405af4fc39acf7d3389cdf96586d40f0ffcde4fbbe58a8a44f67661cf",
+        "artist": "Young Fathers",
+        "title": "See How",
+        "trackNumber": 1,
+        "album": "Cocoa Sugar",
+        "index": 65,
+        "tags": ["hip hop", "rap", "r&b", "alternative rap", "alternative r&b", "alternative hip hop"]
+    },
+    {
+        "swarm": "f384b298aa2e9ffd4743ef6c7e8c3618526eb96a072805bec75cb1f042c0497a",
+        "artist": "Young Fathers",
+        "title": "Fee Fi",
+        "trackNumber": 2,
+        "album": "Cocoa Sugar",
+        "index": 66,
+        "tags": ["hip hop", "rap", "r&b", "alternative rap", "alternative r&b", "alternative hip hop"]
+    },
+    {
+        "swarm": "ef523d1428684315821b9043c1c2a3fe6e15c6a3667971545a0135a2030ee80a",
+        "artist": "Young Fathers",
+        "title": "In My View",
+        "trackNumber": 3,
+        "album": "Cocoa Sugar",
+        "index": 67,
+        "tags": ["hip hop", "rap", "r&b", "alternative rap", "alternative r&b", "alternative hip hop"]
+    },
+    {
+        "swarm": "3b7890c0a7c6c6d2e24c5a18db4c3a044cc2cd92c05fca0e3ce7f69c622182af",
+        "artist": "Young Fathers",
+        "title": "Turn",
+        "trackNumber": 4,
+        "album": "Cocoa Sugar",
+        "index": 68,
+        "tags": ["hip hop", "rap", "r&b", "alternative rap", "alternative r&b", "alternative hip hop"]
+    },
+    {
+        "swarm": "896a5771cc0ddb6571a8d4612c119f1dd462e3d022189cfaf1ae310ff2587653",
+        "artist": "Young Fathers",
+        "title": "Lord",
+        "trackNumber": 5,
+        "album": "Cocoa Sugar",
+        "index": 69,
+        "tags": ["hip hop", "rap", "r&b", "alternative rap", "alternative r&b", "alternative hip hop"]
+    },
+    {
+        "swarm": "271d2e2a22ca57dbfebac04393983f693ef9479a3acab143ca548f38cd7b7764",
+        "artist": "Young Fathers",
+        "title": "Tremolo",
+        "trackNumber": 6,
+        "album": "Cocoa Sugar",
+        "index": 70,
+        "tags": ["hip hop", "rap", "r&b", "alternative rap", "alternative r&b", "alternative hip hop"]
+    },
+    {
+        "swarm": "c32d7a81bd038a28e1302c43fd4cc042853144bd6ae503a1bcb8ed320a8d5c23",
+        "artist": "Young Fathers",
+        "title": "Wow",
+        "trackNumber": 7,
+        "album": "Cocoa Sugar",
+        "index": 71,
+        "tags": ["hip hop", "rap", "r&b", "alternative rap", "alternative r&b", "alternative hip hop"]
+    },
+    {
+        "swarm": "bb775f0712622a73a8dcbc60fdecb13ea4d0017a7b939983c516c0da802fd871",
+        "artist": "Young Fathers",
+        "title": "Border Girl",
+        "trackNumber": 8,
+        "album": "Cocoa Sugar",
+        "index": 72,
+        "tags": ["hip hop", "rap", "r&b", "alternative rap", "alternative r&b", "alternative hip hop"]
+    },
+    {
+        "swarm": "4696ca54dd21fb221044bf8968d08ade95a143b00c05b88f6f5a6d1031192d24",
+        "artist": "Young Fathers",
+        "title": "Holy Ghost",
+        "trackNumber": 9,
+        "album": "Cocoa Sugar",
+        "index": 73,
+        "tags": ["hip hop", "rap", "r&b", "alternative rap", "alternative r&b", "alternative hip hop"]
+    },
+    {
+        "swarm": "061ccbb3040cec2a3e82f40f357b5aab0df00b953b6a0f72cae3d6a6c4877f8f",
+        "artist": "Young Fathers",
+        "title": "Wire",
+        "trackNumber": 10,
+        "album": "Cocoa Sugar",
+        "index": 74,
+        "tags": ["hip hop", "rap", "r&b", "alternative rap", "alternative r&b", "alternative hip hop"]
+    },
+    {
+        "swarm": "c122e319bfb9aa4ea8e2ade1ed38e34f262765f76693ed16146bce78f78a50cb",
+        "artist": "Young Fathers",
+        "title": "Toy",
+        "trackNumber": 11,
+        "album": "Cocoa Sugar",
+        "index": 75,
+        "tags": ["hip hop", "rap", "r&b", "alternative rap", "alternative r&b", "alternative hip hop"]
+    },
+    {
+        "swarm": "026d66645a8df7d1b5cb10e0505c43fb9d8361c074bff115e8e8250ca05cc18a",
+        "artist": "Young Fathers",
+        "title": "Picking You",
+        "trackNumber": 12,
+        "album": "Cocoa Sugar",
+        "index": 76,
+        "tags": ["hip hop", "rap", "r&b", "alternative rap", "alternative r&b", "alternative hip hop"]
     }
 ]
