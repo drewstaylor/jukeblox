@@ -151,5 +151,14 @@
         "album": "Blonde",
         "index": 16,
         "tags": ["r&b", "alternative r&b"]
+    },
+    {
+        "swarm": "45e78efbde8c759676f1169b7503ba9097b4b1a0359b3d22c39a8ce2abe5801f",
+        "artist": "The Body",
+        "title": "The Last Form of Loving",
+        "trackNumber": 1,
+        "album": "I Have Fought Against It, But I Can't Any Longer",
+        "index": 17,
+        "tags": ["metal", "Portland", "electronic"]
     }
 ]
