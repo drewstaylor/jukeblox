@@ -349,5 +349,104 @@
         "album": "The Understanding",
         "index": 38,
         "tags": ["electronic", "Norway", "edm", "pop"]
+    },
+    {
+        "swarm": "348e7801a86e58ba13d3d4cedbf59e7032564c1d9025d5555231e4d7a888b882",
+        "artist": "The xx",
+        "title": "Angels",
+        "trackNumber": 1,
+        "album": "Coexist",
+        "index": 39,
+        "tags": ["indie", "pop", "British", "London"]
+    },
+    {
+        "swarm": "1d3fa2c0d808749516112ebe4693b35739b5cfdd1638c2c7f3d172506bc978d2",
+        "artist": "The xx",
+        "title": "Chained",
+        "trackNumber": 2,
+        "album": "Coexist",
+        "index": 40,
+        "tags": ["indie", "pop", "British", "London"]
+    },
+    {
+        "swarm": "7abb206b70d99e45ab26bf19b678305e7c8f73a750068b44d1dfae7b480d75e6",
+        "artist": "The xx",
+        "title": "Fiction",
+        "trackNumber": 3,
+        "album": "Coexist",
+        "index": 41,
+        "tags": ["indie", "pop", "British", "London"]
+    },
+    {
+        "swarm": "e4e62639a38003c3bc2d15ce2a544d3c91559b1cde584321d530c3e47e37d21b",
+        "artist": "The xx",
+        "title": "Try",
+        "trackNumber": 4,
+        "album": "Coexist",
+        "index": 42,
+        "tags": ["indie", "pop", "British", "London"]
+    },
+    {
+        "swarm": "461e021d2d5f561e4c03564e92dc9e1a13a7c5f44217efc73d4d13fc912be919",
+        "artist": "The xx",
+        "title": "Reunion",
+        "trackNumber": 5,
+        "album": "Coexist",
+        "index": 43,
+        "tags": ["indie", "pop", "British", "London"]
+    },
+    {
+        "swarm": "f087e657ebfba165de8e7f54a88ca5069c01783a2b696d04ae52f2b097b8c532",
+        "artist": "The xx",
+        "title": "Sunset",
+        "trackNumber": 6,
+        "album": "Coexist",
+        "index": 44,
+        "tags": ["indie", "pop", "British", "London"]
+    },
+    {
+        "swarm": "4159c3d6c4fd9dba9ce0e2293fc0dd8688306486d4bc433fe173526baaa6ed77",
+        "artist": "The xx",
+        "title": "Missing",
+        "trackNumber": 7,
+        "album": "Coexist",
+        "index": 45,
+        "tags": ["indie", "pop", "British", "London"]
+    },
+    {
+        "swarm": "a691989eae96f9160868a425ab4cd867a8622501d31b4637b7d151f479a13b98",
+        "artist": "The xx",
+        "title": "Tides",
+        "trackNumber": 8,
+        "album": "Coexist",
+        "index": 46,
+        "tags": ["indie", "pop", "British", "London"]
+    },
+    {
+        "swarm": "feae00076a9db87dabb5d68cd3bba61e901965674ccf9c1305e422e6c209e68c",
+        "artist": "The xx",
+        "title": "Unfold",
+        "trackNumber": 9,
+        "album": "Coexist",
+        "index": 47,
+        "tags": ["indie", "pop", "British", "London"]
+    },
+    {
+        "swarm": "1d896d389ca16694cf888d5d4033c6e070c7a8093ce82a83163b789784f4d5de",
+        "artist": "The xx",
+        "title": "Swept Away",
+        "trackNumber": 10,
+        "album": "Coexist",
+        "index": 48,
+        "tags": ["indie", "pop", "British", "London"]
+    },
+    {
+        "swarm": "d54409f6c4ca40b875f3631451f73718394dfd7f93763bdd5b0f323871335552",
+        "artist": "The xx",
+        "title": "Our Song",
+        "trackNumber": 11,
+        "album": "Coexist",
+        "index": 49,
+        "tags": ["indie", "pop", "British", "London"]
     }
 ]
