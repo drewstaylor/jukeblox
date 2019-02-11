@@ -934,5 +934,149 @@
         "album": "I Can Hear The Heart Beating As One",
         "index": 103, 
         "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"]
+    },
+    {
+        "swarm": "b52510fb3b9f10c11b3a02d9a129d725755ba67619c179ebce905ecf8f841c71",
+        "artist": "A$AP Rocky",
+        "title": "Palace",
+        "trackNumber": 1,
+        "album": "Live. Love. A$AP",
+        "index": 104, 
+        "tags": ["rap", "hip hop", "based", "A$AP Mob"]
+    },
+    {
+        "swarm": "717278a07d5f50ece91021e24b8b4ab2a66750302146a85d17078fb7c0924252",
+        "artist": "A$AP Rocky",
+        "title": "Peso",
+        "trackNumber": 2,
+        "album": "Live. Love. A$AP",
+        "index": 105, 
+        "tags": ["rap", "hip hop", "based"]
+    },
+    {
+        "swarm": "2a2aec6708de671172c65a97316ae8a271a14717492426a40228719cbbca74b5",
+        "artist": "A$AP Rocky",
+        "title": "Bass",
+        "trackNumber": 3,
+        "album": "Live. Love. A$AP",
+        "index": 106, 
+        "tags": ["rap", "hip hop", "based"]
+    },
+    {
+        "swarm": "ea2a8b5585e74683bced7e3d5042c03db882af7f41ac69828a84599ebcd40c0a",
+        "artist": "A$AP Rocky",
+        "title": "Wassup",
+        "trackNumber": 4,
+        "album": "Live. Love. A$AP",
+        "index": 107, 
+        "tags": ["rap", "hip hop", "based"]
+    },
+    {
+        "swarm": "629aac4582dd5f90efcc5465567bb4cdc8819b0740e978abdebe60215f1ccebd",
+        "artist": "A$AP Rocky",
+        "title": "Brand New Guy",
+        "trackNumber": 5,
+        "album": "Live. Love. A$AP",
+        "index": 108, 
+        "tags": ["rap", "hip hop", "based"]
+    },
+    {
+        "swarm": "8af8b156a0dcb457823a7a4bc032da16cfc3f7aba3f73adaa56340450f5fa04b",
+        "artist": "A$AP Rocky",
+        "title": "Purple Swag: Chapter 2",
+        "trackNumber": 6,
+        "album": "Live. Love. A$AP",
+        "index": 109, 
+        "tags": ["rap", "hip hop", "based"]
+    },
+    {
+        "swarm": "23f0810a63bd2843bc04653baca04d537992db84c6850f9964be3559c70a8cdd",
+        "artist": "A$AP Rocky",
+        "title": "Get Lit",
+        "trackNumber": 7,
+        "album": "Live. Love. A$AP",
+        "index": 110, 
+        "tags": ["rap", "hip hop", "based"]
+    },
+    {
+        "swarm": "cd4b100320914fbd2fa91bc70e5159542a2b1bb034105702b5288a27f8908aaa",
+        "artist": "A$AP Rocky",
+        "title": "Trilla",
+        "trackNumber": 8,
+        "album": "Live. Love. A$AP",
+        "index": 111, 
+        "tags": ["rap", "hip hop", "based"]
+    },
+    {
+        "swarm": "7607e6d5e39e67b03e8f0c5d84f940d7a629cbc27b438b2d0b384f27bb6e4596",
+        "artist": "A$AP Rocky",
+        "title": "Keep It G",
+        "trackNumber": 9,
+        "album": "Live. Love. A$AP",
+        "index": 112, 
+        "tags": ["rap", "hip hop", "based"]
+    },
+    {
+        "swarm": "f34826c308eed3401f05d97b8e0d5f35b60b6c9fa44cfc3faa9c41c1cf1c71b6",
+        "artist": "A$AP Rocky",
+        "title": "Kissin Pink",
+        "trackNumber": 10,
+        "album": "Live. Love. A$AP",
+        "index": 113, 
+        "tags": ["rap", "hip hop", "based"]
+    },
+    {
+        "swarm": "115a310933141a08b01a02e49934c84baa58db0cdb3a33a2401fe23bb36700ea",
+        "artist": "A$AP Rocky",
+        "title": "Houston Old Head",
+        "trackNumber": 11,
+        "album": "Live. Love. A$AP",
+        "index": 114, 
+        "tags": ["rap", "hip hop", "based"]
+    },
+    {
+        "swarm": "80a90386676b7bc4e225e2634b03a6a1781ba74606f65986bb630910d098bc8b",
+        "artist": "A$AP Rocky",
+        "title": "Acid Drip",
+        "trackNumber": 12,
+        "album": "Live. Love. A$AP",
+        "index": 115, 
+        "tags": ["rap", "hip hop", "based"]
+    },
+    {
+        "swarm": "52ac11b6f8367b3061f44e8f828e1602d183af40fec2e660db59752842791f9c",
+        "artist": "A$AP Rocky",
+        "title": "Leaf",
+        "trackNumber": 13,
+        "album": "Live. Love. A$AP",
+        "index": 116, 
+        "tags": ["rap", "hip hop", "based"]
+    },
+    {
+        "swarm": "a4c3d6b570b0d1dc16807ff931b015ff71875aa9cdd7dbe99cec44fc9136be71",
+        "artist": "A$AP Rocky",
+        "title": "Out Of This World",
+        "trackNumber": 14,
+        "album": "Live. Love. A$AP",
+        "index": 117, 
+        "tags": ["rap", "hip hop", "based"]
+    },
+    {
+        "swarm": "5afbffc7bfaa2559fbf5c8ac68617f730965629a1b3e4005c6779f1345cc9c37",
+        "artist": "A$AP Rocky",
+        "title": "Roll One Up",
+        "trackNumber": 15,
+        "album": "Live. Love. A$AP",
+        "index": 118, 
+        "tags": ["rap", "hip hop", "based"]
+    },
+    {
+        "swarm": "169b0c4d60eecc22cb95b9f8d5de6fd51c12be90bffd8b1f4a4b1b707b17472c",
+        "artist": "A$AP Rocky",
+        "title": "Demons",
+        "trackNumber": 16,
+        "album": "Live. Love. A$AP",
+        "index": 119, 
+        "tags": ["rap", "hip hop", "based"]
     }
 ]
