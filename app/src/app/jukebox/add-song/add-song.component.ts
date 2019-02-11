@@ -7,8 +7,11 @@ import { parse } from 'id3-parser';
 import { convertFileToBuffer } from 'id3-parser/lib/universal/helpers';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { DefaultUrlHandlingStrategy } from '@angular/router/src/url_handling_strategy';
-declare var jQuery: any;
+import { type } from 'os';
 
+declare var jQuery: any;
+declare var jwplayer: any;
+declare var window: any;
 
 // interface SongDuration {
 //   hours: number;
@@ -41,6 +44,8 @@ export class AddSongComponent implements OnInit {
   public waitingForQueueConfirmation: boolean = false;
   public queueLength;
   public defaultImage: string;
+
+  readonly serverUrl: string = "https://api.jukeblox.io/";
 
   constructor(
     private swarmService: SwarmService, 
@@ -363,7 +368,12 @@ export class AddSongComponent implements OnInit {
       }
       var queueLength = result.toNumber();
       if (queueLength > that.queueLength) {
-        console.log('Block resolved...');
+        // For the queuing user we can directly add
+        // the song to the current JWPlayer queue
+        let swarmHash = that.queuable.swarm;
+        let filePath = that.serverUrl + swarmHash + '/jukeblox.mp3';
+        that.addToJWPlayerQueue(filePath);
+        console.log('Block resolved...', that.queuable);
         that.queueLength = null;
         that.waitingForQueueConfirmation = false;
         that.closeModal('addSongModal');
@@ -378,7 +388,7 @@ export class AddSongComponent implements OnInit {
 
 
   public songSelected(song: any) {
-    console.log('SELECTED SONG:', song);
+    console.log('SELECTED SONG (next queuable):', song);
     this.queuable = song;
   }
 
@@ -387,4 +397,21 @@ export class AddSongComponent implements OnInit {
     this.queuable = null;
   }
 
+  /**
+   * Add song to current JWPlayer queue. This function is called whenever a song is queued on the blockchain.
+   * For the queuing user, once the block resolves, we can add it to the JWPlayer queue directly. For everyone
+   * else they can sync the queue from the blockchain as per usual.
+   *
+   * @param {String} filePath - the absolute path of the MP3 to be added to the JWPlayer queue
+   */
+  private addToJWPlayerQueue (filePath): void {
+    // Exit of invalid file params
+    if (!filePath || typeof filePath !== "string") {
+      return;
+    }
+    let currentTime = Math.floor(Date.now() / 1000);
+    if (!window['queued']) {
+      window['queued'] = currentTime;
+    }
+  }
 }

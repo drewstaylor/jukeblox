@@ -7,6 +7,7 @@ import { ContractsService } from '../services/contracts.service';
 declare var jwplayer: any;
 declare var web3: any;
 declare var require: any;
+declare var window: any;
 
 @Component({
   selector: 'app-player',
@@ -22,6 +23,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   private player: any;
   private isResumableInstance: boolean = true;
   private Random;
+  private queueLength;
 
   readonly serverUrl: string = "https://api.jukeblox.io/";
   readonly swarmGateway: string = "https://swarm-gateways.net/bzz:/";
@@ -110,21 +112,14 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
     this.player.on('playlist', playlist => {
       console.log('- - - L O A D E D    P L A Y L I S T - - -', playlist)
-      //this.player.play();
     });
 
-    this.player.on('complete', playback => {
+    this.player.on('playlistComplete', playback => {
       // On complete, play another song
       setTimeout(function () { // TODO XXX (drew): Remove this wait when I stop uploading manually
         that.updateCurrent();
       }, 650)
     });
-
-    // this.player.on('setupError', message => {
-    //   console.error(message);
-    // });
-
-    // console.log(this.player.getMute());
   }
 
 
@@ -147,7 +142,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   public updateCurrent(): void {
     // Get current song if available
-    var currentTime = Math.floor(Date.now() / 1000);
+    var currentTime = (window['queued']) ? window['queued'] : Math.floor(Date.now() / 1000);
     this.contractService.init();
 
     // Get the currently playing queue object by the current timestamp.
@@ -233,6 +228,9 @@ export class PlayerComponent implements OnInit, OnDestroy {
                   this.playSong(this.serverUrl + swarmHash + '/jukeblox.mp3', 0);
                 }
             });
+            if (window['queued']) {
+              delete window['queued'];
+            }
         });
     });
   }
