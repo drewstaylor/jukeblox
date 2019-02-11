@@ -1087,5 +1087,131 @@
         "album": "PRELUDE TO A PANOPTICON: On Doing an Evil Deed Blues",
         "index": 120, 
         "tags": ["rap", "hip hop", "based"]
+    }, 
+    {
+        "swarm": "e9c4e0697e5d00318756568ae5eb50fd1959894c71153ec0a556eb1ed0a55f0e",
+        "artist": "Mission of Burma",
+        "title": "That's When I Reach For My Revolver",
+        "trackNumber": 1,
+        "album": "Signals, Calls and Marches",
+        "index": 121,
+        "tags": ["punk", "rock", "noise"]
+    },
+    {
+        "swarm": "2004d18f9410fae255b0859efb7f31746149ddd9e796f2ad67d12de2d464a46b",
+        "artist": "Mission of Burma",
+        "title": "Outlaw",
+        "trackNumber": 2,
+        "album": "Signals, Calls and Marches",
+        "index": 122,
+        "tags": ["punk", "rock", "noise"]
+    },
+    {
+        "swarm": "9d3d1307a86aaae5c5420198f5a92b9f245fc2bf8fe1e0c0615dadc718aa8d72",
+        "artist": "Mission of Burma",
+        "title": "This is Not a Photograph",
+        "trackNumber": 4,
+        "album": "Signals, Calls and Marches",
+        "index": 123,
+        "tags": ["punk", "rock", "noise"]
+    },
+    {
+        "swarm": "df4c030204252342e4de17670af9dc8c024ec0ae573fb4750d1010682c2f122b",
+        "artist": "Mission of Burma",
+        "title": "Red",
+        "trackNumber": 5,
+        "album": "Signals, Calls and Marches",
+        "index": 124,
+        "tags": ["punk", "rock", "noise"]
+    },
+    {
+        "swarm": "e2160cce4838afec849366b47eeb04356a5d02c600ab60fea1fa40f4b0674489",
+        "artist": "Lou Reed",
+        "title": "Berlin",
+        "trackNumber": 1,
+        "album": "Berlin",
+        "index": 125,
+        "tags": ["rock", "classic rock" ,"70s"]
+    },
+    {
+        "swarm": "e4fad6c62a0be7b63bd345a95133698bd17ba649c3c3322e7dadf42a981d3a69",
+        "artist": "Lou Reed",
+        "title": "Lady Day",
+        "trackNumber": 2,
+        "album": "Berlin",
+        "index": 126,
+        "tags": ["rock", "classic rock" ,"70s"]
+    },
+    {
+        "swarm": "a6263ebdf15060d6f55ba2f0f49d62c30fe432fb228ab71d5a7fdaf9906200dc",
+        "artist": "Lou Reed",
+        "title": "Men of Good Fortune",
+        "trackNumber": 3,
+        "album": "Berlin",
+        "index": 127,
+        "tags": ["rock", "classic rock" ,"70s"]
+    },
+    {
+        "swarm": "02716943b01e8be8f3e3704012b0c12920c6cbe47406ecf79b7b7a0c2d8e2310",
+        "artist": "Lou Reed",
+        "title": "Caroline Says I",
+        "trackNumber": 4,
+        "album": "Berlin",
+        "index": 128,
+        "tags": ["rock", "classic rock" ,"70s"]
+    },
+    {
+        "swarm": "2f886682308535da5600cb70a5d404fc59d529549aedd5ddd2beea01f9b252bd",
+        "artist": "Lou Reed",
+        "title": "How Do You Think It Feels",
+        "trackNumber": 5,
+        "album": "Berlin",
+        "index": 129,
+        "tags": ["rock", "classic rock" ,"70s"]
+    },
+    {
+        "swarm": "2c0f86bee52a66ffe833d56672a0d5eee1d27226d35f4110731ae1159b206cf5",
+        "artist": "Lou Reed",
+        "title": "Oh Jim",
+        "trackNumber": 6,
+        "album": "Berlin",
+        "index": 130,
+        "tags": ["rock", "classic rock" ,"70s"]
+    },
+    {
+        "swarm": "8a6ddb2cab7e75ca13e3bb07cecda2b7e0fb8b5cc8a8eb0b6737f47148f975a5",
+        "artist": "Lou Reed",
+        "title": "Caroline Says II",
+        "trackNumber": 7,
+        "album": "Berlin",
+        "index": 131,
+        "tags": ["rock", "classic rock" ,"70s"]
+    },
+    {
+        "swarm": "ef9b9a107e2a330a946c2118972a11a033209e6fb4750b5b8ee0dced316f6ec7",
+        "artist": "Lou Reed",
+        "title": "The Kids",
+        "trackNumber": 8,
+        "album": "Berlin",
+        "index": 132,
+        "tags": ["rock", "classic rock" ,"70s"]
+    },
+    {
+        "swarm": "9d3cd17f1940d53171408b176350edb349e78e70e628fb3887c87d8c3c30beba",
+        "artist": "Lou Reed",
+        "title": "The Bed",
+        "trackNumber": 9,
+        "album": "Berlin",
+        "index": 133,
+        "tags": ["rock", "classic rock" ,"70s"]
+    },
+    {
+        "swarm": "3b2823592ccf36ae4eb967bc0b0d1dbb3cacd5624eb4684b98613dd4dd8bbdbe",
+        "artist": "Lou Reed",
+        "title": "Sad Song",
+        "trackNumber": 10,
+        "album": "Berlin",
+        "index": 134,
+        "tags": ["rock", "classic rock" ,"70s"]
     }
 ]
