@@ -1078,5 +1078,14 @@
         "album": "Live. Love. A$AP",
         "index": 119, 
         "tags": ["rap", "hip hop", "based"]
+    }, 
+    {
+        "swarm": "50b4910335885cd3347ba8f2771f5bdceb1ea2fac456e0dbce9bd51cb32ea131",
+        "artist": "Lil' Ugly Mane",
+        "title": "ON DOING AN EVIL DEED BLUES",
+        "trackNumber": 1,
+        "album": "PRELUDE TO A PANOPTICON: On Doing an Evil Deed Blues",
+        "index": 120, 
+        "tags": ["rap", "hip hop", "based"]
     }
 ]
