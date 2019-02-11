@@ -799,5 +799,140 @@
         "album": "Night Time, My Time",
         "index": 88, 
         "tags": ["pop", "top 40", "alternative", "alternative pop"]
+    }, 
+    {
+        "swarm": "0abd5c4078ba9d3618fa047e3bc0f75faed7f4a35ce8ba587dca08054a97d1e7",
+        "artist": "Yo La Tengo",
+        "title": "Autumn Sweater",
+        "trackNumber": 8,
+        "album": "I Can Hear The Heart Beating As One",
+        "index": 89, 
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"]
+    },
+    {
+        "swarm": "4849b7f07a2c50a3a49fea0565e4e5800abbe56baa9591de32161745f7cf7f95",
+        "artist": "Yo La Tengo",
+        "title": "Center of Gravity",
+        "trackNumber": 13,
+        "album": "I Can Hear The Heart Beating As One",
+        "index": 90, 
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"]
+    },
+    {
+        "swarm": "e4ca23fa61cd5c368c32e9acbe2f5c5e51b9c567dd5b2f72041d9d75c31a280f",
+        "artist": "Yo La Tengo",
+        "title": "Damage",
+        "trackNumber": 4,
+        "album": "I Can Hear The Heart Beating As One",
+        "index": 91, 
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"]
+    },
+    {
+        "swarm": "2ae8cad565184473c079531523f4546b2aee824eb24a2957a44faf3eb870f7fb",
+        "artist": "Yo La Tengo",
+        "title": "Deeper into Movies",
+        "trackNumber": 5,
+        "album": "I Can Hear The Heart Beating As One",
+        "index": 92, 
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"]
+    },
+    {
+        "swarm": "b3f6f21e5660de89d76ed9913d6d9efd89150b7c7a93f3b21cd276882221d7a3",
+        "artist": "Yo La Tengo",
+        "title": "Green Arrow",
+        "trackNumber": 10,
+        "album": "I Can Hear The Heart Beating As One",
+        "index": 93, 
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"]
+    },
+    {
+        "swarm": "c222c7944841e46769124af6fbef0b483a6ca2edb7cd54442d94cb9b515aa26e",
+        "artist": "Yo La Tengo",
+        "title": "Little Honda",
+        "trackNumber": 9,
+        "album": "I Can Hear The Heart Beating As One",
+        "index": 94, 
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"]
+    },
+    {
+        "swarm": "7a7ce7a37fc5fc2350ef41a3d7d9835f5ac9376fc783b8ec51716c13933f92b6",
+        "artist": "Yo La Tengo",
+        "title": "Moby Octopad",
+        "trackNumber": 2,
+        "album": "I Can Hear The Heart Beating As One",
+        "index": 95, 
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"]
+    },
+    {
+        "swarm": "7ba00dc79abf48bfc09bb7d72e6afbccd2563ada348c5ca3619e7f728ef0352a",
+        "artist": "Yo La Tengo",
+        "title": "My Little Corner of the World",
+        "trackNumber": 16,
+        "album": "I Can Hear The Heart Beating As One",
+        "index": 96, 
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"]
+    },
+    {
+        "swarm": "f373b2dfe437ee8d229e1cfb403909c1bb9d2eda2ad0edc25c91caccdeb51fda",
+        "artist": "Yo La Tengo",
+        "title": "One PM Again",
+        "trackNumber": 11,
+        "album": "I Can Hear The Heart Beating As One",
+        "index": 97, 
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"]
+    },
+    {
+        "swarm": "e9e41be04af008455b76c37425852014898120823089cde5c8b733eb4489b40c",
+        "artist": "Yo La Tengo",
+        "title": "Return to Hot Chicken",
+        "trackNumber": 1,
+        "album": "I Can Hear The Heart Beating As One",
+        "index": 98, 
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"]
+    },
+    {
+        "swarm": "c8f6c062bd350c1944e5a9d16f8efc0293afc0ddf7b18f0e80ff8b3d211b775e",
+        "artist": "Yo La Tengo",
+        "title": "Shadows",
+        "trackNumber": 6,
+        "album": "I Can Hear The Heart Beating As One",
+        "index": 99, 
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"]
+    },
+    {
+        "swarm": "053318f35ec38fb6d0d70e4d6c9396a8d3b03a93d16f742d833fb12aafd298f2",
+        "artist": "Yo La Tengo",
+        "title": "Stockholm Syndrome",
+        "trackNumber": 7,
+        "album": "I Can Hear The Heart Beating As One",
+        "index": 100, 
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"],
+    },
+    {
+        "swarm": "ecead45b74270527d53368bd9d5f2073dbbe532cc1535bf6bb6a1babf48976cc",
+        "artist": "Yo La Tengo",
+        "title": "Sugarcube",
+        "trackNumber": 3,
+        "album": "I Can Hear The Heart Beating As One",
+        "index": 101, 
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"],
+    },
+    {
+        "swarm": "a52a088a545b2e8d604b1bdd03ea4820a09470e5e1fa42dc41fade9fb830d00a",
+        "artist": "Yo La Tengo",
+        "title": "The Lie and How We Told It",
+        "trackNumber": 12,
+        "album": "I Can Hear The Heart Beating As One",
+        "index": 102, 
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"],
+    },
+    {
+        "swarm": "15d497668f2ee186aba68c48ae20bbdfb7a440f1f0b7a7f0ee65dc716a5dc174",
+        "artist": "Yo La Tengo",
+        "title": "We're an American Band",
+        "trackNumber": 15,
+        "album": "I Can Hear The Heart Beating As One",
+        "index": 103, 
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"],
     }
 ]
