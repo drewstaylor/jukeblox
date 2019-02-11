@@ -906,7 +906,7 @@
         "trackNumber": 7,
         "album": "I Can Hear The Heart Beating As One",
         "index": 100, 
-        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"],
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"]
     },
     {
         "swarm": "ecead45b74270527d53368bd9d5f2073dbbe532cc1535bf6bb6a1babf48976cc",
@@ -915,7 +915,7 @@
         "trackNumber": 3,
         "album": "I Can Hear The Heart Beating As One",
         "index": 101, 
-        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"],
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"]
     },
     {
         "swarm": "a52a088a545b2e8d604b1bdd03ea4820a09470e5e1fa42dc41fade9fb830d00a",
@@ -924,7 +924,7 @@
         "trackNumber": 12,
         "album": "I Can Hear The Heart Beating As One",
         "index": 102, 
-        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"],
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"]
     },
     {
         "swarm": "15d497668f2ee186aba68c48ae20bbdfb7a440f1f0b7a7f0ee65dc716a5dc174",
@@ -933,6 +933,6 @@
         "trackNumber": 15,
         "album": "I Can Hear The Heart Beating As One",
         "index": 103, 
-        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"],
+        "tags": ["indie", "pop", "bedroom", "dream pop", "shoegaze", "rock"]
     }
 ]
