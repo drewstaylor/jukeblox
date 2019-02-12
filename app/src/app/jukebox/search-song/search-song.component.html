@@ -1,6 +1,9 @@
 <div class="search-wrapper container-fluid position-relative p-0">
   <div class="row">
     <div class="col">
+      <p>
+        <a class="1" (click)="showView(1);">Search </a>
+      </p>
       <div class="dropdown input-wrapper position-relative">
         <input
           type="text"
@@ -18,28 +21,47 @@
           <i class="fas fa-times"></i>
         </button>
       </div>
-      <div
-        id="resultsWrapper"
-        *ngIf="(searchResults | async) as searchResults"
-        class="row search-results-wrapper container-fluid position-absolute"
-      >
+
+      <p>
+        <a class="2" (click)="showView(2)">Artist </a>
+      </p>
+      <p>
+        <a class="3" (click)="showView(3)">Album</a>
+      </p>
+
+      <!-- Search pane -->
+      <div class="container" *ngIf="currentView === 'search'">
         <div
-          class="search-results-inner list-group w-100 no-gutters shadow"
+          id="resultsWrapper"
+          *ngIf="(searchResults | async) as searchResults"
+          class="row search-results-wrapper container-fluid position-absolute"
         >
           <div
-            *ngFor="let result of searchResults"
-            class="song-item list-group-item list-group-item-action p-2"
+            class="search-results-inner list-group w-100 no-gutters shadow"
           >
-          <div class="media small" (click)="chooseSong(result)">
-            <img class="album-image rounded mr-3" src="{{ defaultImage }}">
-            <div class="media-body">
-              <p class="font-weight-bold mb-0"><em>{{ result.title || "Unknown Song" }}</em> - {{ result.artist || "Unknown Artist" }}</p>
-              <!-- <p class="font-weight-bold mb-1">Artist: {{ result.artist || "Unknown Artist" }}</p> -->
-              <p class="mb-1">{{ result.album || "Unknown Album" }}</p>
+            <div
+              *ngFor="let result of searchResults"
+              class="song-item list-group-item list-group-item-action p-2"
+            >
+            <div class="media small" (click)="chooseSong(result)">
+              <img class="album-image rounded mr-3" src="{{ defaultImage }}">
+              <div class="media-body">
+                <p class="font-weight-bold mb-0"><em>{{ result.title || "Unknown Song" }}</em> - {{ result.artist || "Unknown Artist" }}</p>
+                <!-- <p class="font-weight-bold mb-1">Artist: {{ result.artist || "Unknown Artist" }}</p> -->
+                <p class="mb-1">{{ result.album || "Unknown Album" }}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <!-- Artist pane -->
+    <div class="container" *ngIf="currentView === 'artist'">
+      <p>Artist pane!</p>
+    </div>
+    <!-- Album pane -->
+    <div class="container" *ngIf="currentView === 'album'">
+      <p>Album pane!</p>
     </div>
   </div>
 </div>

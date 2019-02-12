@@ -17,11 +17,15 @@ export class SearchSongComponent implements OnInit, OnDestroy {
   public searchResults: Observable<Array<any>>;
   public queryField: FormControl;
   public defaultImage: string;
+  public currentView: string = 'search';
 
   private unsubscribe: Subject<void>;
 
   constructor(private libraryService: LibraryService) {
+
     this.queryField = new FormControl();
+    this.queryField.value = "a";
+    console.log("queryField value =>",this.queryField.value;
     this.unsubscribe = new Subject<void>();
     // XXX: Just a placeholder for now!
     this.defaultImage = 'assets/images/drake-cover__large.png';
@@ -37,7 +41,24 @@ export class SearchSongComponent implements OnInit, OnDestroy {
       );
   }
 
-  ngOnInit() { }
+public function showView(context): void {
+      switch (context) {
+          case 1:
+              this.currentView = 'search';
+              // #yourInput.value = '';
+              break;
+          case 2:
+              this.currentView = 'artist';
+              // #yourInput.value = ' ';
+              break;
+          case 3:
+              this.currentView = 'album';
+              // #yourInput.value = '';
+              break;
+      }
+  }
+
+  // ngOnInit() { }
 
 
   ngOnDestroy() {
