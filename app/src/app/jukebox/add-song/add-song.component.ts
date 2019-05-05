@@ -170,7 +170,7 @@ export class AddSongComponent implements OnInit {
   }
 
 
-  public uploadFile(file: File): void {
+  public uploadFile(): void {
     this.swarmService.upload(this.file, this.filePath)
       .toPromise()
       .then(response => {
